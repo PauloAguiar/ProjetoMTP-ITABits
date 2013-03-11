@@ -1,17 +1,17 @@
 ====================================
 
-Instituto Tecnológico de Aeronáutica
-Turma 16
-Projeto MTP - ITABits
+Instituto Tecnológico de Aeronáutica<br>
+Turma 16<br>
+Projeto MTP - ITABits<br>
 
 ====================================
 
-Grupo:
-  Bruno Brugger(Excelente)
-  Felipe Viana(Flash)
-  Natan Viana(Super Pig)
-  Paulo Henrique(Doente)
-  Vitor Tessari(Pacman)
+Grupo:<br>
+  Bruno Brugger(Excelente)<br>
+  Felipe Viana(Flash)<br>
+  Natan Viana(Super Pig)<br>
+  Paulo Henrique(Doente)<br>
+  Vitor Tessari(Pacman)<br>
 
 ====================================
 
