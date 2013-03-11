@@ -1,0 +1,2 @@
+http://lazyfoo.net/SDL_tutorials/index.php
+Site com um tutorial sobre a SDL, uma biblioteca para o desenvolvimento de jogos usando c++ e a SDL, que é uma SDK bastante interessante, apesar de um pouco defasada. Eu passei esse link pro Natan dar uma estudada, caso alguem mais tenha interesse.
