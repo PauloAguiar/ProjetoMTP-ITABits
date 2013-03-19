@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,25 +11,26 @@ namespace Projeto_Apollo_16
         //fields/////
         /////////////
         //private float Angulo;
+        private double throttle;
+        private double speed;
+        private double angle;
+        private double dTheta;
         private Vector2 position;
         private Vector2 velocity;
-        private Texture2D textureNormal;
-        private Texture2D textureRight;
-        private enum Direcoes
-        {
-            normal, right, left 
-        };
-        private Direcoes direcao = Direcoes.normal;
+        private Texture2D texture;
         
         //////////
         //ctor////
         /////////
-        public Nave(Vector2 posicao, Texture2D texturaNormal, Texture2D texturaDireita)
+        public Nave(Vector2 posicao, double theta ,Texture2D textura)
         {
+            throttle = 0;
+            speed = 0;
             position = posicao;
-            textureNormal = texturaNormal;
-            textureRight = texturaDireita;
-            direcao = Direcoes.normal;
+            velocity = Vector2.Zero;
+            angle = 0;
+            dTheta = theta;
+            texture = textura;
         }
 
         ////////////
@@ -48,58 +46,67 @@ namespace Projeto_Apollo_16
             get { return velocity; }
             set { velocity = value; }
         }
+        public double Angle
+        {
+            get { return angle; }
+            set { angle = value; }
+        }
+
 
         public void Update(GameTime gameTime)
         {
-            velocity = new Vector2(0);
-
+            
             if(Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                velocity+=new Vector2(0,-1);
+                throttle += 0.02;
             }
-            if(Keyboard.GetState().IsKeyDown(Keys.Down))
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                velocity+=new Vector2(0,1);
-            }
-            if(Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                velocity+=new Vector2(-1,0);
-            }
-            if(Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                velocity+=new Vector2(1,0);
-            }
-
-            if (velocity.X > 0)
-            {
-                direcao = Direcoes.right;
-            }
-            else if (velocity.X < 0)
-            {
-                direcao = Direcoes.left;
+                throttle -= 0.05;
             }
             else
             {
-                direcao = Direcoes.normal;
+                throttle = 0;
+            }
+            
+            if(Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                angle -= dTheta;
+            }
+            else if(Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                angle += dTheta; 
             }
 
-            position += 2*velocity;
+            double velocityAngle = (angle - Math.PI / 2);
+            velocity = new Vector2((float)Math.Cos(velocityAngle), (float)Math.Sin(velocityAngle));
+            
+            
+            if (throttle < -0.015)
+            {
+                throttle = -0.015;
+            }
+            else if (throttle > 0.1)
+            {
+                throttle = 0.1;
+            }
+
+            if (speed > 100)
+            {
+                speed = 100;
+            }
+            else if (speed < -40)
+            {
+                speed = -40;
+            }
+
+            speed += throttle;
+            position += velocity * (float)speed;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (direcao == Direcoes.normal)
-            {
-                spriteBatch.Draw(textureNormal, position, Color.White);
-            }
-            else if (direcao == Direcoes.right)
-            {
-                spriteBatch.Draw(textureRight, position, Color.White);
-            }
-            else
-            {
-                spriteBatch.Draw(textureRight, position, null, Color.White, 0, new Vector2(0), 1, SpriteEffects.FlipHorizontally, 0);
-            }
+            spriteBatch.Draw(texture, position, null, Color.White, (float)angle, new Vector2(texture.Width / 2, (float)texture.Height / 2), (float)1, SpriteEffects.None, (float)0); 
         }
 
 

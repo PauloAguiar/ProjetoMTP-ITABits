@@ -16,27 +16,32 @@ namespace Projeto_Apollo_16
         Nave nave;
 
         GraphicsDeviceManager graphics;
+        Viewport viewport;
         SpriteBatch spriteBatch;
+
+        
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = true;
+            
             Content.RootDirectory = "Content";
         }
 
         protected override void Initialize()
         {
+            
+            viewport = GraphicsDevice.Viewport;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D naveTextureNormal = Content.Load<Texture2D>("Sprites\\Nave\\nave");
-            Texture2D naveTextureRight = Content.Load<Texture2D>("Sprites\\Nave\\nave-right");
+            Texture2D naveTexture = Content.Load<Texture2D>("Sprites\\Nave\\nave");
 
-
-            nave = new Nave(new Vector2(200),naveTextureNormal, naveTextureRight);
+            nave = new Nave(new Vector2(viewport.Width/2, viewport.Height/2), Math.PI/600, naveTexture);
             
         }
 
