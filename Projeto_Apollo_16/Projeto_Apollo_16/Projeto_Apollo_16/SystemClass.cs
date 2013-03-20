@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -11,17 +12,20 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Projeto_Apollo_16
 {
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class SystemClass : Microsoft.Xna.Framework.Game
     {
+        /*Class que basicamente substitui a Game1.cs
+         * Essa classe vai conter as diversas classes do nosso jogo, ela deve existir como um nível mais próximo do Hardware, isto é, fazendo chamadas às várias funções que 
+         * de alguma forma interagem em um nível mais próximo da máquina, como Initializing, Loading, Unloading */
         Nave nave;
 
         GraphicsDeviceManager graphics;
         Viewport viewport;
         SpriteBatch spriteBatch;
-
+        Texture2D mapChunkTexture;
         
 
-        public Game1()
+        public SystemClass()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = true;
@@ -40,6 +44,7 @@ namespace Projeto_Apollo_16
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D naveTexture = Content.Load<Texture2D>("Sprites\\Nave\\nave");
+            mapChunkTexture = Content.Load<Texture2D>("Maps\\1-1");
 
             nave = new Nave(new Vector2(viewport.Width/2, viewport.Height/2), Math.PI/600, naveTexture);
             
@@ -64,6 +69,7 @@ namespace Projeto_Apollo_16
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+            spriteBatch.Draw(mapChunkTexture, Vector2.Zero, Color.White);
             nave.Draw(spriteBatch);
             spriteBatch.End();
 

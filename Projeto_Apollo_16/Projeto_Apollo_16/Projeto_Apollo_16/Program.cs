@@ -10,7 +10,7 @@ namespace Projeto_Apollo_16
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (SystemClass game = new SystemClass())
             {
                 game.Run();
             }
