@@ -32,10 +32,6 @@ namespace Projeto_Apollo_16
             actualMapSector.LoadContent(originalContentManager);
         }
 
-        public void Update(GameTime gameTime)
-        {
-        }
-
         public void Draw(SpriteBatch spriteBatch, PlayerClass player)
         {
             actualMapSector.Draw(spriteBatch, player);

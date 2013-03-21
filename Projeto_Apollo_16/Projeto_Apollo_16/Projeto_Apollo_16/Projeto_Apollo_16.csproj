@@ -72,14 +72,25 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActorClass.cs" />
-    <Compile Include="MapSectorClass.cs" />
-    <Compile Include="MapClass.cs" />
-    <Compile Include="ResourceManager.cs" />
-    <Compile Include="PlayerClass.cs" />
+    <Compile Include="Actors\ActorClass.cs" />
+    <Compile Include="Controls\Control.cs" />
+    <Compile Include="Controls\PictureBox.cs" />
+    <Compile Include="GameScreens\GamePlayScreen.cs" />
+    <Compile Include="System\ControlManager.cs" />
+    <Compile Include="Controls\Label.cs" />
+    <Compile Include="Controls\LinkLabel.cs" />
+    <Compile Include="GameScreens\BaseGameState.cs" />
+    <Compile Include="GameScreens\GameState.cs" />
+    <Compile Include="GameScreens\StartMenuScreen.cs" />
+    <Compile Include="GameScreens\TitleScreen.cs" />
+    <Compile Include="Map\MapSectorClass.cs" />
+    <Compile Include="Map\MapClass.cs" />
+    <Compile Include="System\GameStateManager.cs" />
+    <Compile Include="System\InputHandler.cs" />
+    <Compile Include="Actors\PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="SystemClass.cs" />
+    <Compile Include="System\Program.cs" />
+    <Compile Include="System\SystemClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
