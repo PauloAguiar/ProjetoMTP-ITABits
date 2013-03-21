@@ -17,19 +17,18 @@ namespace Projeto_Apollo_16
         /*Class que basicamente substitui a Game1.cs
          * Essa classe vai conter as diversas classes do nosso jogo, ela deve existir como um nível mais próximo do Hardware, isto é, fazendo chamadas às várias funções que 
          * de alguma forma interagem em um nível mais próximo da máquina, como Initializing, Loading, Unloading */
-        Nave nave;
+        PlayerClass player;
 
         GraphicsDeviceManager graphics;
         Viewport viewport;
         SpriteBatch spriteBatch;
-        Texture2D mapChunkTexture;
+        MapClass map;
         
-
         public SystemClass()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
-            
+            graphics.IsFullScreen = false;
+            map = new MapClass();
             Content.RootDirectory = "Content";
         }
 
@@ -44,9 +43,9 @@ namespace Projeto_Apollo_16
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D naveTexture = Content.Load<Texture2D>("Sprites\\Nave\\nave");
-            mapChunkTexture = Content.Load<Texture2D>("Maps\\1-1");
+            map.LoadMapContent(Content);
 
-            nave = new Nave(new Vector2(viewport.Width/2, viewport.Height/2), Math.PI/600, naveTexture);
+            player = new PlayerClass(new Vector2(viewport.Width/2, viewport.Height/2), Math.PI/600, naveTexture);
             
         }
 
@@ -59,7 +58,7 @@ namespace Projeto_Apollo_16
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            nave.Update(gameTime);
+            player.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -69,8 +68,8 @@ namespace Projeto_Apollo_16
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(mapChunkTexture, Vector2.Zero, Color.White);
-            nave.Draw(spriteBatch);
+            map.Draw(spriteBatch, player);
+            player.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

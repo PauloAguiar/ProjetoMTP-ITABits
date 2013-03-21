@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Projeto_Apollo_16
 {
-    class Nave
+    class PlayerClass : ActorClass
     {
         /////////////
         //fields/////
@@ -22,7 +22,7 @@ namespace Projeto_Apollo_16
         //////////
         //ctor////
         /////////
-        public Nave(Vector2 posicao, double theta ,Texture2D textura)
+        public PlayerClass(Vector2 posicao, double theta ,Texture2D textura)
         {
             throttle = 0;
             speed = 0;

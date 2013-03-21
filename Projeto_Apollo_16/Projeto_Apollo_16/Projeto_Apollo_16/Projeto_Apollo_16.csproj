@@ -72,8 +72,11 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExclusiveContentManager.cs" />
-    <Compile Include="Nave.cs" />
+    <Compile Include="ActorClass.cs" />
+    <Compile Include="MapSectorClass.cs" />
+    <Compile Include="MapClass.cs" />
+    <Compile Include="ResourceManager.cs" />
+    <Compile Include="PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SystemClass.cs" />
