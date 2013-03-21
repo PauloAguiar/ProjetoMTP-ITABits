@@ -106,7 +106,7 @@ namespace Projeto_Apollo_16
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, (float)angle, new Vector2(texture.Width / 2, (float)texture.Height / 2), (float)1, SpriteEffects.None, (float)0); 
+            spriteBatch.Draw(texture, new Vector2(400,300), null, Color.White, (float)angle, new Vector2(texture.Width / 2, (float)texture.Height / 2), (float)1, SpriteEffects.None, (float)0); 
         }
 
 
