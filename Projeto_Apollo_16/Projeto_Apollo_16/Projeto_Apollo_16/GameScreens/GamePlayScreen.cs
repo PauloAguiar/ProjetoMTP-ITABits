@@ -8,6 +8,8 @@ namespace Projeto_Apollo_16
 {
     public class GamePlayScreen : BaseGameState
     {
+        WorldEngine world = new WorldEngine();
+
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)

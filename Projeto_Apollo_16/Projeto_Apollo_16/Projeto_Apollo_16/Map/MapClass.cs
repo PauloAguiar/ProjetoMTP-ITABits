@@ -13,13 +13,13 @@ namespace Projeto_Apollo_16
 
         const int SECTOR_SIZE = 2048;
         const int CACHE_SECTORS = 3;
-        private MapSectorClass actualMapSector;
-        private List<MapSectorClass> cacheMapSectors;
+        private WorldSectorClass actualMapSector;
+        private List<WorldSectorClass> cacheMapSectors;
 
         public MapClass()
         {
-            cacheMapSectors = new List<MapSectorClass>(CACHE_SECTORS);
-            actualMapSector = new MapSectorClass();
+            cacheMapSectors = new List<WorldSectorClass>(CACHE_SECTORS);
+            actualMapSector = new WorldSectorClass();
         }
 
         public void UpdateCache(Vector2 globalPosition)

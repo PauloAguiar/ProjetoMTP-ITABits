@@ -8,18 +8,20 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
 {
-    class MapSectorClass
+    class WorldSectorClass
     {
-        protected Point sector;
+        protected Point sectorCoordinates;
         protected Texture2D mapTexture;
-        protected Vector2 sectorPosition;
+        protected String textureID;
         protected Boolean loaded;
+        protected SystemClass systemRef;
         protected ContentManager content;
 
-        public MapSectorClass()
+        public WorldSectorClass(Game game, String texture)
         {
+            textureID = texture;
+            systemRef = (SystemClass)game;
             loaded = false;
-            sector = new Point(1, 1);
         }
 
         public Boolean IsSectorLoaded()
@@ -27,10 +29,10 @@ namespace Projeto_Apollo_16
             return loaded;
         }
 
-        public void LoadContent(ContentManager originalContentManager)
+        public void LoadContent()
         {
-            content = new ContentManager(originalContentManager.ServiceProvider, originalContentManager.RootDirectory);
-            mapTexture = content.Load<Texture2D>("Maps\\" + sector.X + "-" + sector.Y);
+            content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
+            mapTexture = content.Load<Texture2D>("Maps\\" + textureID);
             loaded = true;
         }
 
