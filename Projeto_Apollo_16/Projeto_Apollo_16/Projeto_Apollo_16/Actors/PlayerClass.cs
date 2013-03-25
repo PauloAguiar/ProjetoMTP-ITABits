@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
 {
-    class PlayerClass : ActorClass
+    public class PlayerClass : ActorClass
     {
         /////////////
         //fields/////
@@ -22,7 +23,7 @@ namespace Projeto_Apollo_16
         //////////
         //ctor////
         /////////
-        public PlayerClass(Vector2 posicao, double theta ,Texture2D textura)
+        public PlayerClass(Vector2 posicao, double theta)
         {
             throttle = 0;
             speed = 0;
@@ -30,12 +31,16 @@ namespace Projeto_Apollo_16
             velocity = Vector2.Zero;
             angle = 0;
             dTheta = theta;
-            texture = textura;
         }
 
         ////////////
         //methods///
         ///////////
+
+        public void LoadTexture(ContentManager content)
+        {
+            texture = content.Load<Texture2D>("Sprites\\Nave\\nave");
+        }
         public Vector2 Position
         {
             get { return position; }

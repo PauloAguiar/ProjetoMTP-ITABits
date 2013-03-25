@@ -84,7 +84,6 @@
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="WorldEngine\WorldSectorClass.cs" />
-    <Compile Include="Map\MapClass.cs" />
     <Compile Include="System\GameStateManager.cs" />
     <Compile Include="System\InputHandler.cs" />
     <Compile Include="Actors\PlayerClass.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="System\Program.cs" />
     <Compile Include="System\SystemClass.cs" />
     <Compile Include="WorldEngine\WorldEngine.cs" />
+    <Compile Include="WorldEngine\WorldTileClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

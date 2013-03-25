@@ -11,34 +11,47 @@ namespace Projeto_Apollo_16
     class WorldSectorClass
     {
         protected Point sectorCoordinates;
-        protected Texture2D mapTexture;
-        protected String textureID;
-        protected Boolean loaded;
         protected SystemClass systemRef;
         protected ContentManager content;
+        protected WorldTileClass[,] sectorMap;
 
-        public WorldSectorClass(Game game, String texture)
+        public WorldSectorClass(Game game)
         {
-            textureID = texture;
             systemRef = (SystemClass)game;
-            loaded = false;
+            sectorMap = new WorldTileClass[10, 10];
+            
         }
 
-        public Boolean IsSectorLoaded()
+        public void Initialize()
         {
-            return loaded;
-        }
-
-        public void LoadContent()
-        {
+            sectorCoordinates = new Point(0, 0);
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
-            mapTexture = content.Load<Texture2D>("Maps\\" + textureID);
-            loaded = true;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    sectorMap[i, j] = new WorldTileClass(1);
+                    sectorMap[i, j].LoadTileOnContent(content); /* This already manages loading 2 times the same texture */
+                }
+            }
+        }
+
+        public Vector2 CalculateDrawingPosition(PlayerClass player, int i, int j)
+        {
+            Vector2 localPosition = player.Position - (new Vector2((float)(sectorCoordinates.X * WorldEngine.SectorSize * WorldEngine.TileSize), (float)(sectorCoordinates.Y * WorldEngine.SectorSize * WorldEngine.TileSize)));
+            return ((-1) * localPosition) + (new Vector2((float)i * WorldEngine.TileSize, (float)j * WorldEngine.TileSize));
         }
 
         public void Draw(SpriteBatch spriteBatch, PlayerClass player)
         {
-            spriteBatch.Draw(mapTexture, player.Position, Color.White);
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    //spriteBatch.Draw(sectorMap[i, j].GetTileTexture(), new Vector2(400,300), Color.White);
+                    spriteBatch.Draw(sectorMap[i, j].GetTileTexture(), CalculateDrawingPosition(player, i, j), Color.White);
+                }
+            }
         }
     }
 }

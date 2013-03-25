@@ -6,18 +6,14 @@ using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
 {
-    class ActorClass
+    public abstract class ActorClass
     {
         protected Point sector;
-        protected Vector2 position;
+        protected Vector2 globalPosition;
 
-        public Point Sector
+        public Vector2 GlobalPosition
         {
-            get { return sector; }
-        }
-        public Vector2 Position
-        {
-            get { return position; }
+            get { return globalPosition; }
         }
     }
 }

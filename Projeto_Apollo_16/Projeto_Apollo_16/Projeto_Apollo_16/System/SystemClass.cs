@@ -18,9 +18,7 @@ namespace Projeto_Apollo_16
         GraphicsDeviceManager graphics;
         Viewport viewport;
         public SpriteBatch spriteBatch;
-        MapClass map;
         GameStateManager stateManager;
-        PlayerClass player;
 
         /* Screens */
         public TitleScreen titleScreen;
@@ -56,7 +54,6 @@ namespace Projeto_Apollo_16
             gamePlayScreen = new GamePlayScreen(this, stateManager);
 
             stateManager.ChangeState(titleScreen);
-            map = new MapClass();
         }
 
         protected override void Initialize()
@@ -69,11 +66,6 @@ namespace Projeto_Apollo_16
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D naveTexture = Content.Load<Texture2D>("Sprites\\Nave\\nave");
-            map.LoadMapContent(Content);
-
-            player = new PlayerClass(new Vector2(viewport.Width/2, viewport.Height/2), Math.PI/600, naveTexture);
-            
         }
 
         protected override void UnloadContent()
@@ -85,19 +77,12 @@ namespace Projeto_Apollo_16
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            player.Update(gameTime);
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin();
-            map.Draw(spriteBatch, player);
-            player.Draw(spriteBatch);
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }
