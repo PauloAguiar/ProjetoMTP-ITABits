@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
 {
@@ -23,7 +18,7 @@ namespace Projeto_Apollo_16
         public override void Initialize()
         {
             engine.Initialize();
-            player = new PlayerClass(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2), Math.PI / 600);
+            player = new PlayerClass(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2));
             base.Initialize();
         }
 
@@ -41,7 +36,6 @@ namespace Projeto_Apollo_16
 
         public override void Draw(GameTime gameTime)
         {
-
             systemRef.spriteBatch.Begin();
 
             base.Draw(gameTime);

@@ -8,10 +8,7 @@ namespace Projeto_Apollo_16
 {
     public class PlayerClass : ActorClass
     {
-        /////////////
-        //fields/////
-        /////////////
-        //private float Angulo;
+        // Fields
         private double throttle;
         private double speed;
         private double angle;
@@ -20,54 +17,48 @@ namespace Projeto_Apollo_16
         private Vector2 velocity;
         private Texture2D texture;
         
-        //////////
-        //ctor////
-        /////////
-        public PlayerClass(Vector2 posicao, double theta)
+        // Constructor
+        public PlayerClass(Vector2 posicao)
         {
             throttle = 0;
             speed = 0;
             position = posicao;
             velocity = Vector2.Zero;
             angle = 0;
-            dTheta = theta;
+            dTheta = Math.PI/600;
         }
 
-        ////////////
-        //methods///
-        ///////////
-
-        public void LoadTexture(ContentManager content)
-        {
-            texture = content.Load<Texture2D>("Sprites\\Nave\\nave");
-        }
+        //Getters ans Setters
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; }
         }
         public Vector2 Velocity
         {
             get { return velocity; }
-            set { velocity = value; }
         }
         public double Angle
         {
             get { return angle; }
-            set { angle = value; }
         }
 
+        public void LoadTexture(ContentManager content)
+        {
+            texture = content.Load<Texture2D>(@"Sprites\Nave\nave");
+        }
+        
 
         public void Update(GameTime gameTime)
         {
+            double dt = gameTime.ElapsedGameTime.TotalSeconds;
             
             if(Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                throttle += 0.02;
+                throttle += 0.4;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                throttle -= 0.05;
+                throttle -= 0.1;
             }
             else
             {
@@ -87,31 +78,31 @@ namespace Projeto_Apollo_16
             velocity = new Vector2((float)Math.Cos(velocityAngle), (float)Math.Sin(velocityAngle));
             
             
-            if (throttle < -0.015)
+            if (throttle < -2)
             {
-                throttle = -0.015;
+                throttle = -2;
             }
-            else if (throttle > 0.1)
+            else if (throttle > 3)
             {
-                throttle = 0.1;
+                throttle = 3;
             }
 
-            if (speed > 100)
+            if (speed > 4000)
             {
-                speed = 100;
+                speed = 4000;
             }
-            else if (speed < -40)
+            else if (speed < -1500)
             {
-                speed = -40;
+                speed = -1500;
             }
 
             speed += throttle;
-            position += velocity * (float)speed;
+            position += velocity * (float)speed * (float)dt;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Vector2(400,300), null, Color.White, (float)angle, new Vector2(texture.Width / 2, (float)texture.Height / 2), (float)1, SpriteEffects.None, (float)0); 
+            spriteBatch.Draw(texture, new Vector2(400, 400), null, Color.White, (float)angle, new Vector2(texture.Width / 2, (float)texture.Height / 2), (float)1, SpriteEffects.None, (float)0); 
         }
 
 
