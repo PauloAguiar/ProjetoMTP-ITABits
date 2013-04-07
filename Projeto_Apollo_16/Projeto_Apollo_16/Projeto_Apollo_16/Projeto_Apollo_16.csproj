@@ -73,9 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\ActorClass.cs" />
+    <Compile Include="Actors\IMoveable.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\PictureBox.cs" />
+    <Compile Include="Actors\Ghost.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
+    <Compile Include="MathFunctions.cs" />
     <Compile Include="System\ControlManager.cs" />
     <Compile Include="Controls\Label.cs" />
     <Compile Include="Controls\LinkLabel.cs" />

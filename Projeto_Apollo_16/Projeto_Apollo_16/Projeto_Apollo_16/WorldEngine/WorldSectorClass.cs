@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Projeto_Apollo_16.Actors;
 
 namespace Projeto_Apollo_16
 {
@@ -34,7 +35,7 @@ namespace Projeto_Apollo_16
 
         public Vector2 CalculateDrawingPosition(PlayerClass player, int i, int j)
         {
-            Vector2 localPosition = player.Position - (new Vector2((float)(sectorCoordinates.X * WorldEngine.SectorSize * WorldEngine.TileSize), (float)(sectorCoordinates.Y * WorldEngine.SectorSize * WorldEngine.TileSize)));
+            Vector2 localPosition = player.GlobalPosition - (new Vector2((float)(sectorCoordinates.X * WorldEngine.SectorSize * WorldEngine.TileSize), (float)(sectorCoordinates.Y * WorldEngine.SectorSize * WorldEngine.TileSize)));
             return ((-1) * localPosition) + (new Vector2((float)i * WorldEngine.TileSize, (float)j * WorldEngine.TileSize));
         }
 
