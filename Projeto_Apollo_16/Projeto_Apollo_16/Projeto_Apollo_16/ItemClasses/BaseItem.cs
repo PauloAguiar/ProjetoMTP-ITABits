@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Projeto_Apollo_16.ItemClasses
+namespace Projeto_Apollo_16
 {
     //public enum Wings { One, Two }
     //public enum WeaponLocation { Wings, Tail ,   }
@@ -73,7 +73,5 @@ namespace Projeto_Apollo_16.ItemClasses
             return itemString;
         }
         #endregion
-         }
-        }
     }
 }

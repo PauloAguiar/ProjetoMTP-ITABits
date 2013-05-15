@@ -73,7 +73,6 @@ namespace Projeto_Apollo_16
             ghost.centralPosition -= player.Velocity * (float)dt;
             ghost.Update(gameTime);
 
-<<<<<<< HEAD
             sectorLabel.Text = "Zoom:" + player.Zoom;
             positionLabel.Text = "Position:" + player.GlobalPosition.X + " " + player.GlobalPosition.Y;
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
@@ -82,7 +81,6 @@ namespace Projeto_Apollo_16
             camera.LookAt(player.GlobalPosition);
 
             controlManager.Update(gameTime);
->>>>>>> ccb9968a978581b5dde206cdf5893af9095021e2
             base.Update(gameTime);
         }
 
