@@ -3,7 +3,10 @@ Content\Maps\1-1.xnb
 Content\Menus\Backgrounds\menuBackground.xnb
 Content\Menus\Icons\icon_menu.xnb
 Content\Menus\Backgrounds\mulher.xnb
-Content\Fonts\ControlFont.xnb
 Content\Maps\1.xnb
+
+<<<<<<< HEAD
 Content\Sprites\Enemies\ghost.xnb
 Content\Sprites\shoot.xnb
+Content\Fonts\ControlFont.xnb
+>>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
