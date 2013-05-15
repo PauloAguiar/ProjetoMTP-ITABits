@@ -97,7 +97,6 @@ namespace Projeto_Apollo_16.Actors
         
         private void UpdateInput(GameTime gameTime)
         {
-<<<<<<< HEAD
             
             createShoot();
 
@@ -127,7 +126,6 @@ namespace Projeto_Apollo_16.Actors
                 SlideRight(1.0f);
             }
 
->>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 throttle += 0.0004;

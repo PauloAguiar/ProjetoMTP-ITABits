@@ -17,7 +17,6 @@ namespace Projeto_Apollo_16
         PlayerClass player;
         Ghost ghost;
         WorldEngine engine;
-<<<<<<< HEAD
 
         List<Shoot> shoots = new List<Shoot>(10);
         List<Shoot> shoots2 = new List<Shoot>(10);
@@ -29,7 +28,6 @@ namespace Projeto_Apollo_16
         Label positionLabel;
         Label cameraLabel;
         CameraClass camera;
->>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -41,21 +39,17 @@ namespace Projeto_Apollo_16
         public override void Initialize()
         {
             engine.Initialize();
-<<<<<<< HEAD
             player = new PlayerClass(new Vector2(400));
             //player = new PlayerClass(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2));
 
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
->>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             ghost = new Ghost(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2-200));
-<<<<<<< HEAD
             
             shoot = new Shoot(new Vector2(400));
 
 
             //Texture2D shootTexture;
 
->>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             base.Initialize();
         }
 
@@ -86,14 +80,12 @@ namespace Projeto_Apollo_16
 
             player.LoadTexture(systemRef.Content);
             ghost.LoadTexture(systemRef.Content);
-<<<<<<< HEAD
 
             shoot.LoadTexture(systemRef.Content);
 
 
 
             base.LoadContent();
->>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
         }
 
         public override void Update(GameTime gameTime)
@@ -128,7 +120,6 @@ namespace Projeto_Apollo_16
 
             engine.Draw(systemRef.spriteBatch, player);
 
-<<<<<<< HEAD
             if (player.createShoot())
             {
                 shoots.Add(shoot);
@@ -150,7 +141,6 @@ namespace Projeto_Apollo_16
             
             controlManager.Draw(systemRef.spriteBatch);
 
->>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             systemRef.spriteBatch.End();
 
             base.Draw(gameTime);
