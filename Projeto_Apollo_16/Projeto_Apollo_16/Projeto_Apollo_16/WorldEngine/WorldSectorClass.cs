@@ -11,7 +11,7 @@ namespace Projeto_Apollo_16
         protected SystemClass systemRef;
         protected ContentManager content;
         protected WorldTileClass[,] sectorMap;
-
+        
         public WorldSectorClass(Game game)
         {
             systemRef = (SystemClass)game;

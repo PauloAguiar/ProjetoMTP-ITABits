@@ -36,7 +36,6 @@ namespace Projeto_Apollo_16.Actors
             UpdateInput(gameTime);
             
             Velocity = MathFunctions.AngleToVector(Angle);
-            //Velocity = MathFunctions::AngleToVector(Angle);
 
             throttle = MathFunctions.Clamp(throttle, -0.002, 0.004);
             Speed = MathFunctions.Clamp(Speed, -1.5, 4);
@@ -83,7 +82,8 @@ namespace Projeto_Apollo_16.Actors
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Vector2(400, 400), null, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1, SpriteEffects.None, 0); 
+            spriteBatch.Draw(texture, new Vector2(400, 400), null, Color.White, (float)Angle, 
+                new Vector2(texture.Width / 2, texture.Height / 2), 1, SpriteEffects.None, 0); 
         }
 
 

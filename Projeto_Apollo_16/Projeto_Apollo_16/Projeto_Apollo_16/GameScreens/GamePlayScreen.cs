@@ -37,8 +37,12 @@ namespace Projeto_Apollo_16
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
             player.Update(gameTime);
-            ghost.GlobalPosition -= player.Velocity * (float)dt;
+            
+            ghost.GlobalPosition -= new Vector2(0, player.Velocity.Y) * (float)dt;
+            
+            ghost.centralPosition -= player.Velocity * (float)dt;
             ghost.Update(gameTime);
+
             base.Update(gameTime);
         }
 
