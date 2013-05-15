@@ -6,6 +6,7 @@ namespace Projeto_Apollo_16
 {
     public class WorldEngine
     {
+
         /* Origin: Position (0, 0) of the Sector (0, 0) is equivalent to GlobalPosition (0, 0)
         /* Fields */
         const int TILE_SIZE = 256;
@@ -17,6 +18,7 @@ namespace Projeto_Apollo_16
         {
             get { return SECTOR_SIZE; }
         }
+
         public static int TileSize
         {
             get { return TILE_SIZE; }
@@ -32,10 +34,12 @@ namespace Projeto_Apollo_16
         {
             actualSector.Initialize();
         }
+
         public void Draw(SpriteBatch spriteBatch, PlayerClass player)
         {
             actualSector.Draw(spriteBatch, player);
         }
+
         /* Methods */
         public Point GetSector(Vector2 globalPosition)
         {

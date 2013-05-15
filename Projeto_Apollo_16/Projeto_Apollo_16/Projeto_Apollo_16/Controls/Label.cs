@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Projeto_Apollo_16.Controls
+namespace Projeto_Apollo_16
 {
     public class Label : Control
     {
