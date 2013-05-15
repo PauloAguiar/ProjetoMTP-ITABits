@@ -75,12 +75,13 @@ namespace Projeto_Apollo_16.ItemClasses
                  Weapon weapon = new Weapon(
                      Name,
                      Type,
+                     AttackValue,
                      AttackModifier,
                      DamageValue,
                      DamageModifier,
                      allowedClasses);
                  return weapon;
-                 }
+            }
             public override string ToString()
             {
                 string weaponString = base.ToString() + ", ";
@@ -90,11 +91,10 @@ namespace Projeto_Apollo_16.ItemClasses
                 weaponString += DamageModifier.ToString();
                 foreach (Type t in allowableClasses)
                     weaponString += ", " + t.Name;
-                return base.ToString();
+                return weaponString;
              }
              #endregion
- }
-
-        
     }
+        
+}
 
