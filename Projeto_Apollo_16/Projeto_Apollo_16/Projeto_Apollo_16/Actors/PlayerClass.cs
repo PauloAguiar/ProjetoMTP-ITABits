@@ -58,26 +58,31 @@ namespace Projeto_Apollo_16.Actors
 
         void SlideTop(float a)
         {
-            cameraPosition.Y += a;
+            cameraPosition.Y -= a;
         }
         void SlideDown(float a)
         {
-            cameraPosition.Y -= a;
+            cameraPosition.Y += a;
         }
         void SlideLeft(float a)
         {
-            cameraPosition.X += a;
+            cameraPosition.X -= a;
         }
         void SlideRight(float a)
         {
-            cameraPosition.X -= a;
+            cameraPosition.X += a;
         }
 
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Nave\nave");
         }
-        
+
+        public override void LoadFont(ContentManager content)
+        {
+            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
+        }
+
         public override void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -161,16 +166,12 @@ namespace Projeto_Apollo_16.Actors
         public bool createShoot()
         {
             return Keyboard.GetState().IsKeyDown(Keys.Space);
-            
         }
-
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Vector2(400, 400), texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
         }
-
-
     }
 }
 

@@ -24,6 +24,10 @@ namespace Projeto_Apollo_16.Actors
             texture = content.Load<Texture2D>(@"Sprites\shoot");
         }
 
+        public override void LoadFont(ContentManager content)
+        {
+            throw new NotImplementedException();
+        }
         public override void Update(GameTime gameTime)
         {
             throw new NotImplementedException();

@@ -33,10 +33,11 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public Vector2 CalculateDrawingPosition(PlayerClass player, int i, int j)
+        public Vector2 CalculateDrawingPosition(int i, int j)
         {
-            Vector2 localPosition = player.GlobalPosition - (new Vector2((float)(sectorCoordinates.X * WorldEngine.SectorSize * WorldEngine.TileSize), (float)(sectorCoordinates.Y * WorldEngine.SectorSize * WorldEngine.TileSize)));
-            return ((-1) * localPosition) + (new Vector2((float)i * WorldEngine.TileSize, (float)j * WorldEngine.TileSize));
+            Vector2 localPosition = new Vector2((float)(sectorCoordinates.X * WorldEngine.SectorSize * WorldEngine.TileSize), (float)(sectorCoordinates.Y * WorldEngine.SectorSize * WorldEngine.TileSize));
+            //Vector2 localPosition = player.GlobalPosition - (new Vector2((float)(sectorCoordinates.X * WorldEngine.SectorSize * WorldEngine.TileSize), (float)(sectorCoordinates.Y * WorldEngine.SectorSize * WorldEngine.TileSize)));
+            return localPosition + (new Vector2((float)i * WorldEngine.TileSize, (float)j * WorldEngine.TileSize));
         }
 
         public void Draw(SpriteBatch spriteBatch, PlayerClass player)
@@ -47,10 +48,12 @@ namespace Projeto_Apollo_16
                 {
                     //spriteBatch.Draw(sectorMap[i, j].GetTileTexture(), new Vector2(400,300), Color.White);
                     Texture2D texture = sectorMap[i,j].GetTileTexture();
-                    spriteBatch.Draw(texture, CalculateDrawingPosition(player, i, j), texture.Bounds, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, Globals.BACKGROUND_LAYER);
+                    spriteBatch.Draw(texture, CalculateDrawingPosition(i, j), texture.Bounds, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, Globals.BACKGROUND_LAYER);
+                    //spriteBatch.Draw(texture, Vector2.Zero, texture.Bounds, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, Globals.BACKGROUND_LAYER);
                     //spriteBatch.Draw(sectorMap[i, j].GetTileTexture(), CalculateDrawingPosition(player, i, j), Color.White);
                 }
             }
         }
     }
 }
+

@@ -21,7 +21,7 @@ namespace Projeto_Apollo_16
         {
             zoom = 1.0f;
             origin = new Vector2(viewport.Width / 2, viewport.Height / 2);
-            position = origin;
+            position = Vector2.Zero;
         }
 
         public float Zoom
@@ -45,7 +45,7 @@ namespace Projeto_Apollo_16
         {
             get
             {
-                return  Matrix.CreateTranslation(new Vector3(-position, 0.0f)) *
+                return  Matrix.CreateTranslation(new Vector3(-position+origin, 0.0f)) * // The +origin offset makes the center of the viewport as the reference
                         Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                         Matrix.CreateRotationZ(rotation) * 
                         Matrix.CreateScale(Zoom) *

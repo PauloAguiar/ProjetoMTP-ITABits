@@ -7,9 +7,20 @@ namespace Projeto_Apollo_16.Actors
     public abstract class ActorClass
     {
 
-        protected Vector2 globalPosition;   //sector definido a partir da posição
-        public Texture2D texture;
 
+        protected Vector2 globalPosition;   //sector definido a partir da posição
+        protected Texture2D texture;
+        protected SpriteFont spriteFont;
+
+        public SpriteFont SpriteFont
+        {
+            get { return spriteFont; }
+        }
+
+        public Texture2D Texture
+        {
+            get { return texture; }
+        }
 
         public Vector2 GlobalPosition
         {
@@ -18,6 +29,7 @@ namespace Projeto_Apollo_16.Actors
         }
 
         public abstract void LoadTexture(ContentManager content);
+        public abstract void LoadFont(ContentManager content);
 
         public abstract void Update(GameTime gameTime);
 

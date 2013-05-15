@@ -12,7 +12,6 @@ namespace Projeto_Apollo_16.Actors
         public Vector2 Velocity { get; set; }
         public Vector2 centralPosition { get; set; }
 
-
         public Ghost(Vector2 position)
         {
             globalPosition = position;
@@ -26,6 +25,11 @@ namespace Projeto_Apollo_16.Actors
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Enemies\ghost");
+        }
+
+        public override void LoadFont(ContentManager content)
+        {
+            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
         public override void Update(GameTime gameTime)
@@ -72,7 +76,8 @@ namespace Projeto_Apollo_16.Actors
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(texture, globalPosition, Color.White);5
-            spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1, SpriteEffects.None, Globals.PLAYER_LAYER);
+            spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.ENEMY_LAYER);
+            spriteBatch.DrawString(spriteFont, "Teste", globalPosition, Color.Red);
         }
     }
 }

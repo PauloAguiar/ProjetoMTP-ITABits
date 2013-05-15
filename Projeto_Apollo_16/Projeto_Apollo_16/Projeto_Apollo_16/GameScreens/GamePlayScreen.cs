@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Projeto_Apollo_16.Actors;
-using System;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Projeto_Apollo_16
 {
@@ -21,13 +19,13 @@ namespace Projeto_Apollo_16
         List<Shoot> shoots = new List<Shoot>(10);
         List<Shoot> shoots2 = new List<Shoot>(10);
 
-        
         Shoot shoot;
 
         Label sectorLabel;
         Label positionLabel;
         Label cameraLabel;
         CameraClass camera;
+
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -39,7 +37,8 @@ namespace Projeto_Apollo_16
         public override void Initialize()
         {
             engine.Initialize();
-            player = new PlayerClass(new Vector2(400));
+            
+            player = new PlayerClass(Vector2.Zero);
             //player = new PlayerClass(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2));
 
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
@@ -79,13 +78,10 @@ namespace Projeto_Apollo_16
             controlManager.Add(cameraLabel);
 
             player.LoadTexture(systemRef.Content);
+            player.LoadFont(systemRef.Content);
             ghost.LoadTexture(systemRef.Content);
-
+            ghost.LoadFont(systemRef.Content);
             shoot.LoadTexture(systemRef.Content);
-
-
-
-            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -94,30 +90,27 @@ namespace Projeto_Apollo_16
 
             player.Update(gameTime);
             
-            ghost.GlobalPosition -= new Vector2(0, player.Velocity.Y) * (float)dt;
+            //ghost.GlobalPosition -= new Vector2(0, player.Velocity.Y) * (float)dt;
             
-            ghost.centralPosition -= player.Velocity * (float)dt;
+            //ghost.centralPosition -= player.Velocity * (float)dt;
             ghost.Update(gameTime);
 
             sectorLabel.Text = "Zoom:" + player.Zoom;
             positionLabel.Text = "Position:" + player.GlobalPosition.X + " " + player.GlobalPosition.Y;
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
             camera.Zoom = player.Zoom;
-            camera.Position = player.CameraPosition;
-            camera.LookAt(player.GlobalPosition);
+            camera.Position = player.GlobalPosition;
+            //camera.LookAt(player.GlobalPosition);
 
             controlManager.Update(gameTime);
             base.Update(gameTime);
         }
 
 
-        int i = 0;
         public override void Draw(GameTime gameTime)
         {
-            systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront,
-                    null, null, null, null, null,
-                    camera.TransformMatrix);
-
+            systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.TransformMatrix);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
             engine.Draw(systemRef.spriteBatch, player);
 
             if (player.createShoot())
@@ -132,15 +125,17 @@ namespace Projeto_Apollo_16
             }
 
             
-            if(!ghost.checkCollision(player.GlobalPosition, player.texture))
+            if(!ghost.checkCollision(player.GlobalPosition, player.Texture))
             {
                 player.Draw(systemRef.spriteBatch);
             }
 
             ghost.Draw(systemRef.spriteBatch);
-            
-            controlManager.Draw(systemRef.spriteBatch);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            systemRef.spriteBatch.End();
 
+            systemRef.spriteBatch.Begin();
+            controlManager.Draw(systemRef.spriteBatch);
             systemRef.spriteBatch.End();
 
             base.Draw(gameTime);
