@@ -9,16 +9,14 @@ namespace Projeto_Apollo_16.Actors
     {
         public double Speed { get; private set; }
         public double Angle { get; private set; }
-        public Vector2 Velocity { get; private set; }
-        private Vector2 centralPosition;
-        private Vector2 initialPosition;
+        public Vector2 Velocity { get; set; }
+        public Vector2 centralPosition { get; set; }
 
 
         public Ghost(Vector2 position)
         {
             globalPosition = position;
             centralPosition = position;
-            initialPosition = position;
             Speed = 3;
             Angle = 0;
             Velocity = new Vector2(1, 0) * (float)Speed;
@@ -34,12 +32,18 @@ namespace Projeto_Apollo_16.Actors
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
             globalPosition += Velocity;
-            centralPosition = globalPosition - centralPosition;
-            globalPosition.X = (float)MathFunctions.Clamp((double)globalPosition.X, initialPosition.X - 300, initialPosition.X + 100);
-            if (globalPosition.X >= initialPosition.X + 100 || globalPosition.X <= initialPosition.X - 300)
+        
+            if (globalPosition.X >= centralPosition.X + 100)
             {
+                globalPosition.X = centralPosition.X + 99;
                 Velocity = -Velocity;
             }
+            if (globalPosition.X <= centralPosition.X - 300)
+            {
+                globalPosition.X = centralPosition.X - 299;
+                Velocity = -Velocity;
+            }
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
