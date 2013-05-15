@@ -65,6 +65,7 @@ namespace Projeto_Apollo_16.ItemClasses
         {
             return allowableClasses.Contains(characterType);
         }
+        
         public override string ToString()
         {
             string itemString = "";
@@ -72,8 +73,7 @@ namespace Projeto_Apollo_16.ItemClasses
             itemString += Type + ", ";
             return itemString;
         }
+        
         #endregion
-         }
-        }
-    }
+   }
 }

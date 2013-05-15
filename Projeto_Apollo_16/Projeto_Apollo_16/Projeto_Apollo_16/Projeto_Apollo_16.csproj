@@ -79,6 +79,9 @@
     <Compile Include="Actors\Ghost.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="ItemClasses\BaseItem.cs" />
+    <Compile Include="ItemClasses\ItemManager.cs" />
+    <Compile Include="ItemClasses\Shield.cs" />
+    <Compile Include="ItemClasses\Weapon.cs" />
     <Compile Include="MathFunctions.cs" />
     <Compile Include="System\ControlManager.cs" />
     <Compile Include="Controls\Label.cs" />
