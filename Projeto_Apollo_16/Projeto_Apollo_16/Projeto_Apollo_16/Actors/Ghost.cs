@@ -44,9 +44,8 @@ namespace Projeto_Apollo_16.Actors
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, globalPosition, Color.White);
+            //spriteBatch.Draw(texture, globalPosition, Color.White);5
+            spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1, SpriteEffects.None, Globals.PLAYER_LAYER);
         }
-
-
     }
 }

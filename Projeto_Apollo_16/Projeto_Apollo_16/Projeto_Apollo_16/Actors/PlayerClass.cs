@@ -9,11 +9,15 @@ namespace Projeto_Apollo_16.Actors
     public sealed class PlayerClass : ActorClass , IMoveable
     {
         // Fields
+
         private const double dTheta = Math.PI / 600;
         private double throttle = 0;
         public double Speed { get; private set; }
         public double Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
+
+        private float cameraZoom;
+        private Vector2 cameraPosition;
 
         // Constructor
         public PlayerClass(Vector2 position)
@@ -22,6 +26,47 @@ namespace Projeto_Apollo_16.Actors
             Speed = 0;
             Angle = 0;
             Velocity = Vector2.Zero;
+            cameraZoom = 1.0f;
+            cameraPosition = Vector2.Zero;
+        }
+
+        public float Zoom
+        {
+            get { return cameraZoom; }
+        }
+
+        public Vector2 CameraPosition
+        {
+            get { return cameraPosition; }
+        }
+
+        void ZoomIn(float z)
+        {
+            cameraZoom += z;
+            if (cameraZoom > 1.0f) cameraZoom = 1.0f;
+        }
+
+        void ZoomOut(float z)
+        {
+            cameraZoom -= z;
+            if (cameraZoom < 0.1f) cameraZoom = 0.1f;
+        }
+
+        void SlideTop(float a)
+        {
+            cameraPosition.Y += a;
+        }
+        void SlideDown(float a)
+        {
+            cameraPosition.Y -= a;
+        }
+        void SlideLeft(float a)
+        {
+            cameraPosition.X += a;
+        }
+        void SlideRight(float a)
+        {
+            cameraPosition.X -= a;
         }
 
         public override void LoadTexture(ContentManager content)
@@ -48,6 +93,32 @@ namespace Projeto_Apollo_16.Actors
         
         private void UpdateInput(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                ZoomIn(0.01f);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                ZoomOut(0.01f);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                SlideTop(1.0f);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                SlideLeft(1.0f);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                SlideDown(1.0f);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                SlideRight(1.0f);
+            }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 throttle += 0.0004;
@@ -83,9 +154,10 @@ namespace Projeto_Apollo_16.Actors
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Vector2(400, 400), null, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1, SpriteEffects.None, 0); 
+            spriteBatch.Draw(texture, new Vector2(400, 400), texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
         }
 
 
     }
 }
+

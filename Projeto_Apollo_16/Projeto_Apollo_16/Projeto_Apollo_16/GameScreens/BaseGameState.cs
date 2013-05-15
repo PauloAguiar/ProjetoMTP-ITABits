@@ -15,6 +15,7 @@ namespace Projeto_Apollo_16
         protected SystemClass systemRef; /* This is a reference to our SystemClass, used to initialize our contentManager*/
 
         protected ControlManager controlManager;
+
         /* Each Game state will have its own gameContent */
         protected ContentManager content;
 

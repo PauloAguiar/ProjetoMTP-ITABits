@@ -79,6 +79,7 @@
     <Compile Include="Actors\Ghost.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="MathFunctions.cs" />
+    <Compile Include="System\CameraClass.cs" />
     <Compile Include="System\ControlManager.cs" />
     <Compile Include="Controls\Label.cs" />
     <Compile Include="Controls\LinkLabel.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="GameScreens\GameState.cs" />
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
+    <Compile Include="Utils\Globals.cs" />
+    <Compile Include="Utils\LogClass.cs" />
     <Compile Include="WorldEngine\WorldSectorClass.cs" />
     <Compile Include="System\GameStateManager.cs" />
     <Compile Include="System\InputHandler.cs" />
@@ -135,6 +138,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

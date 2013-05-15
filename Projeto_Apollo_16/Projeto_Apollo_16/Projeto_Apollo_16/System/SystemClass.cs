@@ -28,7 +28,7 @@ namespace Projeto_Apollo_16
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
 
             screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
 
