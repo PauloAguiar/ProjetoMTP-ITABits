@@ -69,7 +69,7 @@ namespace Projeto_Apollo_16.ItemClasses
         {
             if (!shields.ContainsKey(shield.Name))
             {
-                shields.Add(shields.Name, shield);
+                shields.Add(shield.Name, shield);
             }
         }
 

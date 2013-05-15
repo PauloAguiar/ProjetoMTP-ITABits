@@ -25,6 +25,10 @@ namespace Projeto_Apollo_16
             
         }
 
+        public static float Sqrt(double x)
+        {
+            return (float)Math.Sqrt(x);
+        }
 
 
     }

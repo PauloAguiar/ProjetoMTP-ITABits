@@ -15,6 +15,9 @@ namespace Projeto_Apollo_16.Actors
         public double Speed { get; private set; }
         public double Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
+        public Vector2 initialPosition { get; set; }
+
+        
 
         private float cameraZoom;
         private Vector2 cameraPosition;
@@ -22,6 +25,7 @@ namespace Projeto_Apollo_16.Actors
         // Constructor
         public PlayerClass(Vector2 position)
         {
+            initialPosition = position;
             globalPosition = position;
             Speed = 0;
             Angle = 0;
@@ -88,10 +92,15 @@ namespace Projeto_Apollo_16.Actors
             Speed += throttle;
             Velocity = Velocity * (float)Speed;
             globalPosition += Velocity * (float)dt;
+
         }
         
         private void UpdateInput(GameTime gameTime)
         {
+<<<<<<< HEAD
+            
+            createShoot();
+
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 ZoomIn(0.01f);
@@ -118,6 +127,7 @@ namespace Projeto_Apollo_16.Actors
                 SlideRight(1.0f);
             }
 
+>>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 throttle += 0.0004;
@@ -148,6 +158,12 @@ namespace Projeto_Apollo_16.Actors
                 }
 
             }
+        }
+
+        public bool createShoot()
+        {
+            return Keyboard.GetState().IsKeyDown(Keys.Space);
+            
         }
 
 

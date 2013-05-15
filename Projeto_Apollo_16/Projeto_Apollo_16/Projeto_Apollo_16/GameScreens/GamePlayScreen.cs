@@ -1,4 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using Projeto_Apollo_16.Actors;
 using System;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,10 +17,19 @@ namespace Projeto_Apollo_16
         PlayerClass player;
         Ghost ghost;
         WorldEngine engine;
+<<<<<<< HEAD
+
+        List<Shoot> shoots = new List<Shoot>(10);
+        List<Shoot> shoots2 = new List<Shoot>(10);
+
+        
+        Shoot shoot;
+
         Label sectorLabel;
         Label positionLabel;
         Label cameraLabel;
         CameraClass camera;
+>>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -25,11 +41,21 @@ namespace Projeto_Apollo_16
         public override void Initialize()
         {
             engine.Initialize();
+<<<<<<< HEAD
+            player = new PlayerClass(new Vector2(400));
+            //player = new PlayerClass(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2));
+
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
-            player = new PlayerClass(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2));
+>>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             ghost = new Ghost(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2-200));
+<<<<<<< HEAD
+            
+            shoot = new Shoot(new Vector2(400));
 
 
+            //Texture2D shootTexture;
+
+>>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             base.Initialize();
         }
 
@@ -60,6 +86,14 @@ namespace Projeto_Apollo_16
 
             player.LoadTexture(systemRef.Content);
             ghost.LoadTexture(systemRef.Content);
+<<<<<<< HEAD
+
+            shoot.LoadTexture(systemRef.Content);
+
+
+
+            base.LoadContent();
+>>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
         }
 
         public override void Update(GameTime gameTime)
@@ -84,6 +118,8 @@ namespace Projeto_Apollo_16
             base.Update(gameTime);
         }
 
+
+        int i = 0;
         public override void Draw(GameTime gameTime)
         {
             systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront,
@@ -91,11 +127,30 @@ namespace Projeto_Apollo_16
                     camera.TransformMatrix);
 
             engine.Draw(systemRef.spriteBatch, player);
-            player.Draw(systemRef.spriteBatch);
-            ghost.Draw(systemRef.spriteBatch);
 
+<<<<<<< HEAD
+            if (player.createShoot())
+            {
+                shoots.Add(shoot);
+
+            }
+
+            foreach (Shoot s in shoots)
+            {
+                s.Draw(systemRef.spriteBatch);
+            }
+
+            
+            if(!ghost.checkCollision(player.GlobalPosition, player.texture))
+            {
+                player.Draw(systemRef.spriteBatch);
+            }
+
+            ghost.Draw(systemRef.spriteBatch);
+            
             controlManager.Draw(systemRef.spriteBatch);
 
+>>>>>>> 2ae1c103da7b3f7f22e5207ac4316b69bf3ab9ff
             systemRef.spriteBatch.End();
 
             base.Draw(gameTime);

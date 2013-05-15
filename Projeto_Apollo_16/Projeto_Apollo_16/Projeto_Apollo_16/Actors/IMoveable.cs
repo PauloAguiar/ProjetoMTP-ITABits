@@ -8,6 +8,5 @@ namespace Projeto_Apollo_16.Actors
         double Angle { get; }
         Vector2 Velocity { get;}
 
-    
     }
 }
