@@ -8,7 +8,7 @@ namespace Projeto_Apollo_16.Actors
     {
 
         protected Vector2 globalPosition;   //sector definido a partir da posição
-        protected Texture2D texture;
+        public Texture2D texture;
 
 
         public Vector2 GlobalPosition

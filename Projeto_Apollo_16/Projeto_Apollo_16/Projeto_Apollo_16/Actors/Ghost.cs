@@ -25,7 +25,7 @@ namespace Projeto_Apollo_16.Actors
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\ghost");
+            texture = content.Load<Texture2D>(@"Sprites\Enemies\ghost");
         }
 
         public override void Update(GameTime gameTime)
@@ -45,6 +45,29 @@ namespace Projeto_Apollo_16.Actors
             }
 
         }
+
+        public bool checkCollision(Vector2 playerPosition, Texture2D playerTexture)
+        {
+            float playerR = playerTexture.Width / 4;
+
+            float ghostR = texture.Height;
+
+            Vector2 r;
+            //Vector2 r = playerPosition - globalPosition;
+            r.X = playerPosition.X + playerTexture.Width / 2 - globalPosition.X - texture.Width / 2;
+            r.Y = playerPosition.Y + playerTexture.Height / 2 - globalPosition.Y - texture.Height / 2;
+
+            float d = r.Length();
+
+            if (d < playerR + ghostR)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {

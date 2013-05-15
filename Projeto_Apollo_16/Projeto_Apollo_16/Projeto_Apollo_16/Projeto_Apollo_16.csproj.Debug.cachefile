@@ -5,4 +5,5 @@ Content\Menus\Icons\icon_menu.xnb
 Content\Menus\Backgrounds\mulher.xnb
 Content\Fonts\ControlFont.xnb
 Content\Maps\1.xnb
-Content\Sprites\ghost.xnb
+Content\Sprites\Enemies\ghost.xnb
+Content\Sprites\shoot.xnb

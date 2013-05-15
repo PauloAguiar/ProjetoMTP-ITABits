@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Actors\ActorClass.cs" />
     <Compile Include="Actors\IMoveable.cs" />
+    <Compile Include="Actors\Shoot.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\PictureBox.cs" />
     <Compile Include="Actors\Ghost.cs" />

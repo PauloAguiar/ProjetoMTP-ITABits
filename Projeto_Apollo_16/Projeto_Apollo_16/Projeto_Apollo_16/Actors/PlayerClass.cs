@@ -14,10 +14,14 @@ namespace Projeto_Apollo_16.Actors
         public double Speed { get; private set; }
         public double Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
+        public Vector2 initialPosition { get; set; }
+
+        
 
         // Constructor
         public PlayerClass(Vector2 position)
         {
+            initialPosition = position;
             globalPosition = position;
             Speed = 0;
             Angle = 0;
@@ -43,10 +47,15 @@ namespace Projeto_Apollo_16.Actors
             Speed += throttle;
             Velocity = Velocity * (float)Speed;
             globalPosition += Velocity * (float)dt;
+
         }
         
         private void UpdateInput(GameTime gameTime)
         {
+            
+            createShoot();
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 throttle += 0.0004;
@@ -77,6 +86,12 @@ namespace Projeto_Apollo_16.Actors
                 }
 
             }
+        }
+
+        public bool createShoot()
+        {
+            return Keyboard.GetState().IsKeyDown(Keys.Space);
+            
         }
 
 
