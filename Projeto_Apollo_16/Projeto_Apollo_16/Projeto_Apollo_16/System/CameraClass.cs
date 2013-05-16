@@ -13,6 +13,7 @@ namespace Projeto_Apollo_16
     {
 
         Vector2 position { get; set; }
+        Vector2 offset { get; set; }
         float rotation { get; set; }
         float zoom { get; set; }
         Vector2 origin;
@@ -36,16 +37,16 @@ namespace Projeto_Apollo_16
             set { position = value; }
         }
 
-        public void LookAt(Vector2 position)
+        public Vector2 Offset
         {
-            this.position = position - origin - this.position;
+            get { return offset; }
+            set { offset = value; }
         }
-
         public Matrix TransformMatrix
         {
             get
             {
-                return  Matrix.CreateTranslation(new Vector3(-position+origin, 0.0f)) * // The +origin offset makes the center of the viewport as the reference
+                return Matrix.CreateTranslation(new Vector3(origin - position - offset, 0.0f)) * // The +origin offset makes the center of the viewport as the reference
                         Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                         Matrix.CreateRotationZ(rotation) * 
                         Matrix.CreateScale(Zoom) *

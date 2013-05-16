@@ -20,7 +20,7 @@ namespace Projeto_Apollo_16.Actors
         
 
         private float cameraZoom;
-        private Vector2 cameraPosition;
+        private Vector2 cameraOffset;
 
         // Constructor
         public PlayerClass(Vector2 position)
@@ -31,7 +31,7 @@ namespace Projeto_Apollo_16.Actors
             Angle = 0;
             Velocity = Vector2.Zero;
             cameraZoom = 1.0f;
-            cameraPosition = Vector2.Zero;
+            cameraOffset = Vector2.Zero;
         }
 
         public float Zoom
@@ -41,7 +41,7 @@ namespace Projeto_Apollo_16.Actors
 
         public Vector2 CameraPosition
         {
-            get { return cameraPosition; }
+            get { return cameraOffset; }
         }
 
         void ZoomIn(float z)
@@ -58,24 +58,28 @@ namespace Projeto_Apollo_16.Actors
 
         void SlideTop(float a)
         {
-            cameraPosition.Y -= a;
+            cameraOffset.Y -= a;
+            if (cameraOffset.Y < -100) cameraOffset.Y = -100;
         }
         void SlideDown(float a)
         {
-            cameraPosition.Y += a;
+            cameraOffset.Y += a;
+            if (cameraOffset.Y > 100) cameraOffset.Y = 100;
         }
         void SlideLeft(float a)
         {
-            cameraPosition.X -= a;
+            cameraOffset.X -= a;
+            if (cameraOffset.X < -100) cameraOffset.X = -100;
         }
         void SlideRight(float a)
         {
-            cameraPosition.X += a;
+            cameraOffset.X += a;
+            if (cameraOffset.X > 100) cameraOffset.X = 100;
         }
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\Nave\nave");
+            texture = content.Load<Texture2D>(@"Sprites\Nave\nave02");
         }
 
         public override void LoadFont(ContentManager content)

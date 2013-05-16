@@ -77,7 +77,7 @@ namespace Projeto_Apollo_16.Actors
         {
             //spriteBatch.Draw(texture, globalPosition, Color.White);5
             spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.ENEMY_LAYER);
-            spriteBatch.DrawString(spriteFont, "Teste", globalPosition, Color.Red);
+            spriteBatch.DrawString(spriteFont, "Pos:" + globalPosition.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 1), Color.Red);
         }
     }
 }

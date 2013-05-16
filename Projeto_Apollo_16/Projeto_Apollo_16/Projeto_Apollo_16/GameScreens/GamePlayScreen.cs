@@ -100,7 +100,7 @@ namespace Projeto_Apollo_16
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
             camera.Zoom = player.Zoom;
             camera.Position = player.GlobalPosition;
-            //camera.LookAt(player.GlobalPosition);
+            camera.Offset = player.CameraPosition;
 
             controlManager.Update(gameTime);
             base.Update(gameTime);
