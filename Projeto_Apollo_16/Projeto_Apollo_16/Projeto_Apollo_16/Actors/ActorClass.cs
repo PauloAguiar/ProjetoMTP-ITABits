@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace Projeto_Apollo_16.Actors
+namespace Projeto_Apollo_16
 {
     public abstract class ActorClass
     {

@@ -6,7 +6,6 @@ using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Projeto_Apollo_16.Actors;
 
 namespace Projeto_Apollo_16
 {
@@ -14,6 +13,7 @@ namespace Projeto_Apollo_16
     {
         PlayerClass player;
         Ghost ghost;
+        ProjectileManager projectilesManager;
         WorldEngine engine;
 
         List<Shoot> shoots = new List<Shoot>(10);
@@ -31,6 +31,7 @@ namespace Projeto_Apollo_16
             : base(game, manager)
         {
             engine = new WorldEngine(game);
+            projectilesManager = new ProjectileManager(game);
         }
 
         /* XNA Methods */
@@ -46,7 +47,8 @@ namespace Projeto_Apollo_16
             
             shoot = new Shoot(new Vector2(400));
 
-
+            projectilesManager.CreateBullet(Vector2.Zero, new Vector2(1.0f, 1.0f));
+            projectilesManager.First.Value.Activate();
             //Texture2D shootTexture;
 
             base.Initialize();
@@ -103,6 +105,7 @@ namespace Projeto_Apollo_16
             camera.Offset = player.CameraPosition;
 
             controlManager.Update(gameTime);
+            projectilesManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -131,6 +134,7 @@ namespace Projeto_Apollo_16
             }
 
             ghost.Draw(systemRef.spriteBatch);
+            projectilesManager.Draw(systemRef.spriteBatch);
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////
             systemRef.spriteBatch.End();
 

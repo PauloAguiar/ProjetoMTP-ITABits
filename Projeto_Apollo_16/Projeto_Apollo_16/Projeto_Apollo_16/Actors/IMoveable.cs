@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Projeto_Apollo_16.Actors
+namespace Projeto_Apollo_16
 {
     interface IMoveable
     {

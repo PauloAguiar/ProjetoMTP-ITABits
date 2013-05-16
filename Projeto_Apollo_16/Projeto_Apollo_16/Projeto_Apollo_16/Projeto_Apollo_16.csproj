@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\ActorClass.cs" />
+    <Compile Include="Actors\BulletClass.cs" />
     <Compile Include="Actors\IMoveable.cs" />
     <Compile Include="Actors\Shoot.cs" />
     <Compile Include="Controls\Control.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="ItemClasses\ItemManager.cs" />
     <Compile Include="ItemClasses\Shield.cs" />
     <Compile Include="ItemClasses\Weapon.cs" />
-    <Compile Include="MathFunctions.cs" />
+    <Compile Include="Utils\MathFunctions.cs" />
     <Compile Include="System\CameraClass.cs" />
     <Compile Include="System\ControlManager.cs" />
     <Compile Include="Controls\Label.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="GameScreens\GameState.cs" />
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
+    <Compile Include="System\ProjectileManager.cs" />
     <Compile Include="Utils\Globals.cs" />
     <Compile Include="Utils\LogClass.cs" />
     <Compile Include="WorldEngine\WorldSectorClass.cs" />
