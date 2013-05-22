@@ -6,7 +6,7 @@ using Lidgren.Network;
 
 namespace Apollo_16_Shooter
 {
-    class InputDataClass
+    public class InputDataClass
     {
         public bool[] buttons = new bool[4];
         public Int32[] position = new Int32[2];

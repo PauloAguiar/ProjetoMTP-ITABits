@@ -40,6 +40,7 @@ namespace Apollo_16_Shooter
 
             stateManager = new GameStateManager(this);
             networkManager = new NetworkManager(this);
+
             /* Add the gameState manager component to our list of components */
             Components.Add(stateManager);
 
@@ -52,7 +53,8 @@ namespace Apollo_16_Shooter
         protected override void Initialize()
         {
             viewport = GraphicsDevice.Viewport;
-            
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
             base.Initialize();
         }
 

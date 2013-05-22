@@ -37,7 +37,6 @@ namespace Apollo_16_Piloto
 
             /* Add the input handler component to our list of components */
             Components.Add(new InputHandler(this));
-            
 
             stateManager = new GameStateManager(this);
             networkManager = new NetworkManager(this);
