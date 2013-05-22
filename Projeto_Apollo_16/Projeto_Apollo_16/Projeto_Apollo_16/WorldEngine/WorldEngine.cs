@@ -9,7 +9,7 @@ namespace Projeto_Apollo_16
         /* Origin: Position (0, 0) of the Sector (0, 0) is equivalent to GlobalPosition (0, 0)
         /* Fields */
         const int TILE_SIZE = 256;
-        const int SECTOR_SIZE = 10;
+        const int SECTOR_SIZE = 20;
         private WorldSectorClass actualSector;
 
         /* Getters and Setters */

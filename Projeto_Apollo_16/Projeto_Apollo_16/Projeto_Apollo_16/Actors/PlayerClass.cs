@@ -17,8 +17,6 @@ namespace Projeto_Apollo_16
         public Vector2 Velocity { get; private set; }
         public Vector2 initialPosition { get; set; }
 
-        
-
         private float cameraZoom;
         private Vector2 cameraOffset;
 

@@ -14,7 +14,7 @@ namespace Projeto_Apollo_16
         public WorldSectorClass(Game game)
         {
             systemRef = (SystemClass)game;
-            sectorMap = new WorldTileClass[10, 10];
+            sectorMap = new WorldTileClass[20, 20];
             
         }
 
@@ -22,9 +22,9 @@ namespace Projeto_Apollo_16
         {
             sectorCoordinates = new Point(0, 0);
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 20; j++)
                 {
                     sectorMap[i, j] = new WorldTileClass(1);
                     sectorMap[i, j].LoadTileOnContent(content); /* This already manages loading 2 times the same texture */
@@ -41,9 +41,9 @@ namespace Projeto_Apollo_16
 
         public void Draw(SpriteBatch spriteBatch, PlayerClass player)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 20; j++)
                 {
                     //spriteBatch.Draw(sectorMap[i, j].GetTileTexture(), new Vector2(400,300), Color.White);
                     Texture2D texture = sectorMap[i,j].GetTileTexture();

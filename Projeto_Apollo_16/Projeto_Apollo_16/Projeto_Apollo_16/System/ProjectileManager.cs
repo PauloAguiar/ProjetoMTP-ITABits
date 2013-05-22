@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
 {
-    public class ProjectileManager : LinkedList<BulletClass>
+    public class ProjectileManager : LinkedList<ProjectileClass>
     {
         static ContentManager content;
         static SystemClass systemRef;
@@ -20,16 +20,16 @@ namespace Projeto_Apollo_16
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
         }
 
-        public void CreateBullet(Vector2 pos, Vector2 speed)
+        public void CreateBullet(Vector2 pos, Vector2 speed, Vector2 acceleration)
         {
-            this.AddFirst(new BulletClass(Vector2.Zero, new Vector2(0.1f, 0.1f)));
+            this.AddFirst(new LinearProjectile(Vector2.Zero, speed, acceleration));
             this.First.Value.LoadTexture(content);
             this.First.Value.LoadFont(content);
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (BulletClass p in this)
+            foreach (ProjectileClass p in this)
             {
                 if (p.IsActive)
                     p.Update(gameTime);
@@ -38,7 +38,7 @@ namespace Projeto_Apollo_16
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (BulletClass p in this)
+            foreach (ProjectileClass p in this)
             {
                 if (p.IsActive)
                     p.Draw(spriteBatch);

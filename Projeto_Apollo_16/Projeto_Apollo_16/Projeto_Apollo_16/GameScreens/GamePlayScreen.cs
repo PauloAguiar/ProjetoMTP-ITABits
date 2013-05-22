@@ -47,7 +47,7 @@ namespace Projeto_Apollo_16
             
             shoot = new Shoot(new Vector2(400));
 
-            projectilesManager.CreateBullet(Vector2.Zero, new Vector2(1.0f, 1.0f));
+            projectilesManager.CreateBullet(Vector2.Zero, new Vector2(0.01f, 0.01f), new Vector2(-0.00001f, 0.00001f));
             projectilesManager.First.Value.Activate();
             //Texture2D shootTexture;
 
