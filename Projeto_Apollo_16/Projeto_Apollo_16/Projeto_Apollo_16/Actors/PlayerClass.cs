@@ -9,13 +9,13 @@ namespace Projeto_Apollo_16
     public sealed class PlayerClass : ActorClass , IMoveable
     {
         // Fields
-
         private const double dTheta = Math.PI / 600;
         private double throttle = 0;
         public double Speed { get; private set; }
         public double Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
         public Vector2 initialPosition { get; set; }
+        public double bulletSpawnTime { get; set; }
 
         private float cameraZoom;
         private Vector2 cameraOffset;
@@ -30,6 +30,7 @@ namespace Projeto_Apollo_16
             Velocity = Vector2.Zero;
             cameraZoom = 1.0f;
             cameraOffset = Vector2.Zero;
+            bulletSpawnTime = 10000;
         }
 
         public float Zoom
@@ -96,6 +97,8 @@ namespace Projeto_Apollo_16
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
+            bulletSpawnTime += dt;
+
             UpdateInput(gameTime);
             
             Velocity = MathFunctions.AngleToVector(Angle);
@@ -105,10 +108,16 @@ namespace Projeto_Apollo_16
             
             Speed += throttle;
             Velocity = Velocity * (float)Speed;
+            
+            //pra zerar a velocidade se estiver muito baixa
+            /*
+            if (Math.Abs(Speed) < 0.01)
+            {
+                Velocity = Vector2.Zero;
+            }
+            */
+            
             globalPosition += Velocity * (float)dt;
-
-
-            //SetZoom(1 - Math.Abs((float)Speed));
 
         }
         

@@ -10,15 +10,18 @@ namespace Projeto_Apollo_16
 {
     public abstract class ProjectileClass : ActorClass
     {
-        private Vector2 targetPosition;
         private bool isActive;
         protected Vector2 moveSpeed;
         protected Vector2 moveAcceleration;
-        protected int lifeTime;
+        public double timeLiving;
+        public double ttl {get; protected set;}
+
+        //coloquei no playerclass:  public double spawnTime { get; protected set; }
 
         public bool IsActive
         {
-            get { return isActive; } 
+            get { return isActive; }
+            set { isActive = value; }
         }
 
         public ProjectileClass()
@@ -31,7 +34,7 @@ namespace Projeto_Apollo_16
             globalPosition = initialPosition;
             moveSpeed = speed;
             moveAcceleration = acceleration;
-           // lifeTime = 1000;
+            timeLiving = 0;
         }
 
         public void Activate()

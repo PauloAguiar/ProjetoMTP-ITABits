@@ -2,44 +2,54 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
 {
-    class Shoot : ActorClass
+    public class Explosion : ActorClass
     {
-        /*
-        public bool exists = false;
-        public Shoot(Vector2 position)
-        {
-            globalPosition = position;
+        public int Lifetime;
+        public bool isActive;
+        
+        //bug de ficar desenhando várias vezes a mesma explosion
+        //public bool drawed;
 
+        public Explosion(Vector2 position)
+        {
+            isActive = true;
+            globalPosition = position;
+            Lifetime = 100;
+            //drawed = false;
         }
-        */
+
         public override void LoadTexture(ContentManager content)
         {
-  //          texture = content.Load<Texture2D>(@"Sprites\shoot");
+            texture = content.Load<Texture2D>(@"Sprites\explosion");
         }
 
         public override void LoadFont(ContentManager content)
         {
-            throw new NotImplementedException();
+            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
+
+        
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+
         }
-
-
-
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //if(!drawed)
             spriteBatch.Draw(texture, globalPosition, Color.White);
+
+            //drawed = true;
+            
         }
-        
+
+
     }
 }

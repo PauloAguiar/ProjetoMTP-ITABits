@@ -15,14 +15,9 @@ namespace Projeto_Apollo_16
         PlayerClass player;
         Ghost ghost;
         ProjectileManager projectilesManager;
+        ExplosionManager explosionManager;
+
         WorldEngine engine;
-
-        //List<Shoot> shoots = new List<Shoot>(10);
-        //List<Shoot> shoots2 = new List<Shoot>(10);
-
-        //Shoot shoot;
-
-        Explosion e;
 
         Label sectorLabel;
         Label positionLabel;
@@ -35,6 +30,7 @@ namespace Projeto_Apollo_16
         {
             engine = new WorldEngine(game);
             projectilesManager = new ProjectileManager(game);
+            explosionManager = new ExplosionManager(game);
         }
 
         /* XNA Methods */
@@ -43,19 +39,8 @@ namespace Projeto_Apollo_16
             engine.Initialize();
             
             player = new PlayerClass(Vector2.Zero);
-            //player = new PlayerClass(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2));
-
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
             ghost = new Ghost(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2-200));
-
-            e = new Explosion(player.GlobalPosition);
-            
-            
-            //shoot = new Shoot(new Vector2(400));
-
-            //projectilesManager.CreateBullet(Vector2.Zero, new Vector2(0.01f, 0.01f), new Vector2(-0.00001f, 0.00001f));
-            //projectilesManager.First.Value.Activate();
-            //Texture2D shootTexture;
 
             base.Initialize();
         }
@@ -89,9 +74,7 @@ namespace Projeto_Apollo_16
             player.LoadFont(systemRef.Content);
             ghost.LoadTexture(systemRef.Content);
             ghost.LoadFont(systemRef.Content);
-            //shoot.LoadTexture(systemRef.Content);
-
-            e.LoadTexture(systemRef.Content);
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -99,10 +82,7 @@ namespace Projeto_Apollo_16
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
             player.Update(gameTime);
-            
-            //ghost.GlobalPosition -= new Vector2(0, player.Velocity.Y) * (float)dt;
-            
-            //ghost.centralPosition -= player.Velocity * (float)dt;
+
             ghost.Update(gameTime);
 
             sectorLabel.Text = "Zoom:" + player.Zoom;
@@ -114,25 +94,26 @@ namespace Projeto_Apollo_16
 
             controlManager.Update(gameTime);
             projectilesManager.Update(gameTime);
+            explosionManager.Update(gameTime);
 
-
+            //só pra testar as explosion
             if(Keyboard.GetState().IsKeyDown(Keys.Y))
             {
-                e = new Explosion(player.GlobalPosition);
-                e.LoadTexture(systemRef.Content);
-                //e = new Explosion(player.GlobalPosition);
+                explosionManager.createExplosion(player.GlobalPosition);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && player.bulletSpawnTime > 3000) //3 segundos pra criar novo tiro
             {
                 Vector2 v = new Vector2(-player.Velocity.X, player.Velocity.Y);
                 v.Normalize();
                 v /= 10;
 
+                player.bulletSpawnTime = 0;
+
                 if (player.Speed > 0)
                 {
                    projectilesManager.CreateBullet(player.GlobalPosition, v, Vector2.Zero);
-                   //projectilesManager.CreateBullet(player.GlobalPosition, new Vector2(-player.Velocity.X, player.Velocity.Y), new Vector2(-0.00001f, 0.00001f));
+                 //com aceleração: projectilesManager.CreateBullet(player.GlobalPosition, new Vector2(-player.Velocity.X, player.Velocity.Y), new Vector2(-0.00001f, 0.00001f));
                 }
                 else
                 {
@@ -150,34 +131,25 @@ namespace Projeto_Apollo_16
         public override void Draw(GameTime gameTime)
         {
             systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.TransformMatrix);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
             engine.Draw(systemRef.spriteBatch, player);
 
-            /*
-            if (player.createShoot())
-            {
-                shoots.Add(shoot);
-
-            }
-
-            foreach (Shoot s in shoots)
-            {
-                s.Draw(systemRef.spriteBatch);
-            }
-            */
-            
-            if(!ghost.checkCollision(player.GlobalPosition, player.Texture))
+            if (!ghost.checkCollision(player.GlobalPosition, player.Texture))
             {
                 player.Draw(systemRef.spriteBatch);
             }
-
-            e.Draw(systemRef.spriteBatch);
+            else
+            {
+                explosionManager.createExplosion(player.GlobalPosition);
+            }
 
             ghost.Draw(systemRef.spriteBatch);
             projectilesManager.Draw(systemRef.spriteBatch);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            explosionManager.Draw(systemRef.spriteBatch);
+
             systemRef.spriteBatch.End();
 
+            //câmera diferente
             systemRef.spriteBatch.Begin();
             controlManager.Draw(systemRef.spriteBatch);
             systemRef.spriteBatch.End();

@@ -12,7 +12,6 @@ namespace Projeto_Apollo_16
     {
         static ContentManager content;
         static SystemClass systemRef;
-        public float ttl { get; protected set; }
 
         public ProjectileManager(Game game)
             : base()
@@ -26,18 +25,20 @@ namespace Projeto_Apollo_16
             this.AddFirst(new LinearProjectile(pos, speed, acceleration));
             this.First.Value.LoadTexture(content);
             this.First.Value.LoadFont(content);
-            ttl = 1000;
+            
         }
 
         public void Update(GameTime gameTime)
         {
             foreach (ProjectileClass p in this)
             {
-                ttl--;
-                if (ttl < 0)
+                p.timeLiving += gameTime.ElapsedGameTime.TotalMilliseconds;
+                
+                if (p.timeLiving > p.ttl) // 6 segundos de vida
                 {
-                    //p.IsActive = false;
+                    p.IsActive = false;
                 }
+
                 if (p.IsActive)
                     p.Update(gameTime);
             }

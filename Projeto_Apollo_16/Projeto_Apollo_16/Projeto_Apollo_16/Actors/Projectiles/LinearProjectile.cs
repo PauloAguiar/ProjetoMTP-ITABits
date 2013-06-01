@@ -12,7 +12,7 @@ namespace Projeto_Apollo_16
         public LinearProjectile(Vector2 initialPosition, Vector2 speed, Vector2 acceleration)
             : base(initialPosition, speed, acceleration)
         {
-            lifeTime = 1000;
+            ttl = 6000; //6 segundos de vida
         }
 
         public override void  Update(GameTime gameTime)
@@ -24,15 +24,15 @@ namespace Projeto_Apollo_16
 
             moveSpeed.X += moveAcceleration.X * dt;
             moveSpeed.Y += moveAcceleration.Y * dt;
-
-
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, -(float)Math.Atan2(moveSpeed.Y, moveSpeed.X), new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
-            spriteBatch.DrawString(spriteFont, "Pos:" + globalPosition.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 1), Color.Red);
-            spriteBatch.DrawString(spriteFont, "Speed:" + moveSpeed.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 14), Color.Red);
+
+            //buga se a velocidade for 0
+            spriteBatch.DrawString(spriteFont, "Speed: " + moveSpeed.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 14), Color.Red);
+            
         }
     }
 }

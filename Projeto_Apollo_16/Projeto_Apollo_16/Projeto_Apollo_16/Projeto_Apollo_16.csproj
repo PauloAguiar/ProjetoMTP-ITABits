@@ -76,19 +76,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\ActorClass.cs" />
-    <Compile Include="Actors\Explosion.cs" />
+    <Compile Include="Actors\Explosions\ExplosionClass.cs" />
     <Compile Include="Actors\Projectiles\LinearProjectile.cs" />
     <Compile Include="Actors\Projectiles\ProjectileClass.cs" />
     <Compile Include="Actors\IMoveable.cs" />
-    <Compile Include="Actors\Shoot.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\PictureBox.cs" />
-    <Compile Include="Actors\Ghost.cs" />
+    <Compile Include="Actors\Enemies\Ghost.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="ItemClasses\BaseItem.cs" />
     <Compile Include="ItemClasses\ItemManager.cs" />
     <Compile Include="ItemClasses\Shield.cs" />
     <Compile Include="ItemClasses\Weapon.cs" />
+    <Compile Include="System\ExplosionManager.cs" />
     <Compile Include="System\NetworkClass.cs" />
     <Compile Include="Utils\MathFunctions.cs" />
     <Compile Include="System\CameraClass.cs" />
@@ -101,7 +101,6 @@
     <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="System\ProjectileManager.cs" />
     <Compile Include="Utils\Globals.cs" />
-    <Compile Include="Utils\LogClass.cs" />
     <Compile Include="WorldEngine\WorldSectorClass.cs" />
     <Compile Include="System\GameStateManager.cs" />
     <Compile Include="System\InputHandler.cs" />

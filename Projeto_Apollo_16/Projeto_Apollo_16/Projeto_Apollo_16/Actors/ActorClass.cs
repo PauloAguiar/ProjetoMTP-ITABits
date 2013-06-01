@@ -6,8 +6,6 @@ namespace Projeto_Apollo_16
 {
     public abstract class ActorClass
     {
-
-
         protected Vector2 globalPosition;   //sector definido a partir da posição
         protected Texture2D texture;
         protected SpriteFont spriteFont;
