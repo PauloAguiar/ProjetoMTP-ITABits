@@ -140,7 +140,42 @@ namespace GameClient
                             // This way we can separate packets from each others
                             if (inc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                             {
-                                Console.WriteLine(inc.ReadString() + "Bizu");
+                                // Worldstate packet structure
+                                //
+                                // int = count of players
+                                // character obj * count
+
+
+
+                                //Console.WriteLine("WorldState Update");
+
+                                // Empty the gamestatelist
+                                // new data is coming, so everything we knew on last frame, does not count here
+                                // Even if client would manipulate this list ( hack ), it wont matter, becouse server handles the real list
+                                GameStateList.Clear();
+
+                                // Declare count
+                                int count = 0;
+
+                                // Read int
+                                count = inc.ReadInt32();
+
+                                // Iterate all players
+                                for (int i = 0; i < count; i++)
+                                {
+
+                                    // Create new character to hold the data
+                                    Character ch = new Character();
+                                    
+                                    // Read all properties ( Server writes characters all props, so now we can read em here. Easy )
+                                    inc.ReadAllProperties(ch);
+
+                                    // Add it to list
+                                    GameStateList.Add(ch);
+                                }
+
+                                // When all players are added to list, start the game
+                                CanStart = true;
                             }
                             break;
 
@@ -317,6 +352,3 @@ namespace GameClient
         WORLDSTATE
     }
 }
-
-
-
