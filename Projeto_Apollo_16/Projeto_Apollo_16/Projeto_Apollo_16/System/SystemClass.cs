@@ -48,8 +48,6 @@ namespace Projeto_Apollo_16
             titleScreen = new TitleScreen(this, stateManager);
             startMenuScreen = new StartMenuScreen(this, stateManager);
             gamePlayScreen = new GamePlayScreen(this, stateManager);
-            waitForPeersScreen = new WaitForPeersScreen(this, stateManager);
-
             stateManager.ChangeState(titleScreen);
         }
 

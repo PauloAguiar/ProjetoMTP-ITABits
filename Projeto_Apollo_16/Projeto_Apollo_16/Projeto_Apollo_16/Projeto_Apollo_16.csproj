@@ -84,7 +84,6 @@
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\PictureBox.cs" />
     <Compile Include="Actors\Ghost.cs" />
-    <Compile Include="GameScreens\WaitForPeersScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="ItemClasses\BaseItem.cs" />
     <Compile Include="ItemClasses\ItemManager.cs" />
