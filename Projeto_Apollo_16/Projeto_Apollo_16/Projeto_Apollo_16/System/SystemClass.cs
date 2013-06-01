@@ -20,15 +20,8 @@ namespace Projeto_Apollo_16
         public TitleScreen titleScreen;
         public StartMenuScreen startMenuScreen;
         public GamePlayScreen gamePlayScreen;
-<<<<<<< HEAD
-        public WaitForPeersScreen waitForPeersScreen;
 
-||||||| merged common ancestors
-
-
-=======
-
->>>>>>> e898d2bc07e9244c23cfcba6c6ebe10be7c62226
+		
         const int screenWidth = 800;
         const int screenHeight = 600;
 
@@ -41,22 +34,6 @@ namespace Projeto_Apollo_16
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.IsFullScreen = false;
 
-<<<<<<< HEAD
-            // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            networkConfig = new NetPeerConfiguration("apollo");
-
-            networkConfig.Port = 14242;
-            networkConfig.MaximumConnections = 10;
-            networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-            networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
-
-            // Create new server based on the configs just defined
-            networkServer = new NetServer(networkConfig);
-
-||||||| merged common ancestors
-=======
-            
->>>>>>> e898d2bc07e9244c23cfcba6c6ebe10be7c62226
             screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
 
             Content.RootDirectory = "Content";
@@ -76,21 +53,6 @@ namespace Projeto_Apollo_16
             stateManager.ChangeState(titleScreen);
         }
 
-<<<<<<< HEAD
-        public void StartServer()
-        {
-            networkServer.Start();
-        }
-
-        public NetServer GetServer()
-        {
-            return networkServer;
-        }
-
-||||||| merged common ancestors
-=======
-        
->>>>>>> e898d2bc07e9244c23cfcba6c6ebe10be7c62226
         protected override void Initialize()
         {
             
