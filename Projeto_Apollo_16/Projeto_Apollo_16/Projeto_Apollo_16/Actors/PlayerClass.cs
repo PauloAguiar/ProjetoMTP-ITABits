@@ -25,9 +25,9 @@ namespace Projeto_Apollo_16
         {
             initialPosition = position;
             globalPosition = position;
-            Speed = 0;
+            Speed = 0.001;
             Angle = 0;
-            Velocity = Vector2.Zero;
+            Velocity = new Vector2(1f, 0);
             cameraZoom = 1.0f;
             cameraOffset = Vector2.Zero;
             bulletSpawnTime = 10000;

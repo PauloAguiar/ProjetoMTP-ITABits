@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
 {
-    public class ExplosionManager : List<Explosion>
+    public class ExplosionManager : List<ExplosionClass>
     {
         static ContentManager content;
         static SystemClass systemRef;
@@ -28,7 +28,7 @@ namespace Projeto_Apollo_16
         {
             if (spawnTime > ttl)   //6 segundos
             {
-                Explosion e = new Explosion(pos);
+                ExplosionClass e = new ExplosionSimple(pos);
                 e.LoadFont(content);
                 e.LoadTexture(content);
 
@@ -42,7 +42,7 @@ namespace Projeto_Apollo_16
         {
             spawnTime += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            foreach (Explosion e in this)
+            foreach (ExplosionClass e in this)
             {
                 if (e.Lifetime > 0)
                 {
@@ -71,7 +71,7 @@ namespace Projeto_Apollo_16
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Explosion e in this)
+            foreach (ExplosionClass e in this)
             {
                 e.Draw(spriteBatch);
             }

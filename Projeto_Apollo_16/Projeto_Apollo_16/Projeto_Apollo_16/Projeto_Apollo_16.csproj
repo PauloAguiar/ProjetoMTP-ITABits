@@ -76,7 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\ActorClass.cs" />
+    <Compile Include="Actors\Collisions\CollisionManager.cs" />
     <Compile Include="Actors\Explosions\ExplosionClass.cs" />
+    <Compile Include="Actors\Explosions\SimpleExplosion.cs" />
     <Compile Include="Actors\Projectiles\LinearProjectile.cs" />
     <Compile Include="Actors\Projectiles\ProjectileClass.cs" />
     <Compile Include="Actors\IMoveable.cs" />

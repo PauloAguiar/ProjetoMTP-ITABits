@@ -57,7 +57,9 @@ namespace Projeto_Apollo_16
             float ghostR = texture.Height;
 
             Vector2 r;
+            //não leva em conta a texture
             //Vector2 r = playerPosition - globalPosition;
+            
             r.X = playerPosition.X + playerTexture.Width / 2 - globalPosition.X - texture.Width / 2;
             r.Y = playerPosition.Y + playerTexture.Height / 2 - globalPosition.Y - texture.Height / 2;
 
