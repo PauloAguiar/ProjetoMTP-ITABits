@@ -12,6 +12,7 @@ namespace Projeto_Apollo_16
         public LinearProjectile(Vector2 initialPosition, Vector2 speed, Vector2 acceleration)
             : base(initialPosition, speed, acceleration)
         {
+            lifeTime = 1000;
         }
 
         public override void  Update(GameTime gameTime)
@@ -23,6 +24,8 @@ namespace Projeto_Apollo_16
 
             moveSpeed.X += moveAcceleration.X * dt;
             moveSpeed.Y += moveAcceleration.Y * dt;
+
+
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)

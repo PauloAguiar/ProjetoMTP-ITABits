@@ -13,11 +13,15 @@ namespace Projeto_Apollo_16
         public SpriteBatch spriteBatch;
         GameStateManager stateManager;
 
+        static NetServer networkServer;
+        static NetPeerConfiguration networkConfig;
+
         /* Screens */
         public TitleScreen titleScreen;
         public StartMenuScreen startMenuScreen;
         public GamePlayScreen gamePlayScreen;
 
+		
         const int screenWidth = 800;
         const int screenHeight = 600;
 
@@ -30,7 +34,6 @@ namespace Projeto_Apollo_16
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.IsFullScreen = false;
 
-            
             screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
 
             Content.RootDirectory = "Content";
@@ -45,11 +48,9 @@ namespace Projeto_Apollo_16
             titleScreen = new TitleScreen(this, stateManager);
             startMenuScreen = new StartMenuScreen(this, stateManager);
             gamePlayScreen = new GamePlayScreen(this, stateManager);
-
             stateManager.ChangeState(titleScreen);
         }
 
-        
         protected override void Initialize()
         {
             

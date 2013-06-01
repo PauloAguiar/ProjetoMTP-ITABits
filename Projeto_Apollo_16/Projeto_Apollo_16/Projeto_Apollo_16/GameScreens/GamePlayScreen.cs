@@ -6,6 +6,7 @@ using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace Projeto_Apollo_16
 {
@@ -16,10 +17,12 @@ namespace Projeto_Apollo_16
         ProjectileManager projectilesManager;
         WorldEngine engine;
 
-        List<Shoot> shoots = new List<Shoot>(10);
-        List<Shoot> shoots2 = new List<Shoot>(10);
+        //List<Shoot> shoots = new List<Shoot>(10);
+        //List<Shoot> shoots2 = new List<Shoot>(10);
 
-        Shoot shoot;
+        //Shoot shoot;
+
+        Explosion e;
 
         Label sectorLabel;
         Label positionLabel;
@@ -46,11 +49,14 @@ namespace Projeto_Apollo_16
 
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
             ghost = new Ghost(new Vector2(systemRef.GraphicsDevice.Viewport.Width / 2, systemRef.GraphicsDevice.Viewport.Height / 2-200));
-            
-            shoot = new Shoot(new Vector2(400));
 
-            projectilesManager.CreateBullet(Vector2.Zero, new Vector2(0.01f, 0.01f), new Vector2(-0.00001f, 0.00001f));
-            projectilesManager.First.Value.Activate();
+            e = new Explosion(player.GlobalPosition);
+            
+            
+            //shoot = new Shoot(new Vector2(400));
+
+            //projectilesManager.CreateBullet(Vector2.Zero, new Vector2(0.01f, 0.01f), new Vector2(-0.00001f, 0.00001f));
+            //projectilesManager.First.Value.Activate();
             //Texture2D shootTexture;
 
             base.Initialize();
@@ -92,7 +98,9 @@ namespace Projeto_Apollo_16
             player.LoadFont(systemRef.Content);
             ghost.LoadTexture(systemRef.Content);
             ghost.LoadFont(systemRef.Content);
-            shoot.LoadTexture(systemRef.Content);
+            //shoot.LoadTexture(systemRef.Content);
+
+            e.LoadTexture(systemRef.Content);
         }
 
         public override void Update(GameTime gameTime)
@@ -116,6 +124,35 @@ namespace Projeto_Apollo_16
 
             controlManager.Update(gameTime);
             projectilesManager.Update(gameTime);
+
+
+            if(Keyboard.GetState().IsKeyDown(Keys.Y))
+            {
+                e = new Explosion(player.GlobalPosition);
+                e.LoadTexture(systemRef.Content);
+                //e = new Explosion(player.GlobalPosition);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                Vector2 v = new Vector2(-player.Velocity.X, player.Velocity.Y);
+                v.Normalize();
+                v /= 10;
+
+                if (player.Speed > 0)
+                {
+                   projectilesManager.CreateBullet(player.GlobalPosition, v, Vector2.Zero);
+                   //projectilesManager.CreateBullet(player.GlobalPosition, new Vector2(-player.Velocity.X, player.Velocity.Y), new Vector2(-0.00001f, 0.00001f));
+                }
+                else
+                {
+                    projectilesManager.CreateBullet(player.GlobalPosition, -v, Vector2.Zero);
+                    //projectilesManager.CreateBullet(player.GlobalPosition, new Vector2(player.Velocity.X, -player.Velocity.Y), new Vector2(-0.00001f, 0.00001f));
+                }
+                projectilesManager.First.Value.Activate();
+            }
+
+
             base.Update(gameTime);
         }
 
@@ -126,6 +163,7 @@ namespace Projeto_Apollo_16
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////
             engine.Draw(systemRef.spriteBatch, player);
 
+            /*
             if (player.createShoot())
             {
                 shoots.Add(shoot);
@@ -136,12 +174,14 @@ namespace Projeto_Apollo_16
             {
                 s.Draw(systemRef.spriteBatch);
             }
-
+            */
             
             if(!ghost.checkCollision(player.GlobalPosition, player.Texture))
             {
                 player.Draw(systemRef.spriteBatch);
             }
+
+            e.Draw(systemRef.spriteBatch);
 
             ghost.Draw(systemRef.spriteBatch);
             projectilesManager.Draw(systemRef.spriteBatch);
