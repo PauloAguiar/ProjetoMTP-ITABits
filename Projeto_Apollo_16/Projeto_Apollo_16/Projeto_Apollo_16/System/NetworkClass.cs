@@ -12,6 +12,7 @@ namespace Projeto_Apollo_16
         const int PORT = 14242;
         const int MAX_CONNECTIONS = 5;
         const String NETWORK_NAME = "apollo";
+        static Boolean isOn = false;
 
         static NetServer networkServer;
         static NetPeerConfiguration networkConfig;
@@ -32,12 +33,22 @@ namespace Projeto_Apollo_16
 
         static public void StartServer()
         {
-            networkServer.Start();
+             networkServer.Start();
+             isOn = true;
         }
 
         static public NetServer GetServer()
         {
             return networkServer;
         }
+
+        static public String GetStatus()
+        {
+            if (isOn)
+                return "Online! Conexoes: " + networkServer.ConnectionsCount.ToString();
+            else
+                return "Offline!";
+        }
+
     }
 }
