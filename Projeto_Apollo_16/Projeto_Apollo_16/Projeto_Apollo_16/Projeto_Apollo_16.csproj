@@ -90,6 +90,7 @@
     <Compile Include="ItemClasses\ItemManager.cs" />
     <Compile Include="ItemClasses\Shield.cs" />
     <Compile Include="ItemClasses\Weapon.cs" />
+    <Compile Include="System\NetworkClass.cs" />
     <Compile Include="Utils\MathFunctions.cs" />
     <Compile Include="System\CameraClass.cs" />
     <Compile Include="System\ControlManager.cs" />
