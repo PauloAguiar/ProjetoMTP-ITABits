@@ -44,7 +44,7 @@ namespace GameClient
             string hostip = Console.ReadLine();
 
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            NetPeerConfiguration Config = new NetPeerConfiguration("Apollo");
+            NetPeerConfiguration Config = new NetPeerConfiguration("game");
             
             // Create new client, with previously created configs
             Client = new NetClient(Config);
