@@ -11,17 +11,17 @@ namespace Projeto_Apollo_16
 {
     class Shoot : ActorClass
     {
-
+        /*
         public bool exists = false;
         public Shoot(Vector2 position)
         {
             globalPosition = position;
 
         }
-
+        */
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\shoot");
+  //          texture = content.Load<Texture2D>(@"Sprites\shoot");
         }
 
         public override void LoadFont(ContentManager content)
@@ -40,6 +40,6 @@ namespace Projeto_Apollo_16
         {
             spriteBatch.Draw(texture, globalPosition, Color.White);
         }
-
+        
     }
 }

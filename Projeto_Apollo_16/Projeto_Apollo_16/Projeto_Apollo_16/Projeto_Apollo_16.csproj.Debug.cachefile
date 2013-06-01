@@ -3,10 +3,24 @@ Content\Maps\1-1.xnb
 Content\Menus\Backgrounds\menuBackground.xnb
 Content\Menus\Icons\icon_menu.xnb
 Content\Menus\Backgrounds\mulher.xnb
+<<<<<<< HEAD
+Content\Fonts\ControlFont.xnb
+Content\Maps\1.xnb
+||||||| merged common ancestors
 Content\Maps\1.xnb
 Content\Fonts\ControlFont.xnb
+=======
+Content\Maps\1.xnb
+>>>>>>> bd5edc4b6a1fc78dd7d30f4214da532b54bd1f51
 Content\Sprites\Enemies\ghost.xnb
 Content\Sprites\shoot.xnb
-Content\Fonts\ActorInfo.xnb
 Content\Sprites\Nave\nave02.xnb
 Content\bullet.xnb
+<<<<<<< HEAD
+Content\Fonts\ActorInfo.xnb
+Content\Sprites\explosion.xnb
+||||||| merged common ancestors
+=======
+Content\Fonts\ControlFont.xnb
+Content\Fonts\ActorInfo.xnb
+>>>>>>> bd5edc4b6a1fc78dd7d30f4214da532b54bd1f51

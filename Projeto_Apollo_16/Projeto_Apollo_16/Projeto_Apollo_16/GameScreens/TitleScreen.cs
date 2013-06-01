@@ -23,8 +23,8 @@ namespace Projeto_Apollo_16
         /* XNA Methods */
         protected override void LoadContent()
         {
-            backgroundImage = content.Load<Texture2D>("Menus\\Backgrounds\\menuBackground");
             base.LoadContent();
+            backgroundImage = content.Load<Texture2D>(@"Menus\Backgrounds\menuBackground");
 
             startLabel = new LinkLabel();
             startLabel.Position = new Vector2(180, 400);

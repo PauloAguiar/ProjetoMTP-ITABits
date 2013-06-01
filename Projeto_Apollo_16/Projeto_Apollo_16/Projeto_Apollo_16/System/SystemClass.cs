@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Lidgren.Network;
 
 namespace Projeto_Apollo_16
 {
@@ -12,11 +13,14 @@ namespace Projeto_Apollo_16
         public SpriteBatch spriteBatch;
         GameStateManager stateManager;
 
+        static NetServer networkServer;
+        static NetPeerConfiguration networkConfig;
+
         /* Screens */
         public TitleScreen titleScreen;
         public StartMenuScreen startMenuScreen;
         public GamePlayScreen gamePlayScreen;
-
+        public WaitForPeersScreen waitForPeersScreen;
 
         const int screenWidth = 800;
         const int screenHeight = 600;
@@ -29,6 +33,17 @@ namespace Projeto_Apollo_16
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.IsFullScreen = false;
+
+            // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
+            networkConfig = new NetPeerConfiguration("apollo");
+
+            networkConfig.Port = 14242;
+            networkConfig.MaximumConnections = 10;
+            networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
+
+            // Create new server based on the configs just defined
+            networkServer = new NetServer(networkConfig);
 
             screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
 
@@ -44,8 +59,19 @@ namespace Projeto_Apollo_16
             titleScreen = new TitleScreen(this, stateManager);
             startMenuScreen = new StartMenuScreen(this, stateManager);
             gamePlayScreen = new GamePlayScreen(this, stateManager);
+            waitForPeersScreen = new WaitForPeersScreen(this, stateManager);
 
             stateManager.ChangeState(titleScreen);
+        }
+
+        public void StartServer()
+        {
+            networkServer.Start();
+        }
+
+        public NetServer GetServer()
+        {
+            return networkServer;
         }
 
         protected override void Initialize()

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto_Apollo_16", "Projeto_Apollo_16\Projeto_Apollo_16\Projeto_Apollo_16.csproj", "{934FB74C-F42F-4AA5-838C-121DDB53544C}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Projeto_Apollo_16Content", "Projeto_Apollo_16\Projeto_Apollo_16Content\Projeto_Apollo_16Content.contentproj", "{3BE9ADA0-E33B-410D-BFF5-9A4D611A930B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto_Apollo_16Content", "Projeto_Apollo_16\Projeto_Apollo_16Content\Projeto_Apollo_16Content.contentproj", "{3BE9ADA0-E33B-410D-BFF5-9A4D611A930B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apollo.Pilot", "Apollo.Pilot\Apollo.Pilot\Apollo.Pilot.csproj", "{535908F7-5C4B-43D7-AAD5-35BB678A6385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apollo.PilotContent", "Apollo.Pilot\Apollo.PilotContent\Apollo.PilotContent.contentproj", "{0D045FE9-6B43-49E8-B65E-DCBDE9DBA4EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +21,12 @@ Global
 		{934FB74C-F42F-4AA5-838C-121DDB53544C}.Release|x86.Build.0 = Release|x86
 		{3BE9ADA0-E33B-410D-BFF5-9A4D611A930B}.Debug|x86.ActiveCfg = Debug|x86
 		{3BE9ADA0-E33B-410D-BFF5-9A4D611A930B}.Release|x86.ActiveCfg = Release|x86
+		{535908F7-5C4B-43D7-AAD5-35BB678A6385}.Debug|x86.ActiveCfg = Debug|x86
+		{535908F7-5C4B-43D7-AAD5-35BB678A6385}.Debug|x86.Build.0 = Debug|x86
+		{535908F7-5C4B-43D7-AAD5-35BB678A6385}.Release|x86.ActiveCfg = Release|x86
+		{535908F7-5C4B-43D7-AAD5-35BB678A6385}.Release|x86.Build.0 = Release|x86
+		{0D045FE9-6B43-49E8-B65E-DCBDE9DBA4EA}.Debug|x86.ActiveCfg = Debug|x86
+		{0D045FE9-6B43-49E8-B65E-DCBDE9DBA4EA}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -54,6 +54,13 @@ namespace Projeto_Apollo_16
             if (cameraZoom < 0.1f) cameraZoom = 0.1f;
         }
 
+        void SetZoom(float z)
+        {
+            cameraZoom = z;
+            if (cameraZoom < 0.1f) cameraZoom = 0.1f;
+            else if (cameraZoom > 1.0f) cameraZoom = 1.0f;
+        }
+
         void SlideTop(float a)
         {
             cameraOffset.Y -= a;
@@ -100,12 +107,23 @@ namespace Projeto_Apollo_16
             Velocity = Velocity * (float)Speed;
             globalPosition += Velocity * (float)dt;
 
+
+            //SetZoom(1 - Math.Abs((float)Speed));
+
         }
         
         private void UpdateInput(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                createShoot();
+            }
+
             
-            createShoot();
+            if (Keyboard.GetState().IsKeyDown(Keys.T))
+            {
+                SetZoom(1 - Math.Abs((float)Speed));
+            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
@@ -165,9 +183,9 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public bool createShoot()
+        public void createShoot()
         {
-            return Keyboard.GetState().IsKeyDown(Keys.Space);
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)

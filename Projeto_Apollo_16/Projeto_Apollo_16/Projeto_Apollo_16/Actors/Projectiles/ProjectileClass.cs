@@ -14,7 +14,7 @@ namespace Projeto_Apollo_16
         private bool isActive;
         protected Vector2 moveSpeed;
         protected Vector2 moveAcceleration;
-        private int lifeTime;
+        protected int lifeTime;
 
         public bool IsActive
         {
@@ -31,6 +31,7 @@ namespace Projeto_Apollo_16
             globalPosition = initialPosition;
             moveSpeed = speed;
             moveAcceleration = acceleration;
+           // lifeTime = 1000;
         }
 
         public void Activate()
