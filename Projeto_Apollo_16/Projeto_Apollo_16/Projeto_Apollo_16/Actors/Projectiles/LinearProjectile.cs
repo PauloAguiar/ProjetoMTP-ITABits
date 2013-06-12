@@ -2,36 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace Projeto_Apollo_16
 {
     class LinearProjectile : ProjectileClass
     {
-        public LinearProjectile(Vector2 initialPosition, Vector2 speed, Vector2 acceleration)
-            : base(initialPosition, speed, acceleration)
-        {
-            ttl = 6000; //6 segundos de vida
-        }
+        private Vector2 velocity;
+        private Vector2 acceleration;
 
+        public LinearProjectile(Vector2 initialPosition, Vector2 velocity, Vector2 acceleration, ContentManager content)
+            : base(initialPosition, content)
+        {
+            this.velocity = velocity;
+            this.acceleration = acceleration;
+            ttl = 6000; //ttl milisegundos de vida
+        }
+        
         public override void  Update(GameTime gameTime)
         {
  	        float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
 
-            globalPosition.X += (moveSpeed.X * dt) + (0.5f * dt * dt * moveAcceleration.X);
-            globalPosition.Y += (moveSpeed.Y * dt) + (0.5f * dt * dt * moveAcceleration.Y);
+            globalPosition.X += (velocity.X * dt) +(0.5f * dt * dt * acceleration.X);
+            globalPosition.Y += (velocity.Y * dt) +(0.5f * dt * dt * acceleration.Y);
 
-            moveSpeed.X += moveAcceleration.X * dt;
-            moveSpeed.Y += moveAcceleration.Y * dt;
+            velocity.X += acceleration.X * dt;
+            velocity.Y += acceleration.Y * dt;
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, -(float)Math.Atan2(moveSpeed.Y, moveSpeed.X), new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y)-(float)Math.PI/2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
 
             //buga se a velocidade for 0
-            spriteBatch.DrawString(spriteFont, "Speed: " + moveSpeed.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 14), Color.Red);
+            //depois que mudei o tiro de acordo com o angle buga mais.
+            //spriteBatch.DrawString(spriteFont, "Speed: " + moveSpeed.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 14), Color.Red);
             
         }
     }

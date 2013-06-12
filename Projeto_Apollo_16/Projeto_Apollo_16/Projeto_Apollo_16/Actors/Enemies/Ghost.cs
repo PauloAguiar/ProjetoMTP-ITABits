@@ -5,20 +5,21 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
 {
-    public sealed class Ghost : ActorClass, IMoveable
+    public sealed class Ghost : EnemyClass
     {
         public double Speed { get; private set; }
-        public double Angle { get; private set; }
         public Vector2 Velocity { get; set; }
         public Vector2 centralPosition { get; set; }
+        private bool isFliped;
+        private const int amplitude = 300;
 
-        public Ghost(Vector2 position)
+        public Ghost(Vector2 position, ContentManager content) : base(position, content)
         {
             globalPosition = position;
             centralPosition = position;
             Speed = 3;
-            Angle = 0;
             Velocity = new Vector2(1, 0) * (float)Speed;
+            isFliped = true;
         }
 
 
@@ -37,48 +38,34 @@ namespace Projeto_Apollo_16
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
             globalPosition += Velocity;
         
-            if (globalPosition.X >= centralPosition.X + 100)
+            if (globalPosition.X >= centralPosition.X + amplitude)
             {
-                globalPosition.X = centralPosition.X + 99;
+                globalPosition.X = centralPosition.X + amplitude - 1;
                 Velocity = -Velocity;
+                isFliped = !isFliped;
             }
-            if (globalPosition.X <= centralPosition.X - 300)
+            if (globalPosition.X <= centralPosition.X - amplitude)
             {
-                globalPosition.X = centralPosition.X - 299;
+                globalPosition.X = centralPosition.X - amplitude + 1;
                 Velocity = -Velocity;
+                isFliped = !isFliped;
             }
-
-        }
-
-        public bool checkCollision(Vector2 playerPosition, Texture2D playerTexture)
-        {
-            float playerR = playerTexture.Width / 4;
-
-            float ghostR = texture.Height;
-
-            Vector2 r;
-            //não leva em conta a texture
-            //Vector2 r = playerPosition - globalPosition;
-            
-            r.X = playerPosition.X + playerTexture.Width / 2 - globalPosition.X - texture.Width / 2;
-            r.Y = playerPosition.Y + playerTexture.Height / 2 - globalPosition.Y - texture.Height / 2;
-
-            float d = r.Length();
-
-            if (d < playerR + ghostR)
-            {
-                return true;
-            }
-
-            return false;
 
         }
 
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(texture, globalPosition, Color.White);5
-            spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.ENEMY_LAYER);
+            if (!isFliped)
+            {
+                spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.ENEMY_LAYER);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.FlipHorizontally, Globals.ENEMY_LAYER);
+            }
+            
+            
             spriteBatch.DrawString(spriteFont, "Pos:" + globalPosition.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 1), Color.Red);
         }
     }

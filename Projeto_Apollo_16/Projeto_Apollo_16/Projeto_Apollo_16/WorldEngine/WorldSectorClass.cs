@@ -45,7 +45,7 @@ namespace Projeto_Apollo_16
             {
                 for (int j = 0; j < 20; j++)
                 {
-                    //spriteBatch.Draw(sectorMap[i, j].GetTileTexture(), new Vector2(400,300), Color.White);
+                    //spriteBatch.Draw(sectorMap[i, j].GetTileTexture(), new Vector2(400,side), Color.White);
                     Texture2D texture = sectorMap[i,j].GetTileTexture();
                     spriteBatch.Draw(texture, CalculateDrawingPosition(i, j), texture.Bounds, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, Globals.BACKGROUND_LAYER);
                     //spriteBatch.Draw(texture, Vector2.Zero, texture.Bounds, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, Globals.BACKGROUND_LAYER);

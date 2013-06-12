@@ -9,23 +9,25 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
 {
-    class ExplosionSimple : ExplosionClass
+    public class ExplosionSimple : ExplosionClass
     {
-        public int Lifetime;
-        public bool isActive;
-        
-        //bug de ficar desenhando várias vezes a mesma explosion
-        //public bool drawed;
-
-        public ExplosionSimple (Vector2 position) : base(position)
+        public ExplosionSimple (Vector2 position, ContentManager content) : base(position, content)
         {
-
+            Lifetime = 100;
         }
 
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\explosion");
         }
+
+
+        public override void LoadFont(ContentManager content)
+        {
+            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
+
+        }
+
 
     }
 }

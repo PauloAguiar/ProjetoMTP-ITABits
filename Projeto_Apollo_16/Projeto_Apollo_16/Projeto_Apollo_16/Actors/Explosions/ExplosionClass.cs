@@ -14,36 +14,32 @@ namespace Projeto_Apollo_16
         public int Lifetime;
         public bool isActive;
         
-        //bug de ficar desenhando várias vezes a mesma explosion
-        //public bool drawed;
-
-        public ExplosionClass(Vector2 position)
+        public ExplosionClass(Vector2 position,ContentManager content)
         {
             isActive = true;
             globalPosition = position;
-            Lifetime = 100;
-            //drawed = false;
-        }
-
-        
-
-        public override void LoadFont(ContentManager content)
-        {
-            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
+            this.LoadFont(content);
+            this.LoadTexture(content);
         }
 
         
         public override void Update(GameTime gameTime)
         {
+            if (Lifetime > 0)
+            {
+                Lifetime--;
+            }
 
+
+            if (Lifetime <= 0)
+            {
+                isActive = false;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //if(!drawed)
             spriteBatch.Draw(texture, globalPosition, Color.White);
-
-            //drawed = true;
             
         }
 

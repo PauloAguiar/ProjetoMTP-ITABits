@@ -8,48 +8,67 @@ using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
 {
-    public class ProjectileManager : LinkedList<ProjectileClass>
+    //mudei pra List pra poder acessar pelo índice
+    public class ProjectileManager : List<ProjectileClass>
     {
         static ContentManager content;
         static SystemClass systemRef;
+        public const double tts = 300;  //time to spawn
+
+        public double bulletSpawnTime { get; private set; }
 
         public ProjectileManager(Game game)
             : base()
         {
             systemRef = (SystemClass)game;
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
+            bulletSpawnTime = tts;
         }
 
-        public void CreateBullet(Vector2 pos, Vector2 speed, Vector2 acceleration)
+        public void CreateBullet(ProjectileClass p)
         {
-            this.AddFirst(new LinearProjectile(pos, speed, acceleration));
-            this.First.Value.LoadTexture(content);
-            this.First.Value.LoadFont(content);
-            
+            this.Add(p);
+            bulletSpawnTime = 0;
+        }
+
+
+        public void destroyBullet(ProjectileClass p)
+        {
+            this.Remove(p);
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (ProjectileClass p in this)
+            double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
+            bulletSpawnTime += dt;
+
+            for (int i = 0; i < this.Count; i++)
             {
-                p.timeLiving += gameTime.ElapsedGameTime.TotalMilliseconds;
+                ProjectileClass p = this.ElementAt(i);
                 
-                if (p.timeLiving > p.ttl) // 6 segundos de vida
+                p.Update(gameTime);
+
+                p.timeLiving += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (p.timeLiving >= p.ttl)
                 {
                     p.IsActive = false;
                 }
 
-                if (p.IsActive)
-                    p.Update(gameTime);
+                if (!p.IsActive)
+                {
+                    this.RemoveAt(i);
+                    i--;
+                }
             }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (ProjectileClass p in this)
             {
-                if (p.IsActive)
-                    p.Draw(spriteBatch);
+                p.Draw(spriteBatch);
             }
         }
     }

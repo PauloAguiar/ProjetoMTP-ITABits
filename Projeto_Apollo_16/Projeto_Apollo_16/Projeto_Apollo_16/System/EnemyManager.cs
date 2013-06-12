@@ -6,37 +6,42 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
+
 namespace Projeto_Apollo_16
 {
-    public class ExplosionManager : List<ExplosionClass>
+    public class EnemyManager : List<EnemyClass>
     {
         static ContentManager content;
         static SystemClass systemRef;
-        
-        public ExplosionManager(Game game)
-            : base()
+        public double spawnTime { get; private set; }
+        public const double tts = 1000;
+
+        public EnemyManager(Game game) : base()
         {
             systemRef = (SystemClass)game;
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
+            spawnTime = tts;
         }
 
-        public void createExplosion(ExplosionClass e)
+
+        public void createEnemy(EnemyClass enemy)
         {
-            this.Add(e);
+            this.Add(enemy);
+            spawnTime = 0;
         }
 
         public void Update(GameTime gameTime)
         {
-            //não dá pra remover os elementos dentro do foreach
+            double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
+            spawnTime += dt;
+            
             for (int i = 0; i < this.Count; i++)
             {
-                ExplosionClass e = this.ElementAt(i);
+                EnemyClass enemy = this.ElementAt(i);
 
-                e.Update(gameTime);
-
+                enemy.Update(gameTime);
                 
-                
-                if (!e.isActive)
+                if (!enemy.isAlive)
                 {
                     this.RemoveAt(i);
                     i++;
@@ -47,10 +52,11 @@ namespace Projeto_Apollo_16
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (ExplosionClass e in this)
+            foreach (EnemyClass enemy in this)
             {
-                e.Draw(spriteBatch);
+                enemy.Draw(spriteBatch);
             }
+            
         }
 
 
