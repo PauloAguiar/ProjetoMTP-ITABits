@@ -6,16 +6,14 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
 {
-    public sealed class PlayerClass : ActorClass , IMoveable
+    public sealed class PlayerClass : ActorClass
     {
         // Fields
-
         private const double dTheta = Math.PI / 600;
         private double throttle = 0;
         public double Speed { get; private set; }
         public double Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
-        public Vector2 initialPosition { get; set; }
 
         private float cameraZoom;
         private Vector2 cameraOffset;
@@ -23,11 +21,10 @@ namespace Projeto_Apollo_16
         // Constructor
         public PlayerClass(Vector2 position)
         {
-            initialPosition = position;
             globalPosition = position;
-            Speed = 0;
+            Speed = 0.001;
             Angle = 0;
-            Velocity = Vector2.Zero;
+            Velocity = new Vector2(1f, 0);
             cameraZoom = 1.0f;
             cameraOffset = Vector2.Zero;
         }
@@ -105,20 +102,21 @@ namespace Projeto_Apollo_16
             
             Speed += throttle;
             Velocity = Velocity * (float)Speed;
+            
+            //pra zerar a velocidade se estiver muito baixa
+            /*
+            if (Math.Abs(Speed) < 0.01)
+            {
+                Velocity = Vector2.Zero;
+            }
+            */
+            
             globalPosition += Velocity * (float)dt;
-
-
-            //SetZoom(1 - Math.Abs((float)Speed));
 
         }
         
         private void UpdateInput(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                createShoot();
-            }
-
             
             if (Keyboard.GetState().IsKeyDown(Keys.T))
             {
@@ -167,7 +165,7 @@ namespace Projeto_Apollo_16
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 Angle -= dTheta;
-                if (Angle < MathHelper.TwoPi)
+                if (Angle < -MathHelper.TwoPi)
                 {
                     Angle += MathHelper.TwoPi;
                 }
@@ -183,14 +181,12 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public void createShoot()
-        {
-            
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+            
+            //escreve o angulo
+            //spriteBatch.DrawString(spriteFont, Angle.ToString(), globalPosition, Color.White);
         }
     }
 }

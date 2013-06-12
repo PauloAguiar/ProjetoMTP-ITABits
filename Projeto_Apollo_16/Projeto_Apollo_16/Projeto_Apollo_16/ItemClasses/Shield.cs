@@ -42,8 +42,8 @@ namespace Projeto_Apollo_16.ItemClasses
             params Type[] allowableClasses)
             : base(shieldName, shieldType, allowableClasses)
         {
-            shieldValue = shieldValue;
-            shieldModifier = shieldModifier;
+            //shieldValue = shieldValue;    //não faz nada
+            //shieldModifier = shieldModifier;
         }
        
         #endregion
