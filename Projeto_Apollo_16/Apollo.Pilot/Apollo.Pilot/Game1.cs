@@ -16,13 +16,18 @@ namespace Apollo.Pilot
     /// This is the main type for your game
     /// </summary>
     /// 
-    
+    enum PacketTypes
+    {
+        CONNECTION_ACCEPTED,
+        LOGIN,
+    }
+
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
-        string hostip = "127.0.0.1";
+        string hostip = "192.168.0.101";
         string stringTeste = "Teste";
 
         static NetClient Client;
@@ -34,7 +39,10 @@ namespace Apollo.Pilot
 
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
             NetPeerConfiguration networkConfig = new NetPeerConfiguration("apollo");
+
             networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+            networkConfig.EnableMessageType(NetIncomingMessageType.Data);
+
             Client = new NetClient(networkConfig);
 
             // Create new outgoing message
@@ -118,7 +126,7 @@ namespace Apollo.Pilot
 
                         // Read the first byte
                         // This way we can separate packets from each others
-                        if (inc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
+                        if (inc.ReadByte() == (byte)PacketTypes.CONNECTION_ACCEPTED)
                         {
                             stringTeste = inc.ReadString() + "Bizu";
                         }
@@ -126,7 +134,7 @@ namespace Apollo.Pilot
 
                     default:
                         // Should not happen and if happens, don't care
-                        stringTeste = "Bizuleu";
+                        stringTeste = "Unhandled type: " + inc.MessageType;
                         break;
                 }
             }
@@ -151,11 +159,5 @@ namespace Apollo.Pilot
 
             base.Draw(gameTime);
         }
-    }
-
-    enum PacketTypes
-    {
-        LOGIN,
-        WORLDSTATE
     }
 }
