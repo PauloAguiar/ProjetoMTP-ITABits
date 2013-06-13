@@ -22,7 +22,7 @@ namespace Projeto_Apollo_16
         Label sectorLabel;
         Label positionLabel;
         Label cameraLabel;
-        Label networkLabel;
+        Label statusLabel;
         CameraClass camera;
 
         /* Constructor */
@@ -72,12 +72,12 @@ namespace Projeto_Apollo_16
             cameraLabel.Size = cameraLabel.SpriteFont.MeasureString(cameraLabel.Text);
             controlManager.Add(cameraLabel);
 
-            networkLabel = new Label();
-            networkLabel.Position = Vector2.Zero + 3 * (new Vector2(0.0f, 25.0f));
-            networkLabel.Text = NetworkClass.GetStatus();
-            networkLabel.Color = Color.Red;
-            networkLabel.Size = networkLabel.SpriteFont.MeasureString(networkLabel.Text);
-            controlManager.Add(networkLabel);
+            statusLabel = new Label();
+            statusLabel.Position = Vector2.Zero + 3 * (new Vector2(0.0f, 25.0f));
+            statusLabel.Text = "";
+            statusLabel.Color = Color.Red;
+            statusLabel.Size = statusLabel.SpriteFont.MeasureString(statusLabel.Text);
+            controlManager.Add(statusLabel);
 
             player.LoadTexture(systemRef.Content);
             player.LoadFont(systemRef.Content);
@@ -97,7 +97,7 @@ namespace Projeto_Apollo_16
             sectorLabel.Text = "Zoom:" + player.Zoom;
             positionLabel.Text = "Position:" + player.GlobalPosition.X + " " + player.GlobalPosition.Y;
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
-            networkLabel.Text = NetworkClass.GetStatus();
+            statusLabel.Text = NetworkClass.status;
             camera.Zoom = player.Zoom;
             camera.Position = player.GlobalPosition;
             camera.Offset = player.CameraPosition;

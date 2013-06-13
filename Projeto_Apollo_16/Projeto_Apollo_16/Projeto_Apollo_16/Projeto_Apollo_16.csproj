@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>Reach</XnaProfile>
+    <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>2b9a8308-5af6-4e7a-840b-8bc054a65d5f</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -100,6 +100,7 @@
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />
     <Compile Include="System\NetworkClass.cs" />
+    <Compile Include="System\SendDataClass.cs" />
     <Compile Include="Utils\MathFunctions.cs" />
     <Compile Include="System\CameraClass.cs" />
     <Compile Include="System\ControlManager.cs" />

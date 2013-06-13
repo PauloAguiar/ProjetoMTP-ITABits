@@ -13,9 +13,6 @@ namespace Projeto_Apollo_16
         public SpriteBatch spriteBatch;
         GameStateManager stateManager;
 
-        static NetServer networkServer;
-        static NetPeerConfiguration networkConfig;
-
         /* Screens */
         public TitleScreen titleScreen;
         public StartMenuScreen startMenuScreen;
