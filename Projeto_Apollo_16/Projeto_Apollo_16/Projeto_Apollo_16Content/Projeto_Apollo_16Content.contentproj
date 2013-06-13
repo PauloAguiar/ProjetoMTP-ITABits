@@ -141,6 +141,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Compile Include="Sprites\Items\item.png">
       <Name>item</Name>
@@ -155,6 +156,23 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+||||||| merged common ancestors
+=======
+  <ItemGroup>
+    <Compile Include="Sprites\Enemies\chaser.jpg">
+      <Name>chaser</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\multiple.png">
+      <Name>multiple</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+>>>>>>> bac93bb6fa93da04a2361714f56dffc35072405f
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
