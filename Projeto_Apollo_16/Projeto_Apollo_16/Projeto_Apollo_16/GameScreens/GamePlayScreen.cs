@@ -123,7 +123,11 @@ namespace Projeto_Apollo_16
                 Poligon p = new Poligon(player.GlobalPosition, content);
                 enemyManager.createEnemy(p);
             }
-
+            if (Keyboard.GetState().IsKeyDown(Keys.V) && enemyManager.spawnTime >= EnemyManager.tts)
+            {
+                Chaser c = new Chaser(player.GlobalPosition, content, player);
+                enemyManager.createEnemy(c);
+            }
 
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)

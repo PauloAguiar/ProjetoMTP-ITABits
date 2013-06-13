@@ -77,9 +77,11 @@
   <ItemGroup>
     <Compile Include="Actors\ActorClass.cs" />
     <Compile Include="Actors\Collisions\CollisionManager.cs" />
+    <Compile Include="Actors\Enemies\Chaser.cs" />
     <Compile Include="Actors\Enemies\EnemyClass.cs" />
     <Compile Include="Actors\Enemies\Poligon.cs" />
     <Compile Include="Actors\Enemies\Sun.cs" />
+    <Compile Include="Actors\Explosions\ExplosionMultiple.cs" />
     <Compile Include="Actors\Explosions\Explosion2.cs" />
     <Compile Include="Actors\Explosions\ExplosionClass.cs" />
     <Compile Include="Actors\Explosions\ExplosionSimple.cs" />
