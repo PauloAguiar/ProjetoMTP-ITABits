@@ -185,12 +185,20 @@ namespace Projeto_Apollo_16
                             explosionManager.createExplosion(e);
 
                         }
+                        
+                        
+                        else if (enemyManager.ElementAt(j) is Chaser)
+                        {
+                            ExplosionMultiple e = new ExplosionMultiple(projectilesManager.ElementAt(i).GlobalPosition, content);
+                            explosionManager.createExplosion(e);
+                        }
+                        
                         else
                         {
                             ExplosionSimple e = new ExplosionSimple(projectilesManager.ElementAt(i).GlobalPosition, content);
                             explosionManager.createExplosion(e);
                         }
-
+                        
                         projectilesManager.RemoveAt(i);
                         enemyManager.RemoveAt(j);
                         i--;
