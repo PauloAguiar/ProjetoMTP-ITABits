@@ -12,10 +12,5 @@ namespace Projeto_Apollo_16
         public const float ENEMY_LAYER = 0.4f;
         public const float PLAYER_LAYER = 0.3f;
         public const float BULLET_LAYER = 0.2f;
-
-
-        public static Vector2 playerPosition;
-        public static Vector2 playerVelocity;
-
     }
 }

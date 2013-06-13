@@ -83,6 +83,7 @@
     <Compile Include="Actors\Explosions\Explosion2.cs" />
     <Compile Include="Actors\Explosions\ExplosionClass.cs" />
     <Compile Include="Actors\Explosions\ExplosionSimple.cs" />
+    <Compile Include="Actors\ItemClasses\Shield.cs" />
     <Compile Include="Actors\Projectiles\CircularProjectile.cs" />
     <Compile Include="Actors\Projectiles\HomingProjectile.cs" />
     <Compile Include="Actors\Projectiles\LinearProjectile.cs" />
@@ -91,12 +92,11 @@
     <Compile Include="GameScreens\PictureBox.cs" />
     <Compile Include="Actors\Enemies\Ghost.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
-    <Compile Include="ItemClasses\BaseItem.cs" />
-    <Compile Include="ItemClasses\ItemManager.cs" />
-    <Compile Include="ItemClasses\Shield.cs" />
-    <Compile Include="ItemClasses\Weapon.cs" />
+    <Compile Include="Actors\ItemClasses\Health.cs" />
+    <Compile Include="Actors\ItemClasses\ItemClass.cs" />
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />
+    <Compile Include="System\ItemManager.cs" />
     <Compile Include="System\NetworkClass.cs" />
     <Compile Include="Utils\MathFunctions.cs" />
     <Compile Include="System\CameraClass.cs" />

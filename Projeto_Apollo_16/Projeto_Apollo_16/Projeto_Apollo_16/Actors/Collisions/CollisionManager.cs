@@ -36,7 +36,7 @@ namespace Projeto_Apollo_16
         }
 
 
-        public static bool checkCollisionCircular(ActorClass a1, ActorClass a2)
+        public static bool CircularCollision(ActorClass a1, ActorClass a2)
         {
             Vector2 r = a2.GlobalPosition - a1.GlobalPosition;
 

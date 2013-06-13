@@ -12,10 +12,14 @@ namespace Projeto_Apollo_16
 {
     public class GamePlayScreen : BaseGameState
     {
+        
+
         PlayerClass player;
+        
         ProjectileManager projectilesManager;
         ExplosionManager explosionManager;
         EnemyManager enemyManager;
+        ItemManager itemManager;
 
         WorldEngine engine;
 
@@ -33,6 +37,7 @@ namespace Projeto_Apollo_16
             projectilesManager = new ProjectileManager(game);
             explosionManager = new ExplosionManager(game);
             enemyManager = new EnemyManager(game);
+            itemManager = new ItemManager(game);
         }
 
         /* XNA Methods */
@@ -43,7 +48,6 @@ namespace Projeto_Apollo_16
 
             player = new PlayerClass(Vector2.Zero);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
-            
             base.Initialize();
         }
 
@@ -89,10 +93,6 @@ namespace Projeto_Apollo_16
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
             player.Update(gameTime);
-
-            Globals.playerPosition = player.GlobalPosition;
-            Globals.playerVelocity = player.Velocity;
-            
             
             sectorLabel.Text = "Zoom:" + player.Zoom;
             positionLabel.Text = "Position:" + player.GlobalPosition.X + " " + player.GlobalPosition.Y;
@@ -106,6 +106,7 @@ namespace Projeto_Apollo_16
             projectilesManager.Update(gameTime);
             explosionManager.Update(gameTime);
             enemyManager.Update(gameTime);
+            itemManager.Update(gameTime);
 
             //só pra testar os inimigos
             if (Keyboard.GetState().IsKeyDown(Keys.Z) && enemyManager.spawnTime >= EnemyManager.tts)
@@ -156,6 +157,22 @@ namespace Projeto_Apollo_16
                 }
             }
 
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+            {
+                Health i = new Health(100, player, new Vector2(player.GlobalPosition.X + 300, player.GlobalPosition.Y), content);
+                itemManager.CreateItem(i);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            {
+                Shield i = new Shield(100, player, new Vector2(player.GlobalPosition.X, player.GlobalPosition.Y - 300), content);
+                itemManager.CreateItem(i);
+            }
+
+
+
+
             base.Update(gameTime);
         }
 
@@ -172,7 +189,7 @@ namespace Projeto_Apollo_16
                 for (int j = 0; j < enemyManager.Count; j++)
                 {
 
-                    if (CollisionManager.checkCollisionCircular(projectilesManager.ElementAt(i), enemyManager.ElementAt(j)))
+                    if (CollisionManager.CircularCollision(projectilesManager.ElementAt(i), enemyManager.ElementAt(j)))
                     {
                         //cria uma explosão diferente pra cada tipo de inimigo
                         if (enemyManager.ElementAt(j) is Sun)
@@ -199,7 +216,8 @@ namespace Projeto_Apollo_16
             projectilesManager.Draw(systemRef.spriteBatch);
             explosionManager.Draw(systemRef.spriteBatch);
             enemyManager.Draw(systemRef.spriteBatch);
-
+            itemManager.Draw(systemRef.spriteBatch);
+            
             systemRef.spriteBatch.End();
 
             //câmera diferente pra desenhar o HUD

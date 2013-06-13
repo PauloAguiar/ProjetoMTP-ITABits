@@ -48,7 +48,7 @@ namespace Projeto_Apollo_16
             r *= radius;
 
             globalPosition = centralPosition + r;
-            globalPosition += Globals.playerVelocity * dt;
+            globalPosition += player.Velocity * dt;
 
         }
 
