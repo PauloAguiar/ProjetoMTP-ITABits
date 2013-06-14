@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -40,17 +41,26 @@ namespace Projeto_Apollo_16
 
         }
 
+        public override void LoadSound(ContentManager content)
+        {
+            sound = content.Load<SoundEffect>(@"Sounds/BUM");
+        }
+
         public override void Update(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
+            if (x == 1) 
+            {
+                sound.Play();
+            }
             if (x == 16)
             {
                 dx = randNum.Next(-range, range);
                 dy = randNum.Next(-range, range);
                 x = 1;
                 i = j = 0;
-            }
+            }            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

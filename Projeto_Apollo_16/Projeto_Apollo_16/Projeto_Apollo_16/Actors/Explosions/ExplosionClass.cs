@@ -20,6 +20,7 @@ namespace Projeto_Apollo_16
             globalPosition = position;
             this.LoadFont(content);
             this.LoadTexture(content);
+            this.LoadSound(content);
         }
 
         
@@ -35,12 +36,13 @@ namespace Projeto_Apollo_16
             {
                 isActive = false;
             }
+
+             //só vai tocar 1 vez, e não a cada loop, mas como faz pra tocar 1 vez a cada explosão na explosão multipla???
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, globalPosition, Color.White);
-            
+            spriteBatch.Draw(texture, globalPosition, Color.White);   
         }
 
 

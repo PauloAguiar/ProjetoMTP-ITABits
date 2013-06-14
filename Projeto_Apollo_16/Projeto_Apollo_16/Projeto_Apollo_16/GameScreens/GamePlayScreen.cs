@@ -17,6 +17,7 @@ namespace Projeto_Apollo_16
         ExplosionManager explosionManager;
         EnemyManager enemyManager;
 
+
         WorldEngine engine;
 
         Label sectorLabel;

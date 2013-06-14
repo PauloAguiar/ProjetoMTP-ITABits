@@ -45,11 +45,17 @@ namespace Projeto_Apollo_16
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"bullet");
+            
         }
 
         public override void LoadFont(ContentManager content)
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
+
+        //public override void LoadSound(ContentManager content)
+        //{
+        //   soundEffect = content.Load<SoundEffect>(@"");
+        //}
     }
 }
