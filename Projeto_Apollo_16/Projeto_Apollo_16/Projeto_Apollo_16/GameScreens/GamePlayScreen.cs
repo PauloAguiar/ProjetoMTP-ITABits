@@ -46,11 +46,13 @@ namespace Projeto_Apollo_16
         {
             engine.Initialize();
             NetworkClass.StartServer();
-
-            while (joystick == null)
-            {
+            
+            //espera até o jogador plugar o joystick
+            //while (joystick == null)
+            //{
                 CreateDevice();
-            }
+            //}
+            
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
 
@@ -59,13 +61,10 @@ namespace Projeto_Apollo_16
 
         void CreateDevice()
         {
-            // make sure that DirectInput has been initialized
             DirectInput dinput = new DirectInput();
 
-            // search for devices
             foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
             {
-                // create the device
                 try
                 {
                     joystick = new Joystick(dinput, device.InstanceGuid);
@@ -84,7 +83,6 @@ namespace Projeto_Apollo_16
                         joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
                 }
 
-                // acquire the device
                 joystick.Acquire();
             }
 
@@ -159,10 +157,7 @@ namespace Projeto_Apollo_16
 
         void ReadImmediateData()
         {
-            if (joystick.Acquire().IsFailure)
-                return;
-
-            if (joystick.Poll().IsFailure)
+            if (joystick == null || joystick.Acquire().IsFailure || joystick.Poll().IsFailure)
                 return;
 
             state = joystick.GetCurrentState();
