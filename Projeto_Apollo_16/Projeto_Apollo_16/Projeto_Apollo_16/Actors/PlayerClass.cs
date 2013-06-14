@@ -166,11 +166,11 @@ namespace Projeto_Apollo_16
 
         private void UpdatePositionInput(JoystickState state)
         {
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Up) || state.Y > 0.5)
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Up) || state.Y < -100)
             {
                 throttle += deltaThrottleUp;
             }
-            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Down) || state.Y < -0.5)
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Down) || state.Y > 100)
             {
                 throttle -= deltaThrottleDown;
             }
@@ -183,7 +183,7 @@ namespace Projeto_Apollo_16
                 }
             }
 
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Left) || state.X < -0.5)
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Left) || state.X < -200)
             {
                 Angle -= deltaTheta;
                 if (Angle < -MathHelper.TwoPi)
@@ -191,7 +191,7 @@ namespace Projeto_Apollo_16
                     Angle += MathHelper.TwoPi;
                 }
             }
-            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Right) || state.X > 0.5)
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Right) || state.X > 200)
             {
                 Angle += deltaTheta;
                 if (Angle > MathHelper.TwoPi)

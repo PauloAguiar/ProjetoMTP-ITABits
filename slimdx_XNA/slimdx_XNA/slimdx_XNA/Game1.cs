@@ -37,7 +37,10 @@ namespace slimdx_XNA
         protected override void Initialize()
         {
             viewport = GraphicsDevice.Viewport;
-            CreateDevice();
+            while (joystick == null)
+            {
+                CreateDevice();
+            }
             base.Initialize();
         }
 
@@ -60,14 +63,17 @@ namespace slimdx_XNA
                 }
             }
 
-            foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+            if (joystick != null)
             {
-                if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
-                    joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
-            }
+                foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+                {
+                    if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
+                        joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
+                }
 
-            // acquire the device
-            joystick.Acquire();
+                // acquire the device
+                joystick.Acquire();
+            }
         }
 
         protected override void LoadContent()
@@ -145,13 +151,13 @@ namespace slimdx_XNA
             spriteBatch.DrawString(font, "VelocityY: " + state.VelocityY, new Microsoft.Xna.Framework.Vector2(0, 380), Color.White);
             spriteBatch.DrawString(font, "VelocityZ: " + state.VelocityZ, new Microsoft.Xna.Framework.Vector2(0, 400), Color.White);
 
-            spriteBatch.DrawString(font, "X: " + state.X/400.0, new Microsoft.Xna.Framework.Vector2(0, 420), Color.White);
-            spriteBatch.DrawString(font, "Y: " + state.Y/400.0, new Microsoft.Xna.Framework.Vector2(0, 440), Color.White);
-            spriteBatch.DrawString(font, "Z: " + state.Z/400.0, new Microsoft.Xna.Framework.Vector2(0, 460), Color.White);
+            spriteBatch.DrawString(font, "X: " + state.X, new Microsoft.Xna.Framework.Vector2(0, 420), Color.White);
+            spriteBatch.DrawString(font, "Y: " + state.Y, new Microsoft.Xna.Framework.Vector2(0, 440), Color.White);
+            spriteBatch.DrawString(font, "Z: " + state.Z, new Microsoft.Xna.Framework.Vector2(0, 460), Color.White);
 
             spriteBatch.DrawString(font, "tipo: " + state.GetType().ToString(), new Microsoft.Xna.Framework.Vector2(0, 480), Color.White);
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < state.GetButtons().Length; i++)
             {
                 spriteBatch.DrawString(font, "Button + " + (i+1) + ": " + state.GetButtons()[i].ToString(), new Microsoft.Xna.Framework.Vector2(600, 0 +20*i), Color.White);
             }

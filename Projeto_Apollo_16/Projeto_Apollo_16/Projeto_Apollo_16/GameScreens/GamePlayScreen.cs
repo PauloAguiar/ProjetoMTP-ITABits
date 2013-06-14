@@ -47,7 +47,10 @@ namespace Projeto_Apollo_16
             engine.Initialize();
             NetworkClass.StartServer();
 
-            CreateDevice();
+            while (joystick == null)
+            {
+                CreateDevice();
+            }
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
 
@@ -73,14 +76,19 @@ namespace Projeto_Apollo_16
                 }
             }
 
-            foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+            if (joystick != null)
             {
-                if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
-                    joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
+                foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+                {
+                    if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
+                        joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
+                }
+
+                // acquire the device
+                joystick.Acquire();
             }
 
-            // acquire the device
-            joystick.Acquire();
+            
         }
         #endregion
 
