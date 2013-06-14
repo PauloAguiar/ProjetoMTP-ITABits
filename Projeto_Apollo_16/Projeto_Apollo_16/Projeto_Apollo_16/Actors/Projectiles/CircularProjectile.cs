@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
 
 namespace Projeto_Apollo_16
 {
     public class CircularProjectile : ProjectileClass
     {
         private const float speed = 2f;
-        private Vector2 centralPosition;
         private const int radius = 400;
+        private Vector2 centralPosition;
         private Vector2 velocity;
         PlayerClass player;
 
         public CircularProjectile(Vector2 initialPosition, ContentManager content, PlayerClass player)
             : base(initialPosition, content)
         {
-            ttl = 6000; //ttl milisegundos de vida
+            ttl = 4000;
             globalPosition = initialPosition + new Vector2(radius, 0);
             centralPosition = initialPosition;
             this.player = player;
@@ -30,7 +25,7 @@ namespace Projeto_Apollo_16
         public override void  Update(GameTime gameTime)
         {
  	        //movimento circular
-            float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
+            double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
             centralPosition = player.GlobalPosition;
             Vector2 r = globalPosition - centralPosition;
@@ -48,7 +43,7 @@ namespace Projeto_Apollo_16
             r *= radius;
 
             globalPosition = centralPosition + r;
-            globalPosition += player.Velocity * dt;
+            globalPosition += player.Velocity * (float)dt;
 
         }
 

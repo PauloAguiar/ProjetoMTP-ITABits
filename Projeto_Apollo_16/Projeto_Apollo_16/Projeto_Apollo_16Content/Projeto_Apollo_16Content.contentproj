@@ -163,13 +163,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\multiple.png">
-      <Name>multiple</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\Enemies\chaser.jpg">
       <Name>chaser</Name>
       <Importer>TextureImporter</Importer>
@@ -177,7 +170,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\multiple.png">
+    <Compile Include="Sprites\Explosions\multiple.png">
       <Name>multiple</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

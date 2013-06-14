@@ -1,21 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using Input = Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using SlimDX.DirectInput;
 
 namespace Projeto_Apollo_16
 {
     public sealed class PlayerClass : ActorClass
     {
         #region constants
-        private const float deltaTheta = (float)Math.PI / 100;
-        private const float maxSpeed = 4.0f;
-        private const float minSpeed = -1.5f;
-        private const float maxThrottle = 0.004f;
-        private const float minThrottle = -0.002f;
-        private const float deltaThrottleUp = 0.0004f;
-        private const float deltaThrottleDown = 0.0001f;
+        private const float deltaTheta = (float)Math.PI / 400;
+        private const float maxSpeed = 2.0f;
+        private const float minSpeed = -0.75f;
+        private const float epsilonSpeed = 0.1f;
+        private const float maxThrottle = 0.4f;
+        private const float minThrottle = -0.2f;
+        private const float epsilonThrottle = 0.0001f;
+        private const float deltaThrottleUp = 0.0001f;
+        private const float deltaThrottleDown = 0.000005f;
 
         private const float maxCameraZoom = 1.0f;
         private const float minCameraZoom = 0.1f;
@@ -29,12 +33,16 @@ namespace Projeto_Apollo_16
         public float Speed { get; private set; }
         public float Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
+        public int life { get; private set; }
+        public List<ItemClass> invetary;
+        public enum Bullets { linear, circular, homing };
+        public Bullets bullets = Bullets.linear;
 
         private float cameraZoom;
         private Vector2 cameraOffset;
 
 
-        public PlayerClass(Vector2 position)
+        public PlayerClass(Vector2 position, ContentManager content)
         {
             globalPosition = position;
             
@@ -43,6 +51,11 @@ namespace Projeto_Apollo_16
             Velocity = Vector2.Zero;
             cameraZoom = initialCameraZoom;
             cameraOffset = Vector2.Zero;
+            life = 100;
+            invetary = new List<ItemClass>();
+
+            this.LoadFont(content);
+            this.LoadTexture(content);
         }
 
         #region cameraControl
@@ -98,7 +111,6 @@ namespace Projeto_Apollo_16
 
         #endregion
 
-
         #region loadContent
         public override void LoadTexture(ContentManager content)
         {
@@ -111,11 +123,17 @@ namespace Projeto_Apollo_16
         }
         #endregion
 
+        #region update
         public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(GameTime gameTime, JoystickState state)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            UpdateInput(gameTime);
+            UpdateInput(gameTime, state);
 
             UpdatePosition(dt);
 
@@ -123,42 +141,49 @@ namespace Projeto_Apollo_16
 
         private void UpdatePosition(double dt)
         {
-            Velocity = MathFunctions.AngleToVector(Angle);
-
             throttle = MathHelper.Clamp(throttle, minThrottle, maxThrottle);
-            Speed = MathHelper.Clamp(Speed, minSpeed, maxSpeed);
-
             Speed += throttle;
-            Velocity = Velocity * (float)Speed;
+            Speed = MathHelper.Clamp(Speed, minSpeed, maxSpeed);
+            
+            Velocity = MathFunctions.AngleToVector(Angle);
+            Velocity.Normalize();
+            Velocity = Velocity * Speed;
+            if (Math.Abs(Speed) <= epsilonSpeed)
+            {
+                Velocity = Vector2.Zero;
+            }
+            
 
             globalPosition += Velocity * (float)dt;
         }
         
-        private void UpdateInput(GameTime gameTime)
+        private void UpdateInput(GameTime gameTime, JoystickState state)
         {
+            UpdateCameraInput(state);
 
-            UpdateCameraInput();
-
-
-            UpdatePositionInput();
+            UpdatePositionInput(state);
         }
 
-        private void UpdatePositionInput()
+        private void UpdatePositionInput(JoystickState state)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Up) || state.Y > 0.5)
             {
                 throttle += deltaThrottleUp;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Down) || state.Y < -0.5)
             {
                 throttle -= deltaThrottleDown;
             }
             else
             {
-                throttle = 0;
+                throttle *= 1.0f / 2;
+                if (Math.Abs(throttle) <= epsilonThrottle)
+                {
+                    throttle = 0;
+                }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Left) || state.X < -0.5)
             {
                 Angle -= deltaTheta;
                 if (Angle < -MathHelper.TwoPi)
@@ -166,7 +191,7 @@ namespace Projeto_Apollo_16
                     Angle += MathHelper.TwoPi;
                 }
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Right) || state.X > 0.5)
             {
                 Angle += deltaTheta;
                 if (Angle > MathHelper.TwoPi)
@@ -177,46 +202,47 @@ namespace Projeto_Apollo_16
             }
         }
 
-        private void UpdateCameraInput()
+        private void UpdateCameraInput(JoystickState state)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.T))
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.T))
             {
                 SetZoom(1 - Math.Abs((float)Speed));
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Q) || state.IsPressed(2))
             {
                 ZoomIn(deltaZoom);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.E))
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.E) || state.IsPressed(3))
             {
                 ZoomOut(deltaZoom);
             }
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.W))
             {
                 SlideTop(deltaSlide);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.A))
             {
                 SlideLeft(deltaSlide);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.S))
             {
                 SlideDown(deltaSlide);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D))
             {
                 SlideRight(deltaSlide);
             }
         }
+        #endregion
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+            spriteBatch.DrawString(spriteFont, "Life = "+life.ToString(), globalPosition, Color.White);
         }
 
     }
 }
-

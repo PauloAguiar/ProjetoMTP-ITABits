@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slimdx_XNA", "slimdx_XNA\slimdx_XNA\slimdx_XNA.csproj", "{42D7151C-D49A-4781-8511-7EFB12EAC26D}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "slimdx_XNAContent", "slimdx_XNA\slimdx_XNAContent\slimdx_XNAContent.contentproj", "{A12B5E73-6BB0-41F3-AC2C-8E8275D32CBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42D7151C-D49A-4781-8511-7EFB12EAC26D}.Debug|x86.ActiveCfg = Debug|x86
+		{42D7151C-D49A-4781-8511-7EFB12EAC26D}.Debug|x86.Build.0 = Debug|x86
+		{42D7151C-D49A-4781-8511-7EFB12EAC26D}.Release|x86.ActiveCfg = Release|x86
+		{42D7151C-D49A-4781-8511-7EFB12EAC26D}.Release|x86.Build.0 = Release|x86
+		{A12B5E73-6BB0-41F3-AC2C-8E8275D32CBC}.Debug|x86.ActiveCfg = Debug|x86
+		{A12B5E73-6BB0-41F3-AC2C-8E8275D32CBC}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,10 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
-
-namespace Projeto_Apollo_16
+﻿namespace Projeto_Apollo_16
 {
     static public class Globals
     {

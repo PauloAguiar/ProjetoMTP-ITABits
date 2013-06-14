@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
 {
-    public class ExplosionSimple : ExplosionClass
+    public class SimpleExplosion : ExplosionClass
     {
-        public ExplosionSimple (Vector2 position, ContentManager content) : base(position, content)
+        public SimpleExplosion (Vector2 position, ContentManager content) : base(position, content)
         {
             Lifetime = 100;
         }
@@ -21,13 +16,11 @@ namespace Projeto_Apollo_16
             texture = content.Load<Texture2D>(@"Sprites\Explosions\explosion");
         }
 
-
         public override void LoadFont(ContentManager content)
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
 
         }
-
 
     }
 }

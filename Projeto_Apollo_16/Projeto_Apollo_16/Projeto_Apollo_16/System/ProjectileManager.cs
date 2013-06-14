@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
 {
-    //mudei pra List pra poder acessar pelo índice
     public class ProjectileManager : List<ProjectileClass>
     {
         static ContentManager content;
@@ -71,5 +68,6 @@ namespace Projeto_Apollo_16
                 p.Draw(spriteBatch);
             }
         }
+
     }
 }

@@ -1,35 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
+using Input = Microsoft.Xna.Framework.Input;
+using SlimDX.DirectInput;
 
 namespace Projeto_Apollo_16
 {
     public class GamePlayScreen : BaseGameState
     {
-        
-
         PlayerClass player;
-        
+        Joystick joystick;
+        JoystickState state = new JoystickState();
+
+        #region managers
         ProjectileManager projectilesManager;
         ExplosionManager explosionManager;
         EnemyManager enemyManager;
         ItemManager itemManager;
+        #endregion
 
         WorldEngine engine;
 
+        CameraClass camera;
+
+        #region labels
         Label sectorLabel;
         Label positionLabel;
         Label cameraLabel;
         Label statusLabel;
-        CameraClass camera;
+        #endregion
 
-        /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
@@ -40,21 +41,60 @@ namespace Projeto_Apollo_16
             itemManager = new ItemManager(game);
         }
 
-        /* XNA Methods */
+        #region initialize
         public override void Initialize()
         {
             engine.Initialize();
             NetworkClass.StartServer();
 
-            player = new PlayerClass(Vector2.Zero);
+            CreateDevice();
+            player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
+
             base.Initialize();
         }
 
+        void CreateDevice()
+        {
+            // make sure that DirectInput has been initialized
+            DirectInput dinput = new DirectInput();
+
+            // search for devices
+            foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
+            {
+                // create the device
+                try
+                {
+                    joystick = new Joystick(dinput, device.InstanceGuid);
+                    break;
+                }
+                catch (DirectInputException)
+                {
+                }
+            }
+
+            foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+            {
+                if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
+                    joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
+            }
+
+            // acquire the device
+            joystick.Acquire();
+        }
+        #endregion
+
+        #region load
         protected override void LoadContent()
         {
             base.LoadContent();
 
+            loadLabels();
+        
+        }
+        
+        private void loadLabels()
+        {
             sectorLabel = new Label();
             sectorLabel.Position = Vector2.Zero;
             sectorLabel.Text = "Zoom:" + player.Zoom;
@@ -82,18 +122,55 @@ namespace Projeto_Apollo_16
             statusLabel.Color = Color.Red;
             statusLabel.Size = statusLabel.SpriteFont.MeasureString(statusLabel.Text);
             controlManager.Add(statusLabel);
-
-            player.LoadTexture(systemRef.Content);
-            player.LoadFont(systemRef.Content);
-            
         }
+        #endregion
 
+        #region update
         public override void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            player.Update(gameTime);
-            
+            ReadImmediateData();
+
+            player.Update(gameTime, state);
+
+            cameraUpdate();
+
+            updateManagers(gameTime);
+
+            createEnemies();
+
+            createBullets();
+
+            createItems();
+
+            checkCollision();
+
+            base.Update(gameTime);
+        }
+
+        void ReadImmediateData()
+        {
+            if (joystick.Acquire().IsFailure)
+                return;
+
+            if (joystick.Poll().IsFailure)
+                return;
+
+            state = joystick.GetCurrentState();
+        }
+
+        private void updateManagers(GameTime gameTime)
+        {
+            controlManager.Update(gameTime);
+            projectilesManager.Update(gameTime);
+            explosionManager.Update(gameTime);
+            enemyManager.Update(gameTime);
+            itemManager.Update(gameTime);
+        }
+
+        private void cameraUpdate()
+        {
             sectorLabel.Text = "Zoom:" + player.Zoom;
             positionLabel.Text = "Position:" + player.GlobalPosition.X + " " + player.GlobalPosition.Y;
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
@@ -101,57 +178,47 @@ namespace Projeto_Apollo_16
             camera.Zoom = player.Zoom;
             camera.Position = player.GlobalPosition;
             camera.Offset = player.CameraPosition;
+        }
 
-            controlManager.Update(gameTime);
-            projectilesManager.Update(gameTime);
-            explosionManager.Update(gameTime);
-            enemyManager.Update(gameTime);
-            itemManager.Update(gameTime);
-
-            //só pra testar os inimigos
-            if (Keyboard.GetState().IsKeyDown(Keys.Z) && enemyManager.spawnTime >= EnemyManager.tts)
+        private void createEnemies()
+        {
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Z) && enemyManager.spawnTime >= EnemyManager.tts)
             {
                 Ghost g = new Ghost(player.GlobalPosition, content);
                 enemyManager.createEnemy(g);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.X) && enemyManager.spawnTime >= EnemyManager.tts)
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.X) && enemyManager.spawnTime >= EnemyManager.tts)
             {
                 Sun s = new Sun(player.GlobalPosition, content);
                 enemyManager.createEnemy(s);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.C) && enemyManager.spawnTime >= EnemyManager.tts)
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.C) && enemyManager.spawnTime >= EnemyManager.tts)
             {
                 Poligon p = new Poligon(player.GlobalPosition, content);
                 enemyManager.createEnemy(p);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.V) && enemyManager.spawnTime >= EnemyManager.tts)
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.V) && enemyManager.spawnTime >= EnemyManager.tts)
             {
                 Chaser c = new Chaser(player.GlobalPosition, content, player);
                 enemyManager.createEnemy(c);
             }
+        }
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+        private void createBullets()
+        {
+            if ( (Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1) || state.IsPressed(4) || state.IsPressed(0))&& projectilesManager.bulletSpawnTime > ProjectileManager.tts)
             {
-                //de acordo com o angulo
                 Vector2 v = new Vector2((float)Math.Sin(player.Angle), -(float)Math.Cos(player.Angle));
-                
-                v.Normalize();
-                v *= 2/3.0f;
 
-                LinearProjectile p = new LinearProjectile(player.GlobalPosition, v, Vector2.Zero, content);
-
-                //sem aceleração
+                LinearProjectile p = new LinearProjectile(player.GlobalPosition, v, content);
                 projectilesManager.CreateBullet(p);
-                //com aceleração
-                //projectilesManager.CreateBullet(player.GlobalPosition, v, new Vector2(-0.001f, 0.001f));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.M) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+            if ( (Input.Keyboard.GetState().IsKeyDown(Input.Keys.F2) || state.IsPressed(1)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
             {
                 CircularProjectile p = new CircularProjectile(player.GlobalPosition, content, player);
                 projectilesManager.CreateBullet(p);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.N) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+            if ( (Input.Keyboard.GetState().IsKeyDown(Input.Keys.F3) || state.IsPressed(5)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
             {
                 if (enemyManager.Count > 0)
                 {
@@ -160,33 +227,24 @@ namespace Projeto_Apollo_16
                     projectilesManager.CreateBullet(p);
                 }
             }
+        }
 
-
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+        private void createItems()
+        {
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D1))
             {
                 Health i = new Health(100, player, new Vector2(player.GlobalPosition.X + 300, player.GlobalPosition.Y), content);
                 itemManager.CreateItem(i);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D2))
             {
                 Shield i = new Shield(100, player, new Vector2(player.GlobalPosition.X, player.GlobalPosition.Y - 300), content);
                 itemManager.CreateItem(i);
             }
-
-
-
-
-            base.Update(gameTime);
         }
 
-
-        public override void Draw(GameTime gameTime)
+        private void checkCollision()
         {
-            systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.TransformMatrix);
-            
-            engine.Draw(systemRef.spriteBatch, player);
-
             ///checa colisão entre todos os tiros e inimigos
             for (int i = 0; i < projectilesManager.Count; i++)
             {
@@ -198,37 +256,39 @@ namespace Projeto_Apollo_16
                         //cria uma explosão diferente pra cada tipo de inimigo
                         if (enemyManager.ElementAt(j) is Sun)
                         {
-                            Explosion2 e = new Explosion2(projectilesManager.ElementAt(i).GlobalPosition, content);
+                            AnimatedExplosion e = new AnimatedExplosion(projectilesManager.ElementAt(i).GlobalPosition, content);
                             explosionManager.createExplosion(e);
-
                         }
-                        
-                        
+
                         else if (enemyManager.ElementAt(j) is Chaser)
                         {
-                            ExplosionMultiple e = new ExplosionMultiple(projectilesManager.ElementAt(i).GlobalPosition, content);
+                            MultipleExplosion e = new MultipleExplosion(projectilesManager.ElementAt(i).GlobalPosition, content);
                             explosionManager.createExplosion(e);
                         }
-                        
+
                         else
                         {
-                            ExplosionSimple e = new ExplosionSimple(projectilesManager.ElementAt(i).GlobalPosition, content);
+                            SimpleExplosion e = new SimpleExplosion(projectilesManager.ElementAt(i).GlobalPosition, content);
                             explosionManager.createExplosion(e);
                         }
-                        
+
                         projectilesManager.RemoveAt(i);
                         enemyManager.RemoveAt(j);
                         i--;
                         break;
-                    }    
+                    }
                 }
             }
+        }
+        #endregion
 
-            player.Draw(systemRef.spriteBatch);
-            projectilesManager.Draw(systemRef.spriteBatch);
-            explosionManager.Draw(systemRef.spriteBatch);
-            enemyManager.Draw(systemRef.spriteBatch);
-            itemManager.Draw(systemRef.spriteBatch);
+        #region draw
+        public override void Draw(GameTime gameTime)
+        {
+            systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.TransformMatrix);
+            
+            engine.Draw(systemRef.spriteBatch, player);
+            drawActors();
             
             systemRef.spriteBatch.End();
 
@@ -239,5 +299,15 @@ namespace Projeto_Apollo_16
 
             base.Draw(gameTime);
         }
+        
+        private void drawActors()
+        {
+            player.Draw(systemRef.spriteBatch);
+            projectilesManager.Draw(systemRef.spriteBatch);
+            explosionManager.Draw(systemRef.spriteBatch);
+            enemyManager.Draw(systemRef.spriteBatch);
+            itemManager.Draw(systemRef.spriteBatch);
+        }
+        #endregion
     }
 }

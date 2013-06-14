@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-
 namespace Projeto_Apollo_16
 {
     public sealed class Ghost : EnemyClass

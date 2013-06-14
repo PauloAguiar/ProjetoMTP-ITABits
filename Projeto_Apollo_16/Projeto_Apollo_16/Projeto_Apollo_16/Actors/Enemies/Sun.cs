@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-
 
 namespace Projeto_Apollo_16
 {
@@ -20,7 +15,6 @@ namespace Projeto_Apollo_16
             centralPosition = position;
             globalPosition = position + new Vector2(radius, 0);
         }
-
 
         public override void LoadTexture(ContentManager content)
         {
@@ -52,9 +46,7 @@ namespace Projeto_Apollo_16
             r *= radius;
 
             globalPosition = centralPosition + r;
-            
         }
-
 
         public override void Draw(SpriteBatch spriteBatch)
         {
