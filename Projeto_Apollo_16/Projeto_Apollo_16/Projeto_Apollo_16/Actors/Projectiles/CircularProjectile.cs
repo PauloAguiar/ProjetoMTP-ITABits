@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -25,12 +26,16 @@ namespace Projeto_Apollo_16
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
-
         }
 
         public override void LoadFont(ContentManager content)
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
+        }
+
+        public override void LoadSound(ContentManager content)
+        {
+            sound = content.Load<SoundEffect>(@"Sounds\Pow");
         }
 
         public override void  Update(GameTime gameTime)

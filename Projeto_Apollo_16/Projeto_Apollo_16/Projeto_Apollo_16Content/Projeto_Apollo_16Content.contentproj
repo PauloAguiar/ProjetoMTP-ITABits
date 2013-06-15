@@ -211,7 +211,48 @@
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Sounds\Dry Fire Gun-SoundBible.com-2053652037.mp3">
+      <Name>Dry Fire Gun-SoundBible.com-2053652037</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\RegularExplosion.mp3">
+      <Name>BUM</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\Explosion-SoundBible.com-2019248186.mp3">
+      <Name>Explosion-SoundBible.com-2019248186</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\Grenade-SoundBible.com-2124844747.mp3">
+      <Name>Grenade-SoundBible.com-2124844747</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\Laser Blaster-SoundBible.com-1388608841.mp3">
+      <Name>Laser Blaster-SoundBible.com-1388608841</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\Laser Blasts-SoundBible.com-108608437.mp3">
+      <Name>Laser Blasts-SoundBible.com-108608437</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\RegurarShoot.mp3">
+      <Name>Pow</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\Laser_Cannon-Mike_Koenig-797224747.mp3">
+      <Name>Laser_Cannon-Mike_Koenig-797224747</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

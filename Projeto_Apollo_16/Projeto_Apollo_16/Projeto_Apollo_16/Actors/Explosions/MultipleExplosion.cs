@@ -36,15 +36,20 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
 
         }
+        
+        public override void LoadSound(ContentManager content)
+        { 
+            sound = content.Load<SoundEffect>(@"Sounds\BUM");
+        }
 
         public override void Update(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
+            
             if (x == 1) 
-            {
-                //sounds.Last().Play();
-            }
+                sound.Play();
+
             if (x == 16)
             {
                 dx = randNum.Next(-range, range);
@@ -56,7 +61,6 @@ namespace Projeto_Apollo_16
         public override void Draw(SpriteBatch spriteBatch)
         {
             Rectangle r = new Rectangle(i, j, 64, 64);
-            //tem que trocar globalPosition por globalPosicion + vetor de coisas aleatórias dentro de um certo limite
             spriteBatch.Draw(texture, globalPosition + new Vector2(dx,dy) , r, Color.White);
             if (time > delay * x)
             {

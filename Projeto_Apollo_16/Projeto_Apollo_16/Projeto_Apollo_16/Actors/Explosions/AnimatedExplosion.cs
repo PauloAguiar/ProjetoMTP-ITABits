@@ -30,11 +30,18 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
+        public override void LoadSound(ContentManager content)
+        { 
+            sound = content.Load<SoundEffect>(@"Sounds\BUM");
+        }        
+
         public override void Update(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
-            //sounds.Last().Play();
+            
+            if ( x == 1 )
+                sound.Play();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
