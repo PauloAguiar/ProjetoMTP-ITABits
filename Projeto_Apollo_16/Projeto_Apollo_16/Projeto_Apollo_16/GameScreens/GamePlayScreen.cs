@@ -47,10 +47,10 @@ namespace Projeto_Apollo_16
             engine.Initialize();
             NetworkClass.StartServer();
 
-            while (joystick == null)
-            {
+            //while (joystick == null)
+            //{
                 CreateDevice();
-            }
+            //}
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
 
@@ -138,8 +138,11 @@ namespace Projeto_Apollo_16
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            ReadImmediateData();
-
+            if (joystick != null)
+            {
+                ReadImmediateData();
+            }
+            
             player.Update(gameTime, state);
 
             cameraUpdate();
