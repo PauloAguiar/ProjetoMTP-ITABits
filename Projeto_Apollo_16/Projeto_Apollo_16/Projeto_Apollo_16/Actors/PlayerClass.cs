@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -89,6 +90,13 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
+        public override void LoadSound(ContentManager content)
+        {
+            //essas coisas é mais bizu se for music
+            //sounds.Add(content.Load<SoundEffect>(@"Sounds/SpeedUp"));
+            //sounds.Add(content.Load<SoundEffect>(@"Sounds/SpeedDown"));
+            //sounds.Add(content.Load<SoundEffect>(@"Sounds/SpeedUp"));
+        }
         public override void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;

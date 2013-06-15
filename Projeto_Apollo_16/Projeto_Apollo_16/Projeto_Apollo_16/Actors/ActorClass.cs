@@ -1,7 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Projeto_Apollo_16
 {
@@ -10,7 +15,8 @@ namespace Projeto_Apollo_16
         protected Vector2 globalPosition;   //sector definido a partir da posição
         protected Texture2D texture;
         protected SpriteFont spriteFont;
-        protected SoundEffect sound;
+        protected List<SoundEffect> sounds;
+
 
         public SpriteFont SpriteFont
         {
@@ -21,11 +27,13 @@ namespace Projeto_Apollo_16
         {
             get { return texture; }
         }
-
-        public SoundEffect Sound 
+        //é mais bizu retornar uma lista de sound effects, porque alguns atores podem emitir mais de 1 som
+        public List<SoundEffect> Sound 
         {
-            get { return sound; }
+            get { return sounds; }
         }
+        //para barulhos que duram mais tempo
+        public List<Song> Song;
 
         public Vector2 GlobalPosition
         {

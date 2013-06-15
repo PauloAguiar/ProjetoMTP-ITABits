@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -25,6 +26,22 @@ namespace Projeto_Apollo_16
             globalPosition = initialPosition + new Vector2(radius, 0);
             centralPosition = initialPosition;
             this.player = player;
+        }
+
+        public override void LoadTexture(ContentManager content)
+        {
+            texture = content.Load<Texture2D>(@"bullet");
+
+        }
+
+        public override void LoadFont(ContentManager content)
+        {
+            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
+        }
+
+        public override void LoadSound(ContentManager content)
+        {
+            sounds.Add(content.Load<SoundEffect>(@"Sounds/Zium"));
         }
 
         public override void  Update(GameTime gameTime)
@@ -49,6 +66,7 @@ namespace Projeto_Apollo_16
 
             globalPosition = centralPosition + r;
             globalPosition += Globals.playerVelocity * dt;
+
 
         }
 

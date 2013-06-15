@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -28,6 +29,9 @@ namespace Projeto_Apollo_16
 
         }
 
-
+        public override void LoadSound(ContentManager content)
+        {
+            //sounds = content.Load<SoundEffect>(@"Sounds/BUM");
+        }
     }
 }
