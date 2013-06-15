@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -11,8 +13,8 @@ namespace Projeto_Apollo_16
         private const float accelerationModule = 0.01f;
         private Vector2 velocity;
         private Vector2 acceleration;
-        bool shooted = false;
         //private List<SoundEffect> sounds;
+        bool shooted = false;
 
         public LinearProjectile(Vector2 initialPosition, Vector2 velocity, ContentManager content)
             : base(initialPosition, content)
@@ -42,11 +44,11 @@ namespace Projeto_Apollo_16
         {
             sounds.Add(content.Load<SoundEffect>(@"Sounds/Pow"));
         }
-         */ 
+         */
 
         public override void  Update(GameTime gameTime)
         {
- 	    float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
+ 	        float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
             
             //reproduzir o soundEffect do disparo apenas 1 vez
             if (!shooted) 

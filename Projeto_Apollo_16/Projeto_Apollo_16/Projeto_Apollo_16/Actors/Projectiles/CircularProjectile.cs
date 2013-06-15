@@ -25,6 +25,7 @@ namespace Projeto_Apollo_16
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
+
         }
 
         public override void LoadFont(ContentManager content)
@@ -54,6 +55,7 @@ namespace Projeto_Apollo_16
 
             globalPosition = centralPosition + r;
             globalPosition += player.Velocity * (float)dt;
+
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)

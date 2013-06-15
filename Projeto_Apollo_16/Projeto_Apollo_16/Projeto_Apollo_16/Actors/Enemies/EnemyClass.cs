@@ -14,6 +14,7 @@ namespace Projeto_Apollo_16
             this.LoadFont(content);
             this.LoadTexture(content);
             //this.LoadSound(content);
+
         }
 
     }

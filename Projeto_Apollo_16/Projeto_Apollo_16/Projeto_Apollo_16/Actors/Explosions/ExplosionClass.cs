@@ -16,6 +16,7 @@ namespace Projeto_Apollo_16
             this.LoadFont(content);
             this.LoadTexture(content);
             //this.LoadSound(content);
+
         }
         
         public override void Update(GameTime gameTime)

@@ -18,7 +18,7 @@ namespace Projeto_Apollo_16
             globalPosition = initialPosition;
             this.enemy = enemy;
         }
-
+        
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");

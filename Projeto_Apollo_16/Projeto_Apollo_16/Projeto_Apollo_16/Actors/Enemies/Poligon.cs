@@ -53,6 +53,7 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
+
         public override void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;

@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Projeto_Apollo_16
 {
@@ -9,6 +12,8 @@ namespace Projeto_Apollo_16
         protected Vector2 globalPosition;   //sector definido a partir da posição
         protected Texture2D texture;
         protected SpriteFont spriteFont;
+        protected List<SoundEffect> sounds;
+
 
 
         //protected List<SoundEffect> sounds;
@@ -41,7 +46,7 @@ namespace Projeto_Apollo_16
 
         public abstract void LoadTexture(ContentManager content);
         public abstract void LoadFont(ContentManager content);
-        
+
         //public abstract void LoadSound(ContentManager content);
 
         public abstract void Update(GameTime gameTime);
