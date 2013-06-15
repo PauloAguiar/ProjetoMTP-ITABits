@@ -17,8 +17,9 @@ namespace Projeto_Apollo_16
         ProjectileManager projectilesManager;
         ExplosionManager explosionManager;
         EnemyManager enemyManager;
-        ItemManager itemManager;
+        //ItemManager itemManager;
         #endregion
+
 
         WorldEngine engine;
 
@@ -38,7 +39,7 @@ namespace Projeto_Apollo_16
             projectilesManager = new ProjectileManager(game);
             explosionManager = new ExplosionManager(game);
             enemyManager = new EnemyManager(game);
-            itemManager = new ItemManager(game);
+            //itemManager = new ItemManager(game);
         }
 
         #region initialize
@@ -46,11 +47,13 @@ namespace Projeto_Apollo_16
         {
             engine.Initialize();
             NetworkClass.StartServer();
-
+            
+            //espera até o jogador plugar o joystick
             //while (joystick == null)
             //{
-                CreateDevice();
+            CreateDevice();
             //}
+            
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
 
@@ -59,13 +62,10 @@ namespace Projeto_Apollo_16
 
         void CreateDevice()
         {
-            // make sure that DirectInput has been initialized
             DirectInput dinput = new DirectInput();
 
-            // search for devices
             foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
             {
-                // create the device
                 try
                 {
                     joystick = new Joystick(dinput, device.InstanceGuid);
@@ -84,7 +84,6 @@ namespace Projeto_Apollo_16
                         joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
                 }
 
-                // acquire the device
                 joystick.Acquire();
             }
 
@@ -162,10 +161,7 @@ namespace Projeto_Apollo_16
 
         void ReadImmediateData()
         {
-            if (joystick.Acquire().IsFailure)
-                return;
-
-            if (joystick.Poll().IsFailure)
+            if (joystick == null || joystick.Acquire().IsFailure || joystick.Poll().IsFailure)
                 return;
 
             state = joystick.GetCurrentState();
@@ -177,7 +173,7 @@ namespace Projeto_Apollo_16
             projectilesManager.Update(gameTime);
             explosionManager.Update(gameTime);
             enemyManager.Update(gameTime);
-            itemManager.Update(gameTime);
+            //itemManager.Update(gameTime);
         }
 
         private void cameraUpdate()
@@ -217,7 +213,7 @@ namespace Projeto_Apollo_16
 
         private void createBullets()
         {
-            if ( (Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1) || state.IsPressed(4) || state.IsPressed(0))&& projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+            if ( (Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1) || state.IsPressed(4) || state.IsPressed(0)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
             {
                 Vector2 v = new Vector2((float)Math.Sin(player.Angle), -(float)Math.Cos(player.Angle));
 
@@ -245,12 +241,12 @@ namespace Projeto_Apollo_16
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D1))
             {
                 Health i = new Health(100, player, new Vector2(player.GlobalPosition.X + 300, player.GlobalPosition.Y), content);
-                itemManager.CreateItem(i);
+                //itemManager.CreateItem(i);
             }
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D2))
             {
                 Shield i = new Shield(100, player, new Vector2(player.GlobalPosition.X, player.GlobalPosition.Y - 300), content);
-                itemManager.CreateItem(i);
+                //itemManager.CreateItem(i);
             }
         }
 
@@ -317,7 +313,7 @@ namespace Projeto_Apollo_16
             projectilesManager.Draw(systemRef.spriteBatch);
             explosionManager.Draw(systemRef.spriteBatch);
             enemyManager.Draw(systemRef.spriteBatch);
-            itemManager.Draw(systemRef.spriteBatch);
+            //itemManager.Draw(systemRef.spriteBatch);
         }
         #endregion
     }

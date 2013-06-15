@@ -39,5 +39,6 @@ namespace Projeto_Apollo_16
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
+    
     }
 }

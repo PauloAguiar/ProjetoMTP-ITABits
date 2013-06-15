@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-
 namespace Projeto_Apollo_16
 {
     public class HomingProjectile : ProjectileClass
@@ -18,6 +17,16 @@ namespace Projeto_Apollo_16
             ttl = 1000;
             globalPosition = initialPosition;
             this.enemy = enemy;
+        }
+
+        public override void LoadTexture(ContentManager content)
+        {
+            texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
+        }
+
+        public override void LoadFont(ContentManager content)
+        {
+            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
         public override void  Update(GameTime gameTime)

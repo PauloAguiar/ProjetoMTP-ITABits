@@ -13,7 +13,7 @@ namespace Projeto_Apollo_16
             name = "life";
             ttl = 10000;
         }
-
+        
         //não precisa de update e draw porque são iguais ao da classe pai
 
     }

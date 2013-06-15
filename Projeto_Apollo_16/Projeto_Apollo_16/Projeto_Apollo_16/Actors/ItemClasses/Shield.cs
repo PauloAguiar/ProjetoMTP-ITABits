@@ -32,5 +32,6 @@ namespace Projeto_Apollo_16
         {
             texture = content.Load<Texture2D>(@"Sprites\items\shield");
         }
+
     }
 }

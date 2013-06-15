@@ -13,6 +13,7 @@ namespace Projeto_Apollo_16
             isAlive = true;
             this.LoadFont(content);
             this.LoadTexture(content);
+            //this.LoadSound(content);
         }
 
     }

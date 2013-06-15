@@ -11,6 +11,8 @@ namespace Projeto_Apollo_16
         private const float accelerationModule = 0.01f;
         private Vector2 velocity;
         private Vector2 acceleration;
+        bool shooted = false;
+        //private List<SoundEffect> sounds;
 
         public LinearProjectile(Vector2 initialPosition, Vector2 velocity, ContentManager content)
             : base(initialPosition, content)
@@ -23,11 +25,36 @@ namespace Projeto_Apollo_16
             velocity *= speed;
             acceleration *= accelerationModule;
         }
-        
+
+        public override void LoadTexture(ContentManager content)
+        {
+            texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
+
+        }
+
+        public override void LoadFont(ContentManager content)
+        {
+            spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
+        }
+
+        /*
+        public void LoadSound(ContentManager content)
+        {
+            sounds.Add(content.Load<SoundEffect>(@"Sounds/Pow"));
+        }
+         */ 
+
         public override void  Update(GameTime gameTime)
         {
- 	        float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
-
+ 	    float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
+            
+            //reproduzir o soundEffect do disparo apenas 1 vez
+            if (!shooted) 
+            {
+                //sounds.Last().Play();
+                shooted = true;
+            }
+            
             globalPosition += velocity * dt + 0.5f * dt * dt * acceleration;
             velocity += acceleration * dt;
         }

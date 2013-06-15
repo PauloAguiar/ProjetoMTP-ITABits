@@ -33,6 +33,7 @@ namespace Projeto_Apollo_16
         {
             time += gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
+            //sounds.Last().Play();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
