@@ -29,7 +29,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"bullet");
+            texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
 
         }
 
@@ -50,7 +50,7 @@ namespace Projeto_Apollo_16
             //reproduzir o soundEffect do disparo apenas 1 vez
             if (!shooted) 
             {
-                sounds.Last().Play();
+                //sounds.Last().Play();
                 shooted = true;
             }
             

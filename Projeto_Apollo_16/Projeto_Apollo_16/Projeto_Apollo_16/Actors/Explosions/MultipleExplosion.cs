@@ -39,7 +39,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadSound(ContentManager content)
         {
-            sounds.Add(content.Load<SoundEffect>(@"Sounds/BUM"));
+            //sounds.Add(content.Load<SoundEffect>(@"Sounds/BUM"));
         }
 
         public override void Update(GameTime gameTime)
@@ -48,7 +48,7 @@ namespace Projeto_Apollo_16
             base.Update(gameTime);
             if (x == 1) 
             {
-                sounds.Last().Play();
+                //sounds.Last().Play();
             }
             if (x == 16)
             {

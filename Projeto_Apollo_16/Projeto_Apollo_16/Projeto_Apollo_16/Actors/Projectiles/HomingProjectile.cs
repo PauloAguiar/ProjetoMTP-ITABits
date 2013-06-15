@@ -23,7 +23,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"bullet");
+            texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
         }
 
         public override void LoadFont(ContentManager content)

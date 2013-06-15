@@ -132,7 +132,6 @@ namespace Projeto_Apollo_16
             //sounds.Add(content.Load<SoundEffect>(@"Sounds/SpeedUp"));
         }
         #region update
->>>>>>> 2e95bc67b362415dfc52814a4df9c95e38037e29
         public override void Update(GameTime gameTime)
         {
             throw new NotImplementedException();

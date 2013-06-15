@@ -13,7 +13,10 @@ namespace Projeto_Apollo_16
             name = "life";
             ttl = 10000;
         }
-
+        public override void LoadSound(ContentManager content)
+        {
+            throw new global::System.NotImplementedException();
+        }
         //não precisa de update e draw porque são iguais ao da classe pai
 
     }

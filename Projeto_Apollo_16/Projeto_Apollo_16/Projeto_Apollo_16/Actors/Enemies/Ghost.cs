@@ -34,7 +34,6 @@ namespace Projeto_Apollo_16
 
         public override void LoadSound(ContentManager content)
         {
-            throw new global::System.NotImplementedException();
         }
 
         public override void Update(GameTime gameTime)

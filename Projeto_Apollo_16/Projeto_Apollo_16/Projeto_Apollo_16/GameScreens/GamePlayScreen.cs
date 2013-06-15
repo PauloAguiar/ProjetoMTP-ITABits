@@ -17,7 +17,7 @@ namespace Projeto_Apollo_16
         ProjectileManager projectilesManager;
         ExplosionManager explosionManager;
         EnemyManager enemyManager;
-        ItemManager itemManager;
+        //ItemManager itemManager;
         #endregion
 
 
@@ -39,7 +39,7 @@ namespace Projeto_Apollo_16
             projectilesManager = new ProjectileManager(game);
             explosionManager = new ExplosionManager(game);
             enemyManager = new EnemyManager(game);
-            itemManager = new ItemManager(game);
+            //itemManager = new ItemManager(game);
         }
 
         #region initialize
@@ -170,7 +170,7 @@ namespace Projeto_Apollo_16
             projectilesManager.Update(gameTime);
             explosionManager.Update(gameTime);
             enemyManager.Update(gameTime);
-            itemManager.Update(gameTime);
+            //itemManager.Update(gameTime);
         }
 
         private void cameraUpdate()
@@ -238,12 +238,12 @@ namespace Projeto_Apollo_16
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D1))
             {
                 Health i = new Health(100, player, new Vector2(player.GlobalPosition.X + 300, player.GlobalPosition.Y), content);
-                itemManager.CreateItem(i);
+                //itemManager.CreateItem(i);
             }
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D2))
             {
                 Shield i = new Shield(100, player, new Vector2(player.GlobalPosition.X, player.GlobalPosition.Y - 300), content);
-                itemManager.CreateItem(i);
+                //itemManager.CreateItem(i);
             }
         }
 
@@ -310,7 +310,7 @@ namespace Projeto_Apollo_16
             projectilesManager.Draw(systemRef.spriteBatch);
             explosionManager.Draw(systemRef.spriteBatch);
             enemyManager.Draw(systemRef.spriteBatch);
-            itemManager.Draw(systemRef.spriteBatch);
+            //itemManager.Draw(systemRef.spriteBatch);
         }
         #endregion
     }
