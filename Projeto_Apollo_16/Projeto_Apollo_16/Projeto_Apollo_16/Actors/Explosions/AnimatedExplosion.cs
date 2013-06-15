@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
-    public class Explosion2 : ExplosionClass
+    public class AnimatedExplosion : ExplosionClass
     {
          int i, j;
          const double delay = 0.005;
          double time;
          int x;
-         public Explosion2 (Vector2 position, ContentManager content) : base(position, content)
+         public AnimatedExplosion (Vector2 position, ContentManager content) : base(position, content)
         {
             Lifetime = 25;
             i = j = 0;
@@ -26,14 +21,13 @@ namespace Projeto_Apollo_16
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\explosionsheet");
+            texture = content.Load<Texture2D>(@"Sprites\Explosions\explosionsheet");
         }
 
 
         public override void LoadFont(ContentManager content)
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
-
         }
 
         public override void LoadSound(ContentManager content)

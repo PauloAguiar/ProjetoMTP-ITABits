@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
-    public class ExplosionMultiple : ExplosionClass
+    public class MultipleExplosion : ExplosionClass
     {
         int i, j;
         const double delay = 0.005;
@@ -20,10 +16,10 @@ namespace Projeto_Apollo_16
         int dx; //deslocamento aleatório do centro da explosão em x
         int dy; //deslocamento aleatório do centro da explosão em y
         Random randNum = new Random();
-        public ExplosionMultiple(Vector2 position, ContentManager content)
+        public MultipleExplosion(Vector2 position, ContentManager content)
             : base(position, content)
         {
-            Lifetime = 100;
+            Lifetime = 200;
             i = j = 0;
             time = 0;
             x = 16;
@@ -31,7 +27,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\multiple");
+            texture = content.Load<Texture2D>(@"Sprites\Explosions\multiple");
         }
 
 

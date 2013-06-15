@@ -1,11 +1,16 @@
-namespace Projeto_Apollo_16
+using System;
+
+namespace slimdx_XNA
 {
 #if WINDOWS || XBOX
     static class Program
     {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
         static void Main(string[] args)
         {
-            using (SystemClass game = new SystemClass())
+            using (Game1 game = new Game1())
             {
                 game.Run();
             }

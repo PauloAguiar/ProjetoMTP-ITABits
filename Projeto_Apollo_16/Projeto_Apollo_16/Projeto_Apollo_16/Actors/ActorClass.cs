@@ -38,7 +38,6 @@ namespace Projeto_Apollo_16
         public Vector2 GlobalPosition
         {
             get { return globalPosition; }
-            //set { globalPosition = value; }  //tem que tirar isso
         }
 
         public abstract void LoadTexture(ContentManager content);

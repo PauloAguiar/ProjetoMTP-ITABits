@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -13,16 +9,22 @@ namespace Projeto_Apollo_16
 {
     class LinearProjectile : ProjectileClass
     {
+        private const float speed = 2 / 3.0f;
+        private const float accelerationModule = 0.01f;
         private Vector2 velocity;
         private Vector2 acceleration;
         bool shooted = false;
 
-        public LinearProjectile(Vector2 initialPosition, Vector2 velocity, Vector2 acceleration, ContentManager content)
+        public LinearProjectile(Vector2 initialPosition, Vector2 velocity, ContentManager content)
             : base(initialPosition, content)
         {
             this.velocity = velocity;
-            this.acceleration = acceleration;
-            ttl = 6000; //ttl milisegundos de vida
+            velocity.Normalize();
+            this.acceleration = velocity;
+            ttl = 2000;
+
+            velocity *= speed;
+            acceleration *= accelerationModule;
         }
 
         public override void LoadTexture(ContentManager content)
@@ -43,13 +45,7 @@ namespace Projeto_Apollo_16
 
         public override void  Update(GameTime gameTime)
         {
- 	        float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
-
-            globalPosition.X += (velocity.X * dt) +(0.5f * dt * dt * acceleration.X);
-            globalPosition.Y += (velocity.Y * dt) +(0.5f * dt * dt * acceleration.Y);
-
-            velocity.X += acceleration.X * dt;
-            velocity.Y += acceleration.Y * dt;
+ 	    float dt = (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
             
             //reproduzir o soundEffect do disparo apenas 1 vez
             if (!shooted) 
@@ -58,16 +54,13 @@ namespace Projeto_Apollo_16
                 shooted = true;
             }
             
+            globalPosition += velocity * dt + 0.5f * dt * dt * acceleration;
+            velocity += acceleration * dt;
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y)-(float)Math.PI/2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
-
-            //buga se a velocidade for 0
-            //depois que mudei o tiro de acordo com o angle buga mais.
-            //spriteBatch.DrawString(spriteFont, "Speed: " + moveSpeed.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 14), Color.Red);
-            
         }
     }
 }

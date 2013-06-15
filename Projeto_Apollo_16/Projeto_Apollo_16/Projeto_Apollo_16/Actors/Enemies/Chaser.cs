@@ -2,13 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-
 namespace Projeto_Apollo_16
 {
     public sealed class Chaser : EnemyClass
     {
-        public double Speed {
-            get; private set; }
+        public double Speed { get; private set; }
         public Vector2 Velocity { get; set; }
         public Vector2 centralPosition { get; set; }
         private bool isFliped;
@@ -25,7 +23,6 @@ namespace Projeto_Apollo_16
             isFliped = true;
             this.player = player;
         }
-
 
         public override void LoadTexture(ContentManager content)
         {
@@ -77,7 +74,6 @@ namespace Projeto_Apollo_16
             {
                 spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.FlipHorizontally, Globals.ENEMY_LAYER);
             }
-
 
             spriteBatch.DrawString(spriteFont, "Pos:" + globalPosition.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 1), Color.Red);
         }

@@ -27,7 +27,7 @@ namespace Apollo.Pilot
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
-        string hostip = "127.0.0.1";
+        string hostip = "192.168.0.101";
         string stringTeste = "Teste";
 
         static NetClient Client;
