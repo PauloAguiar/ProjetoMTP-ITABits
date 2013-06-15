@@ -47,16 +47,17 @@ namespace Projeto_Apollo_16
             time += gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
             
-            if (x == 1) 
-                sound.Play();
-
             if (x == 16)
             {
                 dx = randNum.Next(-range, range);
                 dy = randNum.Next(-range, range);
                 x = 1;
                 i = j = 0;
-            }            
+            }
+
+            if (x == 1)
+                sound.Play(0.5f, 1.0f, 1.0f);
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
