@@ -86,7 +86,7 @@ namespace Projeto_Apollo_16
                                 case (byte)ConnectionID.PILOT:
                                     status = "O Piloto conectou-se...";
                                     pilotConnection = msg.SenderConnection;
-                                    //pilotConnection.Approve();
+                                    pilotConnection.Approve();
                                     NetOutgoingMessage outmsg = networkServer.CreateMessage();
                                     outmsg.Write((byte)PacketTypes.CONNECTION_ACCEPTED);
                                     networkServer.SendMessage(outmsg, pilotConnection, NetDeliveryMethod.ReliableOrdered);
@@ -111,24 +111,10 @@ namespace Projeto_Apollo_16
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        /*switch ((NetConnectionStatus)msg.ReadByte())
-                        {
-                            case NetConnectionStatus.Connected:
-                                status = "Connected: " + msg.SenderEndPoint;
-                                break;
-                            case NetConnectionStatus.Disconnected:
-                                status = "Disconnected" + msg.SenderEndPoint;
-                                break;
-                            case NetConnectionStatus.RespondedAwaitingApproval:
-                                msg.SenderConnection.Approve();
-                                break;
-                        }*/
                         NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
 						string reason = msg.ReadString();
 						status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
-
                         break;
-
                     default:
                         status = "Unexpected Message of type " + msg.MessageType;
                         break;
@@ -161,30 +147,15 @@ namespace Projeto_Apollo_16
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        /*switch ((NetConnectionStatus)msg.ReadByte())
-                        {
-                            case NetConnectionStatus.Connected:
-                                status = "Connected: " + msg.SenderEndPoint;
-                                break;
-                            case NetConnectionStatus.Disconnected:
-                                status = "Disconnected" + msg.SenderEndPoint;
-                                break;
-                            case NetConnectionStatus.RespondedAwaitingApproval:
-                                msg.SenderConnection.Approve();
-                                break;
-                        }*/
                         NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
 						string reason = msg.ReadString();
 						status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
-
                         break;
 
                     /* RECEIVE DATA MESSAGES */
                     case NetIncomingMessageType.Data:
                         switch (msg.ReadByte())
                         {
-                            case (byte)PacketTypes.PILOT_DATA:
-                                break;
                             case (byte)PacketTypes.INPUT_DATA:
                                 if (msg.ReadBoolean())
                                     status = "T";

@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Lidgren.Network;
 
+using XNAGameConsole;
+
 namespace Projeto_Apollo_16
 {
     public class SystemClass : Game
@@ -11,7 +13,7 @@ namespace Projeto_Apollo_16
         Viewport viewport;
         public SpriteBatch spriteBatch;
         GameStateManager stateManager;
-
+        GameConsole console;
         public NetworkManager networkManager;
 
         /* Screens */
@@ -43,7 +45,7 @@ namespace Projeto_Apollo_16
 
             stateManager = new GameStateManager(this);
             networkManager = new NetworkManager();
-
+            
             /* Add the gameState manager component to our list of components */
             Components.Add(stateManager);
 
@@ -58,6 +60,7 @@ namespace Projeto_Apollo_16
         protected override void Initialize()
         {
             viewport = GraphicsDevice.Viewport;
+            
 
             base.Initialize();
         }
@@ -65,6 +68,7 @@ namespace Projeto_Apollo_16
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            console = new GameConsole((Game)this, spriteBatch);
         }
 
         protected override void UnloadContent()
