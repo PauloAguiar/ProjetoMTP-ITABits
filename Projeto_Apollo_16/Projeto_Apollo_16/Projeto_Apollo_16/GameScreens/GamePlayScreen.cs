@@ -125,15 +125,8 @@ namespace Projeto_Apollo_16
             
             if (systemRef.NETWORK_MODE)
                 systemRef.networkManager.ReadInGamePackets();
-
-            
             
             player.Update(gameTime, joystickState, joystickRange);
-
-            if (joystick != null)
-            {
-                ReadImmediateData();
-            }
 
             //player.state = this.state;
             //player.Update(gameTime);

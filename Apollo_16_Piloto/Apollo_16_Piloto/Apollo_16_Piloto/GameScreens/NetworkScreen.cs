@@ -6,8 +6,10 @@ using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
+using Input = Microsoft.Xna.Framework.Input;
 using Lidgren.Network;
+
+using SlimDX.DirectInput;
 
 namespace Apollo_16_Piloto
 {
@@ -15,6 +17,11 @@ namespace Apollo_16_Piloto
     {
         Label titleLabel;
         Label statusLabel;
+
+        Joystick joystick;
+        JoystickState joystickState = new JoystickState();
+        public const int joystickRange = 10000;
+
 
         public PilotClass pilot;
         /* Constructor */
@@ -28,6 +35,7 @@ namespace Apollo_16_Piloto
         /* XNA Methods */
         public override void Initialize()
         {
+            CreateDevice();
             systemRef.networkManager.ConnectToServer();
             base.Initialize();
         }
@@ -57,15 +65,99 @@ namespace Apollo_16_Piloto
             systemRef.networkManager.ReadLobbyPackets();
             InputDataClass inputData = new InputDataClass();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.K))
+            /*
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.K))
             {
                 inputData.spaceBar = true;
             }
+             */ 
+
+            updateJoystick();
+            ReadImmediateData();
+
+            /*
+            if (joystickState.IsPressed(0))
+            {
+                inputData.button0 = true;
+            }
+             */
+            for (int i = 0; i < 7; i++)
+            {
+                if (joystickState.IsPressed(i))
+                {
+                    inputData.buttons[i] = true;
+                }
+            }
+            inputData.position[0] = joystickState.X;
+            inputData.position[1] = joystickState.Y;
+            inputData.position[2] = joystickState.Z;
+            inputData.rotationZ = joystickState.RotationZ;
+            inputData.pov = (Byte)(joystickState.GetPointOfViewControllers()[0] * 100 / joystickRange);
 
             systemRef.networkManager.SendPackets(inputData);
             statusLabel.Text = systemRef.networkManager.status;
             base.Update(gameTime);
         }
+
+        void CreateDevice()
+        {
+            DirectInput dinput = new DirectInput();
+
+            foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
+            {
+                try
+                {
+                    joystick = new Joystick(dinput, device.InstanceGuid);
+                    break;
+                }
+                catch (DirectInputException)
+                {
+                }
+            }
+
+            if (joystick != null)
+            {
+                foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
+                {
+                    if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
+                        joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-joystickRange, joystickRange);
+                }
+
+                joystick.Acquire();
+            }
+
+        }
+
+        void ReleaseDevice()
+        {
+            if (joystick != null)
+            {
+                joystick.Unacquire();
+                joystick.Dispose();
+            }
+            joystick = null;
+        }
+
+        private void updateJoystick()
+        {
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.L))
+            {
+                ReleaseDevice();
+                CreateDevice();
+            }
+
+            ReadImmediateData();
+        }
+
+        void ReadImmediateData()
+        {
+            if (joystick == null)
+            {
+                return;
+            }
+            joystickState = joystick.GetCurrentState();
+        }
+
 
 
         public override void Draw(GameTime gameTime)
@@ -74,7 +166,7 @@ namespace Apollo_16_Piloto
 
             controlManager.Draw(systemRef.spriteBatch);
             pilot.Draw(systemRef.spriteBatch);
-
+            
             systemRef.spriteBatch.End();
 
             base.Draw(gameTime);

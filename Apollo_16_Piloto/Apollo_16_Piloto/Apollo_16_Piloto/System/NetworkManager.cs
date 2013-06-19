@@ -52,7 +52,7 @@ namespace Apollo_16_Piloto
             //networkConfig.EnableMessageType(NetIncomingMessageType.ErrorMessage);
             //networkConfig.EnableMessageType(NetIncomingMessageType.Error);
             //networkConfig.EnableMessageType(NetIncomingMessageType.DebugMessage);
-            networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            //networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             //networkConfig.EnableMessageType(NetIncomingMessageType.Data);
 
             // Create new server based on the configs just defined
@@ -97,7 +97,7 @@ namespace Apollo_16_Piloto
 
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
-                        //status = msg.ReadString();
+                        status = msg.ReadString();
                         break;
 
                     /* RECEIVE STATUS CHANGE MESSAGES */

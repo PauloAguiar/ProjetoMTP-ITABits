@@ -26,7 +26,7 @@ namespace slimdx_XNA
         //variáveis para ler o input do joystick
         Joystick joystick;
         JoystickState state;
-
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -180,7 +180,7 @@ namespace slimdx_XNA
 
             for (int i = 0; i < state.GetPointOfViewControllers().Length; i++)
             {
-                spriteBatch.DrawString(font, "PointOfViewControllers " + i + ": " + ((state.GetPointOfViewControllers()[i])/100.0).ToString(), new Microsoft.Xna.Framework.Vector2(900, 320 + 20 * i), Color.White);
+                spriteBatch.DrawString(font, "PointOfViewControllers " + i + ": " + ((state.GetPointOfViewControllers()[i])).ToString(), new Microsoft.Xna.Framework.Vector2(900, 320 + 20 * i), Color.White);
             }
 
             for (int i = 0; i < state.GetSliders().Length; i++)

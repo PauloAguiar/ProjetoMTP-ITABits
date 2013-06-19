@@ -63,9 +63,6 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\libs\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="DebugTerminal">
-      <HintPath>..\..\libs\DebugTerminal.dll</HintPath>
-    </Reference>
     <Reference Include="Lidgren.Network">
       <HintPath>..\..\libs\Lidgren.Network.dll</HintPath>
     </Reference>
@@ -99,6 +96,7 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64" />
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
