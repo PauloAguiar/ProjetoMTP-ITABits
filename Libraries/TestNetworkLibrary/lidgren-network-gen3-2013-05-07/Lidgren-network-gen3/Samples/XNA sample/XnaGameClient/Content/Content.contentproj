@@ -12,7 +12,11 @@
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\$(Platform)\$(Configuration)</OutputPath>
     <FileUpgradeFlags>40</FileUpgradeFlags>
+<<<<<<< HEAD
     <UpgradeBackupLocation>C:\Users\Felipe\Documents\GitHub\ProjetoMTP-ITABits\Libraries\TestNetworkLibrary\lidgren-network-gen3-2013-05-07\Lidgren-network-gen3\Samples\XNA sample\Backup\XnaGameClient\Content\</UpgradeBackupLocation>
+=======
+    <UpgradeBackupLocation>C:\Users\Paulo Henrique\Documents\GitHub\ProjetoMTP-ITABits\Libraries\TestNetworkLibrary\lidgren-network-gen3-2013-05-07\Lidgren-network-gen3\Samples\XNA sample\Backup1\XnaGameClient\Content\</UpgradeBackupLocation>
+>>>>>>> Debug Network
     <OldToolsVersion>4.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

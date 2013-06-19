@@ -52,10 +52,10 @@ namespace Projeto_Apollo_16
             //networkConfig.EnableMessageType(NetIncomingMessageType.VerboseDebugMessage);
             //networkConfig.EnableMessageType(NetIncomingMessageType.Error);
             //networkConfig.EnableMessageType(NetIncomingMessageType.DebugMessage);
-            networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            //networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             //networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
             //networkConfig.EnableMessageType(NetIncomingMessageType.ErrorMessage);
-            networkConfig.EnableMessageType(NetIncomingMessageType.Data);
+            //networkConfig.EnableMessageType(NetIncomingMessageType.Data);
 
             networkServer = new NetServer(networkConfig);
 
@@ -78,8 +78,8 @@ namespace Projeto_Apollo_16
                 switch (msg.MessageType)
                 {
                     /* RECEIVE CONNECTION REQUEST */
-                    case NetIncomingMessageType.ConnectionApproval:
-                        if (msg.ReadByte() == (byte)PacketTypes.LOGIN)
+                    /*case NetIncomingMessageType.ConnectionApproval:
+                     8   if (msg.ReadByte() == (byte)PacketTypes.LOGIN)
                         {
                             switch (msg.ReadByte())
                             {
@@ -93,13 +93,13 @@ namespace Projeto_Apollo_16
                                     break;
                             }
                         }
-                        break;
+                        break; */
 
                     /* RECEIVE ERROR MESSAGES */
                     case NetIncomingMessageType.ErrorMessage:
                         
                     /* RECEIVE VERBOSE DEBUG MESSAGES */
-                    //case NetIncomingMessageType.VerboseDebugMessage:
+                    case NetIncomingMessageType.VerboseDebugMessage:
 
                     /* RECEIVE DEBUG MESSAGES */
                     case NetIncomingMessageType.DebugMessage:
@@ -111,7 +111,7 @@ namespace Projeto_Apollo_16
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        switch ((NetConnectionStatus)msg.ReadByte())
+                        /*switch ((NetConnectionStatus)msg.ReadByte())
                         {
                             case NetConnectionStatus.Connected:
                                 status = "Connected: " + msg.SenderEndPoint;
@@ -122,7 +122,11 @@ namespace Projeto_Apollo_16
                             case NetConnectionStatus.RespondedAwaitingApproval:
                                 msg.SenderConnection.Approve();
                                 break;
-                        }
+                        }*/
+                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
+						string reason = msg.ReadString();
+						status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
+
                         break;
 
                     default:
@@ -152,12 +156,12 @@ namespace Projeto_Apollo_16
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
 
-                        status = msg.ReadString();
+                        //status = msg.ReadString();
                         break;
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        switch ((NetConnectionStatus)msg.ReadByte())
+                        /*switch ((NetConnectionStatus)msg.ReadByte())
                         {
                             case NetConnectionStatus.Connected:
                                 status = "Connected: " + msg.SenderEndPoint;
@@ -168,7 +172,11 @@ namespace Projeto_Apollo_16
                             case NetConnectionStatus.RespondedAwaitingApproval:
                                 msg.SenderConnection.Approve();
                                 break;
-                        }
+                        }*/
+                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
+						string reason = msg.ReadString();
+						status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
+
                         break;
 
                     /* RECEIVE DATA MESSAGES */

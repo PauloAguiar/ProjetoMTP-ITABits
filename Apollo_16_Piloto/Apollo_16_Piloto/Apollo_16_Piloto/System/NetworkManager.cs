@@ -45,6 +45,7 @@ namespace Apollo_16_Piloto
         {
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
             networkConfig = new NetPeerConfiguration(NETWORK_NAME);
+            networkConfig.AutoFlushSendQueue = false;
 
             //networkConfig.EnableMessageType(NetIncomingMessageType.WarningMessage);
             //networkConfig.EnableMessageType(NetIncomingMessageType.VerboseDebugMessage);
@@ -100,7 +101,7 @@ namespace Apollo_16_Piloto
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        switch ((NetConnectionStatus)msg.ReadByte())
+                        /*switch ((NetConnectionStatus)msg.ReadByte())
                         {
                             case NetConnectionStatus.Connected:
                                 status = "Connected: " + msg.SenderEndPoint;
@@ -111,7 +112,11 @@ namespace Apollo_16_Piloto
                             case NetConnectionStatus.RespondedAwaitingApproval:
                                 msg.SenderConnection.Approve();
                                 break;
-                        }
+                        }*/
+                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
+                        string reason = msg.ReadString();
+                        status = st.ToString() + ": " + reason;
+
                         break;
                     case NetIncomingMessageType.Data:
                         switch (msg.ReadByte())
@@ -138,6 +143,7 @@ namespace Apollo_16_Piloto
                 inputmsg.Write((byte)PacketTypes.INPUT_DATA);
                 inputData.Encode(inputmsg);
                 networkClient.SendMessage(inputmsg, NetDeliveryMethod.ReliableOrdered);
+                networkClient.FlushSendQueue();
             }
         }
     }
