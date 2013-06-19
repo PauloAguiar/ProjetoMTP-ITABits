@@ -14,7 +14,8 @@ namespace Projeto_Apollo_16
         CONNECTION_ACCEPTED,
         ID_PACKET,
         LOGIN,
-        PILOT_DATA
+        PILOT_DATA,
+        INPUT_DATA
     }
 
     enum ConnectionID
@@ -175,6 +176,12 @@ namespace Projeto_Apollo_16
                         switch (msg.ReadByte())
                         {
                             case (byte)PacketTypes.PILOT_DATA:
+                                break;
+                            case (byte)PacketTypes.INPUT_DATA:
+                                if (msg.ReadBoolean())
+                                    status = "T";
+                                else
+                                    status = "F";
                                 break;
                         }
                         break;

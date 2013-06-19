@@ -174,6 +174,7 @@ namespace Projeto_Apollo_16
 
         public override void Update(GameTime gameTime)
         {
+
         }
 
         public void Update(GameTime gameTime, JoystickState joystickState, int joystickRange)

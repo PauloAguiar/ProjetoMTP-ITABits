@@ -14,7 +14,7 @@ namespace MSServer
 			IPEndPoint masterServerEndpoint = NetUtility.Resolve("localhost", CommonConstants.MasterServerPort);
 
 			NetPeerConfiguration config = new NetPeerConfiguration("game");
-			config.Port = 14242;
+			config.Port = 14244;
 
 			NetServer server = new NetServer(config);
 			server.Start();
@@ -35,7 +35,7 @@ namespace MSServer
 					IPAddress mask;
 					IPAddress adr = NetUtility.GetMyAddress(out mask);
 					regMsg.Write(server.UniqueIdentifier);
-					regMsg.Write(new IPEndPoint(adr, 14242));
+					regMsg.Write(new IPEndPoint(adr, 14244));
 					Console.WriteLine("Sending registration to master server");
 					server.SendUnconnectedMessage(regMsg, masterServerEndpoint);
 					lastRegistered = (float)NetTime.Now;
