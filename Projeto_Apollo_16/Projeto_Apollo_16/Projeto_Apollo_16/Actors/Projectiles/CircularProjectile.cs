@@ -12,6 +12,7 @@ namespace Projeto_Apollo_16
         private const int radius = 400;
         private Vector2 centralPosition;
         private Vector2 velocity;
+        float period = 6.28f*radius/speed;
         PlayerClass player;
         
         public CircularProjectile(Vector2 initialPosition, ContentManager content, PlayerClass player)
@@ -43,6 +44,14 @@ namespace Projeto_Apollo_16
  	        //movimento circular
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
+            //o som tem que tocar a cada período
+            period += (float)dt;
+            if (period >= 2 * 3.14 * radius / speed)
+            {
+                sound.Play();
+                period = 0;
+            }
+            
             centralPosition = player.GlobalPosition;
             Vector2 r = globalPosition - centralPosition;
 
@@ -60,7 +69,7 @@ namespace Projeto_Apollo_16
 
             globalPosition = centralPosition + r;
             globalPosition += player.Velocity * (float)dt;
-
+            
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
