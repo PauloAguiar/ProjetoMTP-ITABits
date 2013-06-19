@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>HiDef</XnaProfile>
+    <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>2b9a8308-5af6-4e7a-840b-8bc054a65d5f</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -39,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>DEBUG;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -51,7 +51,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\x86\Release</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -60,8 +60,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lidgren.Network">
-      <HintPath>..\..\Lidgren.Network.dll</HintPath>
+    <Reference Include="Lidgren.Network, Version=2012.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -96,15 +97,21 @@
     <Compile Include="Actors\Projectiles\LinearProjectile.cs" />
     <Compile Include="Actors\Projectiles\ProjectileClass.cs" />
     <Compile Include="Controls\Control.cs" />
-    <Compile Include="GameScreens\PictureBox.cs" />
+    <Compile Include="Controls\PictureBox.cs" />
     <Compile Include="Actors\Enemies\Ghost.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="Actors\ItemClasses\Health.cs" />
     <Compile Include="Actors\ItemClasses\ItemClass.cs" />
+    <Compile Include="GameScreens\NetworkScreen.cs" />
+    <Compile Include="ItemClasses\BaseItem.cs" />
+    <Compile Include="ItemClasses\ItemManager.cs" />
+    <Compile Include="ItemClasses\Shield.cs" />
+    <Compile Include="ItemClasses\Weapon.cs" />
+    <Compile Include="Network\IGameMessage.cs" />
+    <Compile Include="Network\PilotDataClass.cs" />
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />
-    <Compile Include="System\NetworkClass.cs" />
-    <Compile Include="System\SendDataClass.cs" />
+    <Compile Include="System\NetworkManager.cs" />
     <Compile Include="Utils\MathFunctions.cs" />
     <Compile Include="System\CameraClass.cs" />
     <Compile Include="System\ControlManager.cs" />

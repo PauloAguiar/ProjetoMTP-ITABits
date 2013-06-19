@@ -30,9 +30,10 @@ namespace Projeto_Apollo_16
         private const float initialCameraZoom = 1.0f;
         #endregion
 
-        private float throttle = 0;
-        public float Speed { get; private set; }
-        public float Angle { get; private set; }
+        private const double dTheta = Math.PI / 600;
+        public double throttle { get; private set; }
+        public double Speed { get; private set; }
+        public double Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
         public int life { get; private set; }
         public List<ItemClass> invetary;
@@ -46,8 +47,9 @@ namespace Projeto_Apollo_16
         public PlayerClass(Vector2 position, ContentManager content)
         {
             globalPosition = position;
-            
             Speed = 0;
+            throttle = 0;
+            Speed = 0.001;
             Angle = 0;
             Velocity = Vector2.Zero;
             cameraZoom = initialCameraZoom;

@@ -46,7 +46,9 @@ namespace Projeto_Apollo_16
         public override void Initialize()
         {
             engine.Initialize();
-            NetworkClass.StartServer();
+
+            player = new PlayerClass(Vector2.Zero);
+            camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
             
             //espera até o jogador plugar o joystick
             //while (joystick == null)
@@ -125,7 +127,7 @@ namespace Projeto_Apollo_16
 
             statusLabel = new Label();
             statusLabel.Position = Vector2.Zero + 3 * (new Vector2(0.0f, 25.0f));
-            statusLabel.Text = "";
+            statusLabel.Text = "Nao Conectado!";
             statusLabel.Color = Color.Red;
             statusLabel.Size = statusLabel.SpriteFont.MeasureString(statusLabel.Text);
             controlManager.Add(statusLabel);
@@ -141,6 +143,13 @@ namespace Projeto_Apollo_16
             {
                 ReadImmediateData();
             }
+            if (systemRef.NETWORK_MODE)
+                systemRef.networkManager.ReadInGamePackets();
+
+            player.Update(gameTime);
+
+            Globals.playerPosition = player.GlobalPosition;
+            Globals.playerVelocity = player.Velocity;
             
             player.Update(gameTime, state);
 
@@ -181,7 +190,9 @@ namespace Projeto_Apollo_16
             sectorLabel.Text = "Zoom:" + player.Zoom;
             positionLabel.Text = "Position:" + player.GlobalPosition.X + " " + player.GlobalPosition.Y;
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
-            statusLabel.Text = NetworkClass.status;
+            if(systemRef.NETWORK_MODE)
+                statusLabel.Text = systemRef.networkManager.status;
+
             camera.Zoom = player.Zoom;
             camera.Position = player.GlobalPosition;
             camera.Offset = player.CameraPosition;
@@ -234,6 +245,12 @@ namespace Projeto_Apollo_16
                     projectilesManager.CreateBullet(p);
                 }
             }
+
+            if(systemRef.NETWORK_MODE)
+                systemRef.networkManager.SendPackets(new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Velocity));
+
+            base.Update(gameTime);
+
         }
 
         private void createItems()

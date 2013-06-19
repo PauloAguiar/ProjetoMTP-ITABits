@@ -5,19 +5,22 @@ using Lidgren.Network;
 
 namespace Projeto_Apollo_16
 {
-    public class SystemClass : Microsoft.Xna.Framework.Game
+    public class SystemClass : Game
     {
-
         GraphicsDeviceManager graphics;
         Viewport viewport;
         public SpriteBatch spriteBatch;
         GameStateManager stateManager;
 
+        public NetworkManager networkManager;
+
         /* Screens */
         public TitleScreen titleScreen;
         public StartMenuScreen startMenuScreen;
         public GamePlayScreen gamePlayScreen;
+        public NetworkScreen networkScreen;
 
+        public bool NETWORK_MODE;
 		
         const int screenWidth = 800;
         const int screenHeight = 600;
@@ -39,19 +42,23 @@ namespace Projeto_Apollo_16
             Components.Add(new InputHandler(this));
 
             stateManager = new GameStateManager(this);
+            networkManager = new NetworkManager();
+
             /* Add the gameState manager component to our list of components */
             Components.Add(stateManager);
 
             titleScreen = new TitleScreen(this, stateManager);
             startMenuScreen = new StartMenuScreen(this, stateManager);
             gamePlayScreen = new GamePlayScreen(this, stateManager);
+            networkScreen = new NetworkScreen(this, stateManager);
+
             stateManager.ChangeState(titleScreen);
         }
 
         protected override void Initialize()
         {
-            
             viewport = GraphicsDevice.Viewport;
+
             base.Initialize();
         }
 

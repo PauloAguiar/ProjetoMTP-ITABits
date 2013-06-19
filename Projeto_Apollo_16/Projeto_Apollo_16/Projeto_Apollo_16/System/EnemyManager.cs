@@ -10,6 +10,7 @@ namespace Projeto_Apollo_16
     {
         static ContentManager content;
         static SystemClass systemRef;
+
         public double spawnTime { get; private set; }
         public const double tts = 1000;
 

@@ -16,17 +16,12 @@ namespace Apollo.Pilot
     /// This is the main type for your game
     /// </summary>
     /// 
-    enum PacketTypes
-    {
-        CONNECTION_ACCEPTED,
-        LOGIN,
-    }
-
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
+
         string hostip = "192.168.0.101";
         string stringTeste = "Teste";
 
@@ -35,36 +30,7 @@ namespace Apollo.Pilot
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-
-            // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            NetPeerConfiguration networkConfig = new NetPeerConfiguration("apollo");
-
-            networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
-            networkConfig.EnableMessageType(NetIncomingMessageType.Data);
-
-            Client = new NetClient(networkConfig);
-
-            // Create new outgoing message
-            NetOutgoingMessage outmsg = Client.CreateMessage();
-
-            // Start client
-            Client.Start();
-
-            // Write byte ( first byte informs server about the message type ) ( This way we know, what kind of variables to read )
-            outmsg.Write((byte)PacketTypes.LOGIN);
-
-            try
-            {
-                // Connect client, to ip previously requested from user 
-                Client.Connect(hostip, 14242, outmsg);
-                stringTeste = "Conectado";
-
-            }
-            catch
-            {
-                stringTeste = "Erro";
-            }   
+            Content.RootDirectory = "Content"; 
         }
 
         /// <summary>
@@ -75,7 +41,8 @@ namespace Apollo.Pilot
         /// </summary>
         protected override void Initialize()
         {
-            
+            NetworkClass.StartClient();
+
             base.Initialize();
 
 
@@ -113,33 +80,7 @@ namespace Apollo.Pilot
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            NetIncomingMessage inc;
-
-            if ((inc = Client.ReadMessage()) != null)
-            {
-                // Switch based on the message types
-                switch (inc.MessageType)
-                {
-
-                    // All manually sent messages are type of "Data"
-                    case NetIncomingMessageType.Data:
-
-                        // Read the first byte
-                        // This way we can separate packets from each others
-                        if (inc.ReadByte() == (byte)PacketTypes.CONNECTION_ACCEPTED)
-                        {
-                            stringTeste = inc.ReadString() + "Bizu";
-                        }
-                        break;
-
-                    default:
-                        // Should not happen and if happens, don't care
-                        stringTeste = "Unhandled type: " + inc.MessageType;
-                        break;
-                }
-            }
-
-            // TODO: Add your update logic here
+            NetworkClass.ReadPackets();
 
             base.Update(gameTime);
         }
@@ -153,7 +94,7 @@ namespace Apollo.Pilot
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, stringTeste, Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(font, NetworkClass.status, Vector2.Zero, Color.Black);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -161,3 +102,4 @@ namespace Apollo.Pilot
         }
     }
 }
+
