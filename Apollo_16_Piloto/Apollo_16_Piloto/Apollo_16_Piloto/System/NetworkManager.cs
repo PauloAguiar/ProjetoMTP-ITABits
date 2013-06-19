@@ -25,7 +25,7 @@ namespace Apollo_16_Piloto
     {
         protected SystemClass systemRef; /* This is a reference to our SystemClass*/
 
-        const String IP = "127.0.0.1";
+        const String IP = "192.168.0.101";
         const int PORT = 14242;
         const int MAX_CONNECTIONS = 5;
         const String NETWORK_NAME = "apollo";
