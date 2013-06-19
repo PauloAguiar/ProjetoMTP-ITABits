@@ -12,7 +12,8 @@ namespace Apollo_16_Piloto
         CONNECTION_ACCEPTED,
         ID_PACKET,
         LOGIN,
-        PILOT_DATA
+        PILOT_DATA,
+        INPUT_DATA
     }
 
     enum ConnectionID
@@ -126,6 +127,17 @@ namespace Apollo_16_Piloto
                         break;
                 }
                 networkClient.Recycle(msg);
+            }
+        }
+
+        public void SendPackets(InputDataClass inputData)
+        {
+            if (networkClient.ServerConnection != null)
+            {
+                NetOutgoingMessage inputmsg = networkClient.CreateMessage();
+                inputmsg.Write((byte)PacketTypes.INPUT_DATA);
+                inputData.Encode(inputmsg);
+                networkClient.SendMessage(inputmsg, NetDeliveryMethod.ReliableOrdered);
             }
         }
     }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Lidgren.Network;
 
 namespace Apollo_16_Piloto
 {
@@ -54,7 +55,14 @@ namespace Apollo_16_Piloto
         public override void Update(GameTime gameTime)
         {
             systemRef.networkManager.ReadLobbyPackets();
+            InputDataClass inputData = new InputDataClass();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                inputData.spaceBar = true;
+            }
+
+            systemRef.networkManager.SendPackets(inputData);
             statusLabel.Text = systemRef.networkManager.status;
             base.Update(gameTime);
         }

@@ -49,6 +49,15 @@ namespace Projeto_Apollo_16
         public override void Initialize()
         {
             engine.Initialize();
+
+            player = new PlayerClass(Vector2.Zero, content);
+            camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
+            
+            //espera até o jogador plugar o joystick
+            //while (joystick == null)
+            //{
+            CreateDevice();
+            //}
             
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
@@ -63,9 +72,8 @@ namespace Projeto_Apollo_16
         protected override void LoadContent()
         {
             base.LoadContent();
-
+            engine.LoadContent();
             loadLabels();
-        
         }
         
         private void loadLabels()
@@ -124,6 +132,19 @@ namespace Projeto_Apollo_16
             
             player.Update(gameTime, joystickState, joystickRange);
 
+            if (joystick != null)
+            {
+                ReadImmediateData();
+            }
+
+            //player.state = this.state;
+            //player.Update(gameTime);
+
+            //Globals.playerPosition = player.GlobalPosition;
+            //Globals.playerVelocity = player.Velocity;
+            
+            //player.Update(gameTime, state);
+
             cameraUpdate();
 
             updateManagers(gameTime);
@@ -135,7 +156,6 @@ namespace Projeto_Apollo_16
             createItems();
 
             checkCollision();
-
 
             if (systemRef.NETWORK_MODE)
                 systemRef.networkManager.SendPackets(new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Velocity));

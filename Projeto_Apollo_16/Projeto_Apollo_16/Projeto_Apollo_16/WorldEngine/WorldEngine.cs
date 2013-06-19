@@ -1,8 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Projeto_Apollo_16
 {
+    enum SectorPosition
+    {
+        TOP_LEFT,
+        TOP,
+        TOP_RIGHT,
+        MIDDLE_LEFT,
+        MIDDLE_RIGHT,
+        BOTTOM_LEFT,
+        BOTTOM,
+        BOTTOM_RIGHT
+    }
+
     public class WorldEngine
     {
 
@@ -10,6 +23,7 @@ namespace Projeto_Apollo_16
         /* Fields */
         const int TILE_SIZE = 256;
         const int SECTOR_SIZE = 20;
+        private List<WorldSectorClass> sectorList;
         private WorldSectorClass actualSector;
 
         /* Getters and Setters */
@@ -26,17 +40,34 @@ namespace Projeto_Apollo_16
         /* Constructor */
         public WorldEngine(Game game)
         {
-            actualSector = new WorldSectorClass(game);
+            actualSector = new WorldSectorClass(game, Point.Zero);
+            sectorList = new List<WorldSectorClass>(8);
+            sectorList.Add(new WorldSectorClass(game, new Point(-1, -1)));
+            sectorList.Add(new WorldSectorClass(game, new Point( 0, -1)));
+            sectorList.Add(new WorldSectorClass(game, new Point( 1, -1)));
+            sectorList.Add(new WorldSectorClass(game, new Point(-1,  0)));
+            sectorList.Add(new WorldSectorClass(game, new Point( 1,  0)));
+            sectorList.Add(new WorldSectorClass(game, new Point(-1,  1)));
+            sectorList.Add(new WorldSectorClass(game, new Point( 0,  1)));
+            sectorList.Add(new WorldSectorClass(game, new Point( 1,  1)));
         }
 
-        public void Initialize()
+        public void LoadContent()
         {
-            actualSector.Initialize();
+            actualSector.LoadContent();
+            foreach (WorldSectorClass sector in sectorList)
+            {
+                sector.LoadContent();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, PlayerClass player)
         {
             actualSector.Draw(spriteBatch, player);
+            foreach (WorldSectorClass sector in sectorList)
+            {
+                sector.Draw(spriteBatch, player);
+            }
         }
 
         /* Methods */

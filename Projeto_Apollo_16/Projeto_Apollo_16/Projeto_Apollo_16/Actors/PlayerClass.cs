@@ -82,6 +82,7 @@ namespace Projeto_Apollo_16
         Texture2D naveRight;
         Texture2D gun;
         Vector2 gunPosition;
+        public JoystickState state { get; set; }
 
         public PlayerClass(Vector2 position, ContentManager content)
         {
@@ -173,7 +174,7 @@ namespace Projeto_Apollo_16
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            Update(gameTime, state);
         }
 
         public void Update(GameTime gameTime, JoystickState joystickState, int joystickRange)

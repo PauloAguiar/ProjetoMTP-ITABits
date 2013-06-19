@@ -10,9 +10,9 @@ namespace Apollo_16_Piloto
     public class PilotDataClass
     {
         /* Os membros que contém underline contém dados obtidos diretamente da classe player */
-        public double _throttle;
-        public double _speed;
-        public double _angle;
+        public float _throttle;
+        public float _speed;
+        public float _angle;
         public Vector2 _velocity;
 
         public PilotDataClass(NetIncomingMessage msg)
@@ -20,7 +20,7 @@ namespace Apollo_16_Piloto
             Decode(msg);
         }
 
-        public PilotDataClass(double throttle, double speed, double angle, Vector2 velocity)
+        public PilotDataClass(float throttle, float speed, float angle, Vector2 velocity)
         {
             this._throttle = throttle;
             this._speed = speed;
@@ -31,9 +31,9 @@ namespace Apollo_16_Piloto
         
         private void Decode(NetIncomingMessage incmsg)
         {
-            this._throttle = incmsg.ReadDouble();
-            this._speed = incmsg.ReadDouble();
-            this._angle = incmsg.ReadDouble();
+            this._throttle = incmsg.ReadFloat();
+            this._speed = incmsg.ReadFloat();
+            this._angle = incmsg.ReadFloat();
             this._velocity.X = incmsg.ReadFloat();
             this._velocity.Y = incmsg.ReadFloat();
         }

@@ -10,12 +10,12 @@ namespace Projeto_Apollo_16
     public class PilotDataClass
     {
         /* Os membros que contém underline contém dados obtidos diretamente da classe player */
-        private double _throttle = 0;
-        private double _speed;
-        private double _angle;
+        private float _throttle = 0;
+        private float _speed;
+        private float _angle;
         private Vector2 _velocity;
 
-        public PilotDataClass(double throttle, double speed, double angle, Vector2 velocity)
+        public PilotDataClass(float throttle, float speed, float angle, Vector2 velocity)
         {
             this._throttle = throttle;
             this._speed = speed;

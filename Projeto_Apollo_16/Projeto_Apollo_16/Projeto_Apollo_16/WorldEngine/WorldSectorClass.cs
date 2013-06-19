@@ -11,27 +11,32 @@ namespace Projeto_Apollo_16
         protected ContentManager content;
         protected WorldTileClass[,] sectorMap;
         
-        public WorldSectorClass(Game game)
+        public WorldSectorClass(Game game, Point sectorCoordinates)
         {
             systemRef = (SystemClass)game;
-            sectorMap = new WorldTileClass[20, 20];
-            
-        }
-
-        public void Initialize()
-        {
-            sectorCoordinates = new Point(0, 0);
+            sectorMap = new WorldTileClass[WorldEngine.SectorSize, WorldEngine.SectorSize];
+            this.sectorCoordinates = sectorCoordinates;
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
             for (int i = 0; i < 20; i++)
             {
                 for (int j = 0; j < 20; j++)
                 {
                     sectorMap[i, j] = new WorldTileClass(1);
+                }
+            }
+            
+        }
+
+        public void LoadContent()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
                     sectorMap[i, j].LoadTileOnContent(content); /* This already manages loading 2 times the same texture */
                 }
             }
         }
-
         public Vector2 CalculateDrawingPosition(int i, int j)
         {
             Vector2 localPosition = new Vector2((float)(sectorCoordinates.X * WorldEngine.SectorSize * WorldEngine.TileSize), (float)(sectorCoordinates.Y * WorldEngine.SectorSize * WorldEngine.TileSize));
