@@ -13,7 +13,7 @@ namespace Projeto_Apollo_16
         Joystick joystick;
         JoystickState joystickState = new JoystickState();
         public const int joystickRange = 10000;
-        const int minTimeChangeWeapon = 1000;
+        const int minTimeChangeWeapon = 300;
         double timeChangedWeapon = minTimeChangeWeapon;
 
         #region managers
