@@ -42,7 +42,8 @@ namespace Projeto_Apollo_16
         private Vector2 cameraOffset;
         #endregion
 
-        private float throttle = 0;
+        private const double dTheta = Math.PI / 600;
+        public float throttle { get; private set; }
         public float Speed { get; private set; }
         public float Angle { get; private set; }
         public Vector2 Velocity { get; private set; }
@@ -85,8 +86,9 @@ namespace Projeto_Apollo_16
         public PlayerClass(Vector2 position, ContentManager content)
         {
             globalPosition = position;
-            
             Speed = 0;
+            throttle = 0;
+            Speed = 0.001f;
             Angle = 0;
             Velocity = Vector2.Zero;
             cameraZoom = initialCameraZoom;

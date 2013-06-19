@@ -16,8 +16,6 @@ namespace Projeto_Apollo_16
         const int minTimeChangeWeapon = 1000;
         double timeChangedWeapon = minTimeChangeWeapon;
 
-
-
         #region managers
         ProjectileManager projectilesManager;
         ExplosionManager explosionManager;
@@ -51,7 +49,6 @@ namespace Projeto_Apollo_16
         public override void Initialize()
         {
             engine.Initialize();
-            NetworkClass.StartServer();
             
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
@@ -88,7 +85,7 @@ namespace Projeto_Apollo_16
             controlManager.Add(positionLabel);
 
             weaponLabel = new Label();
-            weaponLabel.Position = Vector2.Zero + 1 * (new Vector2(0.0f, 75.0f));
+            weaponLabel.Position = Vector2.Zero + 1 * (new Vector2(0.0f, 100.0f));
             weaponLabel.Text = "Weapon:" + player.bullets;
             weaponLabel.Color = Color.Purple;
             weaponLabel.Size = weaponLabel.SpriteFont.MeasureString(weaponLabel.Text);
@@ -103,7 +100,7 @@ namespace Projeto_Apollo_16
 
             statusLabel = new Label();
             statusLabel.Position = Vector2.Zero + 3 * (new Vector2(0.0f, 25.0f));
-            statusLabel.Text = "";
+            statusLabel.Text = "Nao Conectado!";
             statusLabel.Color = Color.Red;
             statusLabel.Size = statusLabel.SpriteFont.MeasureString(statusLabel.Text);
             controlManager.Add(statusLabel);
@@ -118,6 +115,12 @@ namespace Projeto_Apollo_16
             timeChangedWeapon += dt;
 
             updateJoystick();
+            ReadImmediateData();
+            
+            if (systemRef.NETWORK_MODE)
+                systemRef.networkManager.ReadInGamePackets();
+
+            
             
             player.Update(gameTime, joystickState, joystickRange);
 
@@ -132,6 +135,10 @@ namespace Projeto_Apollo_16
             createItems();
 
             checkCollision();
+
+
+            if (systemRef.NETWORK_MODE)
+                systemRef.networkManager.SendPackets(new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Velocity));
 
             base.Update(gameTime);
         }
@@ -210,7 +217,10 @@ namespace Projeto_Apollo_16
             positionLabel.Text = "Position:" + player.GlobalPosition.X + " " + player.GlobalPosition.Y;
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
             weaponLabel.Text = "Weapon:" + player.bullets;
-            statusLabel.Text = NetworkClass.status;
+            //statusLabel.Text = NetworkClass.status;
+            if(systemRef.NETWORK_MODE)
+                statusLabel.Text = systemRef.networkManager.status;
+
             camera.Zoom = player.Zoom;
             camera.Position = player.GlobalPosition;
             camera.Offset = player.CameraPosition;
@@ -312,6 +322,9 @@ namespace Projeto_Apollo_16
                 }
             }
              */ 
+
+            
+
         }
 
         private void createItems()

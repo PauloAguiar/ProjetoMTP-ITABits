@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -9,6 +10,7 @@ namespace Projeto_Apollo_16
     {
         private const float speed = 2f;
         private Vector2 velocity;
+        private bool shooted = false;
         EnemyClass enemy;
 
         public HomingProjectile(Vector2 initialPosition, ContentManager content, EnemyClass enemy)
@@ -29,6 +31,11 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
+        public override void LoadSound(ContentManager content)
+        {
+            sound = content.Load<SoundEffect>(@"Sounds\Pow");
+        }
+
         public override void  Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -43,13 +50,18 @@ namespace Projeto_Apollo_16
             {
                 IsActive = false;
             }
+
+            if (!shooted)
+            {
+                sound.Play();
+                shooted = true;
+            }
             
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y)-(float)Math.PI/2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
-
         }
     }
 }

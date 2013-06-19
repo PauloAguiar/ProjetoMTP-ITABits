@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 
 namespace Projeto_Apollo_16
 {
@@ -10,13 +11,20 @@ namespace Projeto_Apollo_16
         private bool isActive;
         public double timeLiving;
         public double ttl {get; protected set;}
+        protected SoundEffect sound;
 
+        //getters & setters
         public bool IsActive
         {
             get { return isActive; }
             set { isActive = value; }
         }
 
+        public SoundEffect Sound
+        {
+            get { return sound; }
+        }
+        
         public ProjectileClass(Vector2 initialPosition, ContentManager content)
         {
             globalPosition = initialPosition;
@@ -24,6 +32,7 @@ namespace Projeto_Apollo_16
             isActive = true;
             this.LoadFont(content);
             this.LoadTexture(content);
+            this.LoadSound(content);
         }
 
         public void Activate()
@@ -40,6 +49,7 @@ namespace Projeto_Apollo_16
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
-    
+
+        public abstract void LoadSound(ContentManager content);        
     }
 }

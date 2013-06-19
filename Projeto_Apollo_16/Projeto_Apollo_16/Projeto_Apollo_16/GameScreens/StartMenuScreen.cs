@@ -99,7 +99,7 @@ namespace Projeto_Apollo_16
         {
             if (sender == startGame)
             {
-                stateManager.PushState(systemRef.gamePlayScreen);
+                stateManager.PushState(systemRef.networkScreen);
             }
 
             if (sender == exitGame)

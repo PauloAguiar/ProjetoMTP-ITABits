@@ -32,7 +32,7 @@ namespace XnaGameServer
 							//
 							// Server received a discovery request from a client; send a discovery response (with no extra data attached)
 							//
-							server.SendDiscoveryResponse(null, msg.SenderEndpoint);
+							server.SendDiscoveryResponse(null, msg.SenderEndPoint);
 							break;
 						case NetIncomingMessageType.VerboseDebugMessage:
 						case NetIncomingMessageType.DebugMessage:

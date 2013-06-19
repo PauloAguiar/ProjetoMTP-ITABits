@@ -1,6 +1,8 @@
 using System;
+using System.Windows.Forms;
+using System.Threading;
 
-namespace Apollo.Pilot
+namespace Apollo_16_Piloto
 {
 #if WINDOWS || XBOX
     static class Program
@@ -10,10 +12,11 @@ namespace Apollo.Pilot
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (SystemClass game = new SystemClass())
             {
                 game.Run();
             }
+
         }
     }
 #endif

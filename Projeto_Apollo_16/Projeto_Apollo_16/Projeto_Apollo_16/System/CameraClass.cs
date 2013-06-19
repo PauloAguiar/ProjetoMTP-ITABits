@@ -5,7 +5,6 @@ namespace Projeto_Apollo_16
 {
     public class CameraClass
     {
-
         Vector2 position { get; set; }
         Vector2 offset { get; set; }
         float rotation { get; set; }
