@@ -63,12 +63,13 @@ namespace slimdx_XNA
                 }
             }
 
+            int range = 10000;
             if (joystick != null)
             {
                 foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
                 {
                     if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
-                        joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-400, 400);
+                         joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-range, range);
                 }
 
                 // acquire the device

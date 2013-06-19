@@ -6,12 +6,12 @@ namespace Projeto_Apollo_16
 {
     public class Shield : ItemClass
     {
-        private const double maxLifeTime = 5000;
+        private const double maxUsingTime = 5000;
         
         public Shield(int health, PlayerClass player, Vector2 position, ContentManager content) : base (player, position, content)
         {
             name = "shield";
-            ttl = 10000;
+            ttl = 2000;
             timeLiving = 0;
             IsUsing = true;
         }
@@ -19,8 +19,8 @@ namespace Projeto_Apollo_16
         public override void  Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            timeLiving += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if(timeLiving >= maxLifeTime)
+            
+            if(timeLiving >= maxUsingTime)
             {
                 IsUsing = false;
                 //destroy

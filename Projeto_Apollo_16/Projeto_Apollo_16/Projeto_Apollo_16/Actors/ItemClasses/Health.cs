@@ -11,7 +11,7 @@ namespace Projeto_Apollo_16
         {
             this.heath = health;
             name = "life";
-            ttl = 10000;
+            ttl = 1000;
         }
 
         //não precisa de update e draw porque são iguais ao da classe pai

@@ -26,14 +26,6 @@ namespace Projeto_Apollo_16
 
         public override void Update(GameTime gameTime)
         {
-            if (CollisionManager.CircularCollision(this, player))
-            {
-                taken = true;
-            }
-            else if (taken)
-            {
-                taken = false;
-            }
         }
 
         public override void LoadTexture(ContentManager content)
@@ -48,10 +40,7 @@ namespace Projeto_Apollo_16
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!taken)
-            {
-                spriteBatch.Draw(texture, globalPosition, Color.White);
-            }
+            spriteBatch.Draw(texture, globalPosition, Color.White);
         }
 
     }

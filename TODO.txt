@@ -1,0 +1,7 @@
+Gameplay Geral:
+	stats: aquecimento das armas
+	GameLogic: criar inimigos aleatórios, criar items, game over, ...
+
+Específico de cada jogador
+	views de cada jogador
+	"jogo" do copiloto
