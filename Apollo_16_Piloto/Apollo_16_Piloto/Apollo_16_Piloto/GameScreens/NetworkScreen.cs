@@ -57,7 +57,7 @@ namespace Apollo_16_Piloto
             systemRef.networkManager.ReadLobbyPackets();
             InputDataClass inputData = new InputDataClass();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.K))
             {
                 inputData.spaceBar = true;
             }
