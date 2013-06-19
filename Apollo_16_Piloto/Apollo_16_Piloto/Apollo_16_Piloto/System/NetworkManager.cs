@@ -52,7 +52,8 @@ namespace Apollo_16_Piloto
             //networkConfig.EnableMessageType(NetIncomingMessageType.ErrorMessage);
             //networkConfig.EnableMessageType(NetIncomingMessageType.Error);
             //networkConfig.EnableMessageType(NetIncomingMessageType.DebugMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            //networkConfig.EnableMessageType(NetIncomingMessageType.Data);
 
             // Create new server based on the configs just defined
             networkClient = new NetClient(networkConfig);

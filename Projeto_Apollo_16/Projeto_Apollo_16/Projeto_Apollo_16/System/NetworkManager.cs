@@ -52,7 +52,7 @@ namespace Projeto_Apollo_16
             //networkConfig.EnableMessageType(NetIncomingMessageType.VerboseDebugMessage);
             //networkConfig.EnableMessageType(NetIncomingMessageType.Error);
             //networkConfig.EnableMessageType(NetIncomingMessageType.DebugMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             //networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
             //networkConfig.EnableMessageType(NetIncomingMessageType.ErrorMessage);
             //networkConfig.EnableMessageType(NetIncomingMessageType.Data);
@@ -78,8 +78,8 @@ namespace Projeto_Apollo_16
                 switch (msg.MessageType)
                 {
                     /* RECEIVE CONNECTION REQUEST */
-                    /*case NetIncomingMessageType.ConnectionApproval:
-                     8   if (msg.ReadByte() == (byte)PacketTypes.LOGIN)
+                    case NetIncomingMessageType.ConnectionApproval:
+                        if (msg.ReadByte() == (byte)PacketTypes.LOGIN)
                         {
                             switch (msg.ReadByte())
                             {
@@ -93,7 +93,7 @@ namespace Projeto_Apollo_16
                                     break;
                             }
                         }
-                        break; */
+                        break;
 
                     /* RECEIVE ERROR MESSAGES */
                     case NetIncomingMessageType.ErrorMessage:
