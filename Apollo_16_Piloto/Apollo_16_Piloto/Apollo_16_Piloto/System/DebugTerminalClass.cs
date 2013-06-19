@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-using DebugTerminal;
+//using DebugTerminal;
 using Microsoft.Xna.Framework.Input;
 
 namespace Apollo_16_Piloto
@@ -30,21 +30,21 @@ namespace Apollo_16_Piloto
         protected override void LoadContent()
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts/DebugTerminal");
-            Terminal.Init(systemRef, systemRef.spriteBatch, spriteFont, systemRef.GraphicsDevice);
-            Terminal.SetSkin(TerminalThemeType.FIRE);
+            //Terminal.Init(systemRef, systemRef.spriteBatch, spriteFont, systemRef.GraphicsDevice);
+            //Terminal.SetSkin(TerminalThemeType.FIRE);
 
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Terminal.CheckOpen(Keys.P, Keyboard.GetState());
+            //Terminal.CheckOpen(Keys.P, Keyboard.GetState());
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Terminal.CheckDraw(false);
+            //Terminal.CheckDraw(false);
             base.Draw(gameTime);
         }
     }

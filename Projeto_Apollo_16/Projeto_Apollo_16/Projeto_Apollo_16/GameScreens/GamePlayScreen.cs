@@ -48,7 +48,6 @@ namespace Projeto_Apollo_16
         #region initialize
         public override void Initialize()
         {
-            engine.Initialize();
 
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
