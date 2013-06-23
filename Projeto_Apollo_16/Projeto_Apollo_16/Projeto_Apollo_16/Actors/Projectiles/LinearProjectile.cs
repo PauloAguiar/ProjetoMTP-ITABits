@@ -41,7 +41,7 @@ namespace Projeto_Apollo_16
         
         public override void LoadSound(ContentManager content)
         {
-            sound = content.Load<SoundEffect>(@"Sounds\Pow");
+            sound = content.Load<SoundEffect>(@"Sounds\b1");
         }
          
 

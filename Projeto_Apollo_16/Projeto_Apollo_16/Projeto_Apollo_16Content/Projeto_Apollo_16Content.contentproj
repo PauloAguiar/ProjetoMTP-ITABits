@@ -232,7 +232,13 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Sounds\b1.wav">
+      <Name>b1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Sounds\Dry Fire Gun-SoundBible.com-2053652037.mp3">
       <Name>Dry Fire Gun-SoundBible.com-2053652037</Name>

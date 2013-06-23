@@ -38,13 +38,13 @@ namespace Projeto_Apollo_16
         private static void shiftBulletsRight()
         {
             timeChangedWeapon = 0;
-            player.bullets = (PlayerClass.Bullets)(((int)player.bullets + 1) % PlayerClass.numberBullets);
+            player.bullets = (PlayerClass.Bullets)(((int)player.bullets + 1) % PlayerClass.NUMBER_BULLETS);
         }
 
         private static void shiftBulletsLeft()
         {
             timeChangedWeapon = 0;
-            player.bullets = (PlayerClass.Bullets)(((int)player.bullets - 1 + PlayerClass.numberBullets) % PlayerClass.numberBullets);
+            player.bullets = (PlayerClass.Bullets)(((int)player.bullets - 1 + PlayerClass.NUMBER_BULLETS) % PlayerClass.NUMBER_BULLETS);
         }
 
     }

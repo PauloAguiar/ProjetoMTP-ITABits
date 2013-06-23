@@ -95,6 +95,13 @@
     <Compile Include="Actors\Explosions\MultipleExplosion.cs" />
     <Compile Include="Actors\Explosions\AnimatedExplosion.cs" />
     <Compile Include="Actors\Explosions\ExplosionClass.cs" />
+    <Compile Include="Actors\Player\Bullets.cs" />
+    <Compile Include="Actors\Player\Camera.cs" />
+    <Compile Include="Actors\Player\Gun.cs" />
+    <Compile Include="Actors\Player\Inventory.cs" />
+    <Compile Include="Actors\Player\JoystickInput.cs" />
+    <Compile Include="Actors\Player\Stats.cs" />
+    <Compile Include="Actors\Player\Turbo.cs" />
     <Compile Include="Actors\Projectiles\AreaProjectile.cs" />
     <Compile Include="Actors\Explosions\SimpleExplosion.cs" />
     <Compile Include="Actors\ItemClasses\Shield.cs" />
@@ -112,9 +119,11 @@
     <Compile Include="GameLogic\itemLogic.cs" />
     <Compile Include="GameLogic\JoystickLogic.cs" />
     <Compile Include="GameLogic\PauseLogic.cs" />
+    <Compile Include="GameScreens\CameraGameplayScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="Actors\ItemClasses\Health.cs" />
     <Compile Include="Actors\ItemClasses\ItemClass.cs" />
+    <Compile Include="GameScreens\LabelsGameplayScreen.cs" />
     <Compile Include="GameScreens\NetworkScreen.cs" />
     <Compile Include="Network\IGameMessage.cs" />
     <Compile Include="Network\PilotDataClass.cs" />
@@ -137,7 +146,7 @@
     <Compile Include="WorldEngine\WorldSectorClass.cs" />
     <Compile Include="System\GameStateManager.cs" />
     <Compile Include="System\InputHandler.cs" />
-    <Compile Include="Actors\PlayerClass.cs" />
+    <Compile Include="Actors\Player\PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\Program.cs" />
     <Compile Include="System\SystemClass.cs" />
