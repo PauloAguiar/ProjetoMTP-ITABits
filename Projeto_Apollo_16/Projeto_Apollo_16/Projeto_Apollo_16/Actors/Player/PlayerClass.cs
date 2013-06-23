@@ -28,18 +28,11 @@ namespace Projeto_Apollo_16
         private const float MAX_SIDE_SPEED = 0.03f;
         private const float MAX_MAX_THROTTLE = 0.2f;
         private const float MIN_MIN_THROTTLE = -0.1f;
-<<<<<<< HEAD:Projeto_Apollo_16/Projeto_Apollo_16/Projeto_Apollo_16/Actors/Player/PlayerClass.cs
-        const float MAX_ANGLE = (float)MathHelper.PiOver2;
-        
-=======
 
+        const float MAX_ANGLE = (float)MathHelper.PiOver2;
         private const float PLAYER_AXIS_RANGE = 1000;
 
         const float maxAngle = (float)MathHelper.PiOver4;
-        private float cameraZoom;
-        private Vector2 cameraOffset;
-
->>>>>>> Network Melhorada:Projeto_Apollo_16/Projeto_Apollo_16/Projeto_Apollo_16/Actors/PlayerClass.cs
         #endregion
 
         public float throttle { get; private set; }
@@ -59,15 +52,10 @@ namespace Projeto_Apollo_16
         float maxRotationZ;
         
         Texture2D naveRight;
-        Texture2D gun;
-        Vector2 gunPosition;
-
         public Boolean isLoaded = false;
-
         private Boolean hasShotPrimaryWeapon = false;
-        
-        public JoystickState state { get; set; }
 
+        #region ctor
         public PlayerClass(Vector2 position, ContentManager content)
         {
             globalPosition = position;
@@ -81,6 +69,7 @@ namespace Projeto_Apollo_16
             this.LoadTexture(content);
             isLoaded = true;
         }
+        #endregion
 
         public Boolean HasShotPrimaryWeapon()
         {
@@ -161,7 +150,6 @@ namespace Projeto_Apollo_16
         
         private void UpdateInput(GameTime gameTime)
         {
-
             UpdateCameraInput();
             UpdatePositionInput();
             UpdateInventoryInput();
@@ -171,7 +159,6 @@ namespace Projeto_Apollo_16
         {
             maxThrottle = MAX_MAX_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
             minThrottle = MIN_MIN_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
-
 
             velocityInput();
             angleInput();
@@ -188,9 +175,7 @@ namespace Projeto_Apollo_16
 
         private void angleInput()
         {
-            
             Angle += 1/100.0f * 1/4.0f*(joystickState.RotationZ * MAX_ANGLE / maxRotationZ)/(float)MathHelper.TwoPi;
-
 
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Left))
             {
@@ -215,8 +200,6 @@ namespace Projeto_Apollo_16
         private void velocityInput()
         {
             
-
-            
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Up))
             {
                 throttle += DELTA_THROTTLE_UP;
@@ -235,22 +218,11 @@ namespace Projeto_Apollo_16
             }
             
         }
-    
-        #endregion
-
-        #region draw
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            DrawShip(spriteBatch);
-            DrawTurbo(spriteBatch);
-            DrawGun(spriteBatch);
-            DrawStats(spriteBatch);
-        }
 
         public void ParseInput(InputDataClass input)
         {
             const int range = 1000;
-   
+
             if (input.buttons[(int)ButtonStates.BTN_1])
             {
                 PrimaryShot();
@@ -287,8 +259,16 @@ namespace Projeto_Apollo_16
         {
             hasShotPrimaryWeapon = true;
         }
-
         #endregion
+
+        #region draw
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            DrawShip(spriteBatch);
+            DrawTurbo(spriteBatch);
+            DrawGun(spriteBatch);
+            DrawStats(spriteBatch);
+        }
 
         private void DrawShip(SpriteBatch spriteBatch)
         {
@@ -306,5 +286,7 @@ namespace Projeto_Apollo_16
             }
         }
         #endregion
+
+        
     }
 }
