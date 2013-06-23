@@ -24,7 +24,13 @@ namespace Projeto_Apollo_16
 
         void checkJoystickInput()
         {
+            if (joystickState.Y != 0)
+            {
+                UpdateThrottle(joystickState.Y);
+            }
 
+
+            
         }
     }
 }

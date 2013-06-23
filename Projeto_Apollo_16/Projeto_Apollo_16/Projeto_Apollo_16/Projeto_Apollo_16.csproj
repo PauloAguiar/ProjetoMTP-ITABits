@@ -100,6 +100,7 @@
     <Compile Include="Actors\Player\Gun.cs" />
     <Compile Include="Actors\Player\Inventory.cs" />
     <Compile Include="Actors\Player\JoystickInput.cs" />
+    <Compile Include="Actors\Player\Physics.cs" />
     <Compile Include="Actors\Player\Stats.cs" />
     <Compile Include="Actors\Player\Turbo.cs" />
     <Compile Include="Actors\Projectiles\AreaProjectile.cs" />

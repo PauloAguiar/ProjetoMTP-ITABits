@@ -186,14 +186,7 @@ namespace Projeto_Apollo_16
 
         private void velocityInput()
         {
-            if (joystickState.Y < 0)
-            {
-                throttle = -joystickState.Y * maxThrottle / joystickRange;
-            }
-            else if (joystickState.Y > 0)
-            {
-                throttle = joystickState.Y * minThrottle / joystickRange;
-            }
+            
 
             
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Up))
