@@ -1,43 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Input = Microsoft.Xna.Framework.Input;
-using SlimDX.DirectInput;
+﻿using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
 {
-    public static class GameLogic
+    public static partial class GameLogic
     {
-        static public Random rand = new Random();
+        public static double timeCreateEnemies;
+        const int MIN_TIME_CREATE_ENEMIES = 10000;
+        const int MAX_TIME_CREATE_ENEMIES = 20000;
+        const int MIN_NUMBER_ENEMIES = 50;
+        const int MAX_NUMBER_ENEMIES = 100;
         static int numberEnemies;
-        const int maxMapSize = 6000;
-        const int minNumberEnemies = 50;
-        const int maxNumberEnemies = 100;
-        static double timeCreateEnemies;
         static EnemyManager enemyManager;
-        static ContentManager content;
-        static PlayerClass player;
-
-        public static void Initialize(EnemyManager eM, ContentManager cont, PlayerClass plr)
-        {
-            enemyManager = eM;
-            content = cont;
-            player = plr;
-            createEnemies();
-        }
 
         private static void createEnemies()
         {
-            numberEnemies = rand.Next(minNumberEnemies, maxNumberEnemies);
+            numberEnemies = rand.Next(MIN_NUMBER_ENEMIES, MAX_NUMBER_ENEMIES);
             for (int i = 0; i < numberEnemies; i++)
             {
                 int j = rand.Next(3);
-                int x = rand.Next(-maxMapSize, maxMapSize);
-                int y = rand.Next(-maxMapSize, 2*maxMapSize);
+                int x = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
+                int y = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
 
                 if (j == 0)
                 {
@@ -63,9 +45,15 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public static void Update()
+        static void checkTimeEnemies(double dt)
         {
-
+            timeCreateEnemies -= dt;
+            if (timeCreateEnemies <= 0)
+            {
+                createEnemies();
+                timeCreateEnemies = rand.Next(MIN_TIME_CREATE_ENEMIES, MAX_TIME_CREATE_ENEMIES);
+            }
         }
+
     }
 }

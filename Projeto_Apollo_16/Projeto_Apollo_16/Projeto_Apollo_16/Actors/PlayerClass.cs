@@ -13,31 +13,30 @@ namespace Projeto_Apollo_16
    
         #region constants
         //Keyboard Control
-        private const float deltaTheta = (float)Math.PI / 400;
-        private const float epsilonSpeed = 0.1f;
-        private const float epsilonThrottle = 0.0001f;
-        private const float deltaThrottleUp = 0.0001f;
-        private const float deltaThrottleDown = 0.000005f;
+        private const float DELTA_THETA = (float)Math.PI / 400;
+        private const float EPSILON_SPEED = 0.1f;
+        private const float EPSILON_THROTTLE = 0.0001f;
+        private const float DELTA_THROTTLE_UP = 0.0001f;
+        private const float DELTA_THROTTLE_DOWN = 0.000005f;
         
         //Camera Control
-        private const float maxCameraZoom = 0.1f;
-        private const float minCameraZoom = 0.1f;
-        private const int maxCameraOffset = 300;
-        private const float deltaZoom = 0.005f;
-        private const float deltaSlide = 4.0f;
-        private const float initialCameraZoom = 0.7f;
+        private const float MAX_CAMERA_ZOOM = 0.4f;
+        private const float MIN_CAMERA_ZOOM = 0.1f;
+        private const int MAX_CAMERA_OFFSET = 300;
+        private const float DELTA_ZOOM = 0.005f;
+        private const float DELTA_SLIDE = 4.0f;
+        private const float INITIAL_CAMERA_ZOOM = 0.7f;
 
         //Joystick Control
-        private const float maxSpeed = 2.0f;
-        private const float minSpeed = -0.75f;
-        private float maxThrottle = 0.4f;
-        private float minThrottle = -0.2f;
-        private const float cameraProportion = (maxCameraZoom - minCameraZoom) / maxMaxThrottle;
-        private const float maxSideAcceleration = 0.007f;
-        private const float maxSideSpeed = 0.03f;
-        private const float maxMaxThrottle = 0.2f;
-        private const float minMinThrottle = -0.1f;
-        float maxRotationZ;
+        private const float MAX_SPEED = 2.0f;
+        private const float MIN_SPEED = -0.75f;
+        private const float CAMERA_PROPORTION = (MAX_CAMERA_ZOOM - MIN_CAMERA_ZOOM) / MAX_MAX_THROTTLE;
+        private const float MAX_SIDE_ACCELERATION = 0.007f;
+        private const float MAX_SIDE_SPEED = 0.03f;
+        private const float MAX_MAX_THROTTLE = 0.2f;
+        private const float MIN_MIN_THROTTLE = -0.1f;
+
+        
         const float maxAngle = (float)MathHelper.PiOver4;
         private float cameraZoom;
         private Vector2 cameraOffset;
@@ -53,6 +52,12 @@ namespace Projeto_Apollo_16
         public Vector2 SideVelocity { get; private set; }
         public float SideSpeed { get; private set; }
 
+        //dependem do throttle (alavanca do joystick)
+        private float maxThrottle = 0.4f;
+        private float minThrottle = -0.2f;
+
+        //dpende do joystickRange
+        float maxRotationZ;
         
         //Items and stuff
         public int Life { get; private set; }
@@ -99,7 +104,7 @@ namespace Projeto_Apollo_16
             Speed = 0.001f;
             Angle = 0;
             Velocity = Vector2.Zero;
-            cameraZoom = initialCameraZoom;
+            cameraZoom = INITIAL_CAMERA_ZOOM;
             cameraOffset = Vector2.Zero;
             Life = 100;
             Fuel = 100;
@@ -122,41 +127,41 @@ namespace Projeto_Apollo_16
         void ZoomIn(float z)
         {
             cameraZoom += z;
-            if (cameraZoom > maxCameraZoom) cameraZoom = maxCameraZoom;
+            if (cameraZoom > MAX_CAMERA_ZOOM) cameraZoom = MAX_CAMERA_ZOOM;
         }
 
         void ZoomOut(float z)
         {
             cameraZoom -= z;
-            if (cameraZoom < minCameraZoom) cameraZoom = minCameraZoom;
+            if (cameraZoom < MIN_CAMERA_ZOOM) cameraZoom = MIN_CAMERA_ZOOM;
         }
 
         void SetZoom(float z)
         {
             cameraZoom = z;
-            if (cameraZoom < minCameraZoom) cameraZoom = minCameraZoom;
-            else if (cameraZoom > maxCameraZoom) cameraZoom = maxCameraZoom;
+            if (cameraZoom < MIN_CAMERA_ZOOM) cameraZoom = MIN_CAMERA_ZOOM;
+            else if (cameraZoom > MAX_CAMERA_ZOOM) cameraZoom = MAX_CAMERA_ZOOM;
         }
 
         void SlideTop(float a)
         {
             cameraOffset.Y -= a;
-            if (cameraOffset.Y < -maxCameraOffset) cameraOffset.Y = -maxCameraOffset;
+            if (cameraOffset.Y < -MAX_CAMERA_OFFSET) cameraOffset.Y = -MAX_CAMERA_OFFSET;
         }
         void SlideDown(float a)
         {
             cameraOffset.Y += a;
-            if (cameraOffset.Y > maxCameraOffset) cameraOffset.Y = maxCameraOffset;
+            if (cameraOffset.Y > MAX_CAMERA_OFFSET) cameraOffset.Y = MAX_CAMERA_OFFSET;
         }
         void SlideLeft(float a)
         {
             cameraOffset.X -= a;
-            if (cameraOffset.X < -maxCameraOffset) cameraOffset.X = -maxCameraOffset;
+            if (cameraOffset.X < -MAX_CAMERA_OFFSET) cameraOffset.X = -MAX_CAMERA_OFFSET;
         }
         void SlideRight(float a)
         {
             cameraOffset.X += a;
-            if (cameraOffset.X > maxCameraOffset) cameraOffset.X = maxCameraOffset;
+            if (cameraOffset.X > MAX_CAMERA_OFFSET) cameraOffset.X = MAX_CAMERA_OFFSET;
         }
 
         #endregion
@@ -213,7 +218,7 @@ namespace Projeto_Apollo_16
         {
             throttle = MathHelper.Clamp(throttle, minThrottle, maxThrottle);
             Speed += throttle;
-            Speed = MathHelper.Clamp(Speed, minSpeed, maxSpeed);
+            Speed = MathHelper.Clamp(Speed, MIN_SPEED, MAX_SPEED);
 
             Velocity = MathFunctions.AngleToVector(Angle);
 
@@ -228,9 +233,9 @@ namespace Projeto_Apollo_16
 
             sideAcceleration *= Math.Abs(throttle);
             
-            sideAcceleration = MathHelper.Clamp(sideAcceleration, -maxSideAcceleration, maxSideAcceleration);
+            sideAcceleration = MathHelper.Clamp(sideAcceleration, -MAX_SIDE_ACCELERATION, MAX_SIDE_ACCELERATION);
             SideSpeed += sideAcceleration * (float)dt;
-            SideSpeed = MathHelper.Clamp(SideSpeed, -maxSideSpeed, maxSideSpeed);
+            SideSpeed = MathHelper.Clamp(SideSpeed, -MAX_SIDE_SPEED, MAX_SIDE_SPEED);
             SideVelocity *= SideSpeed * (float)dt +0.5f * sideAcceleration * (float)(dt * dt);
             SideSpeed /= 2.0f;
 
@@ -262,8 +267,8 @@ namespace Projeto_Apollo_16
 
         private void UpdatePositionInput()
         {
-            maxThrottle = maxMaxThrottle * (-joystickState.Z + joystickRange) / joystickRange;
-            minThrottle = minMinThrottle * (-joystickState.Z + joystickRange) / joystickRange;
+            maxThrottle = MAX_MAX_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
+            minThrottle = MIN_MIN_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
 
 
             velocityInput();
@@ -275,7 +280,7 @@ namespace Projeto_Apollo_16
             }
 
 
-            sideAcceleration = joystickState.X * maxSideAcceleration / joystickRange;
+            sideAcceleration = joystickState.X * MAX_SIDE_ACCELERATION / joystickRange;
 
         }
 
@@ -287,7 +292,7 @@ namespace Projeto_Apollo_16
 
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Left))
             {
-                Angle -= deltaTheta;
+                Angle -= DELTA_THETA;
                 if (Angle < -MathHelper.TwoPi)
                 {
                     Angle += MathHelper.TwoPi;
@@ -295,7 +300,7 @@ namespace Projeto_Apollo_16
             }
             else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Right))
             {
-                Angle += deltaTheta;
+                Angle += DELTA_THETA;
                 if (Angle > MathHelper.TwoPi)
                 {
                     Angle -= MathHelper.TwoPi;
@@ -319,16 +324,16 @@ namespace Projeto_Apollo_16
             
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Up))
             {
-                throttle += deltaThrottleUp;
+                throttle += DELTA_THROTTLE_UP;
             }
             else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Down))
             {
-                throttle -= deltaThrottleDown;
+                throttle -= DELTA_THROTTLE_DOWN;
             }
             else
             {
                 throttle *= 1.0f / 2;
-                if (Math.Abs(throttle) <= epsilonThrottle)
+                if (Math.Abs(throttle) <= EPSILON_THROTTLE)
                 {
                     throttle = 0;
                 }
@@ -338,33 +343,33 @@ namespace Projeto_Apollo_16
 
         private void UpdateCameraInput()
         {
-            SetZoom(maxCameraZoom - cameraProportion * Math.Abs(throttle));
+            SetZoom(MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle));
 
             
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Q))
             {
-                ZoomIn(deltaZoom);
+                ZoomIn(DELTA_ZOOM);
             }
             else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.E))
             {
-                ZoomOut(deltaZoom);
+                ZoomOut(DELTA_ZOOM);
             }
 
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.W))
             {
-                SlideTop(deltaSlide);
+                SlideTop(DELTA_SLIDE);
             }
             else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.A))
             {
-                SlideLeft(deltaSlide);
+                SlideLeft(DELTA_SLIDE);
             }
             else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.S))
             {
-                SlideDown(deltaSlide);
+                SlideDown(DELTA_SLIDE);
             }
             else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D))
             {
-                SlideRight(deltaSlide);
+                SlideRight(DELTA_SLIDE);
             }
             
         }

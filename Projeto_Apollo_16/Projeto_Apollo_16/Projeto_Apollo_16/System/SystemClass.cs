@@ -60,8 +60,6 @@ namespace Projeto_Apollo_16
         protected override void Initialize()
         {
             viewport = GraphicsDevice.Viewport;
-            
-
             base.Initialize();
         }
 

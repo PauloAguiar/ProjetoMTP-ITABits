@@ -105,6 +105,13 @@
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\PictureBox.cs" />
     <Compile Include="Actors\Enemies\Ghost.cs" />
+    <Compile Include="GameLogic\BulletsLogic.cs" />
+    <Compile Include="GameLogic\collisionLogic.cs" />
+    <Compile Include="GameLogic\EnemiesLogic.cs" />
+    <Compile Include="GameLogic\explosionLogic.cs" />
+    <Compile Include="GameLogic\itemLogic.cs" />
+    <Compile Include="GameLogic\JoystickLogic.cs" />
+    <Compile Include="GameLogic\PauseLogic.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="Actors\ItemClasses\Health.cs" />
     <Compile Include="Actors\ItemClasses\ItemClass.cs" />
@@ -113,7 +120,7 @@
     <Compile Include="Network\PilotDataClass.cs" />
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />
-    <Compile Include="System\GameLogic.cs" />
+    <Compile Include="GameLogic\GameLogic.cs" />
     <Compile Include="System\ItemManager.cs" />
     <Compile Include="System\NetworkManager.cs" />
     <Compile Include="Utils\MathFunctions.cs" />
