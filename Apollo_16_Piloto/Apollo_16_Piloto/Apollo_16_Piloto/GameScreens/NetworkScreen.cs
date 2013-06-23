@@ -20,7 +20,7 @@ namespace Apollo_16_Piloto
 
         Joystick joystick;
         JoystickState joystickState = new JoystickState();
-        public const int joystickRange = 10000;
+        public const int joystickRange = 1000;
 
 
         public PilotClass pilot;

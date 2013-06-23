@@ -6,14 +6,16 @@ namespace Projeto_Apollo_16
 {
     public sealed class Sun : EnemyClass
     {
-        private const float speed = 0.7f;
+        private float speed = 0.7f;
         private Vector2 centralPosition;
-        private const int radius = 300;
+        private int radius = 300;
 
         public Sun(Vector2 position, ContentManager content) : base(position, content)
         {
             centralPosition = position;
             globalPosition = position + new Vector2(radius, 0);
+            speed = GameLogic.rand.Next(7, 15)/10.0f;
+            radius = GameLogic.rand.Next(200, 400);
         }
 
         public override void LoadTexture(ContentManager content)
@@ -26,6 +28,11 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
+        public override void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        {
+            AnimatedExplosion e = new AnimatedExplosion(position, content);
+            explosionManager.createExplosion(e);
+        }
 
         public override void Update(GameTime gameTime)
         {

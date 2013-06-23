@@ -51,15 +51,8 @@ namespace Projeto_Apollo_16
             player = new PlayerClass(Vector2.Zero, content);
             camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
             
-            //espera até o jogador plugar o joystick
-            //while (joystick == null)
-            //{
             CreateDevice();
-            //}
-            
-            player = new PlayerClass(Vector2.Zero, content);
-            camera = new CameraClass(systemRef.GraphicsDevice.Viewport);
-
+            GameLogic.Initialize(enemyManager, content, player);
             base.Initialize();
         }
 
@@ -127,14 +120,6 @@ namespace Projeto_Apollo_16
                 systemRef.networkManager.ReadInGamePackets();
             
             player.Update(gameTime, joystickState, joystickRange);
-
-            //player.state = this.state;
-            //player.Update(gameTime);
-
-            //Globals.playerPosition = player.GlobalPosition;
-            //Globals.playerVelocity = player.Velocity;
-            
-            //player.Update(gameTime, state);
 
             cameraUpdate();
 
@@ -266,22 +251,12 @@ namespace Projeto_Apollo_16
             if ( ((Input.Keyboard.GetState().IsKeyDown(Input.Keys.F2)) || joystickState.IsPressed(5)) && timeChangedWeapon > minTimeChangeWeapon)
             {
                 timeChangedWeapon = 0;
-                if (player.bullets == PlayerClass.Bullets.linear)
-                    player.bullets = PlayerClass.Bullets.circular;
-                else if (player.bullets == PlayerClass.Bullets.circular)
-                    player.bullets = PlayerClass.Bullets.homing;
-                else
-                    player.bullets = PlayerClass.Bullets.linear;
+                player.bullets = (PlayerClass.Bullets)( ((int)player.bullets + 1)%PlayerClass.numberBullets );
             }
             if (((Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1)) || joystickState.IsPressed(4)) && timeChangedWeapon > minTimeChangeWeapon)
             {
                 timeChangedWeapon = 0;
-                if (player.bullets == PlayerClass.Bullets.linear)
-                    player.bullets = PlayerClass.Bullets.homing;
-                else if (player.bullets == PlayerClass.Bullets.circular)
-                    player.bullets = PlayerClass.Bullets.linear;
-                else
-                    player.bullets = PlayerClass.Bullets.circular;
+                player.bullets = (PlayerClass.Bullets)(((int)player.bullets - 1 + PlayerClass.numberBullets) % PlayerClass.numberBullets);
             }
             if (((Input.Keyboard.GetState().IsKeyDown(Input.Keys.Space)) || joystickState.IsPressed(0)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
             {
@@ -297,7 +272,7 @@ namespace Projeto_Apollo_16
                     CircularProjectile p = new CircularProjectile(player.GlobalPosition, content, player);
                     projectilesManager.CreateBullet(p);
                 }
-                else
+                else //homing
                 {
                     if (enemyManager.Count > 0)
                     {
@@ -308,33 +283,6 @@ namespace Projeto_Apollo_16
                 }
 
             }
-            
-
-            /*
-            if ( (joystickState.IsPressed(4) || joystickState.IsPressed(0)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
-            {
-                Vector2 v = new Vector2((float)Math.Sin(player.Angle), -(float)Math.Cos(player.Angle));
-
-                LinearProjectile p = new LinearProjectile(player.GlobalPosition, v, content);
-                projectilesManager.CreateBullet(p);
-            }
-            if ( ( joystickState.IsPressed(1)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
-            {
-                CircularProjectile p = new CircularProjectile(player.GlobalPosition, content, player);
-                projectilesManager.CreateBullet(p);
-            }
-            if ( (joystickState.IsPressed(5)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
-            {
-                if (enemyManager.Count > 0)
-                {
-
-                    HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.findNearest(player, enemyManager));
-                    projectilesManager.CreateBullet(p);
-                }
-            }
-             */ 
-
-            
 
         }
 
@@ -362,25 +310,7 @@ namespace Projeto_Apollo_16
 
                     if (CollisionManager.CircularCollision(projectilesManager.ElementAt(i), enemyManager.ElementAt(j)))
                     {
-                        //cria uma explosão diferente pra cada tipo de inimigo
-                        if (enemyManager.ElementAt(j) is Sun)
-                        {
-                            AnimatedExplosion e = new AnimatedExplosion(projectilesManager.ElementAt(i).GlobalPosition, content);
-                            explosionManager.createExplosion(e);
-                        }
-
-                        else if (enemyManager.ElementAt(j) is Chaser)
-                        {
-                            MultipleExplosion e = new MultipleExplosion(projectilesManager.ElementAt(i).GlobalPosition, content);
-                            explosionManager.createExplosion(e);
-                        }
-
-                        else
-                        {
-                            SimpleExplosion e = new SimpleExplosion(projectilesManager.ElementAt(i).GlobalPosition, content);
-                            explosionManager.createExplosion(e);
-                        }
-
+                        enemyManager.ElementAt(j).Destroy(projectilesManager.ElementAt(i).GlobalPosition, content, explosionManager);
                         projectilesManager.RemoveAt(i);
                         enemyManager.RemoveAt(j);
                         i--;
@@ -389,7 +319,7 @@ namespace Projeto_Apollo_16
                 }
             }
 
-
+            //checa colisao entre o player e os items
             for (int i = 0; i < itemManager.Count; i++)
             {
                 if (CollisionManager.CircularCollision(player, itemManager.ElementAt(i)))

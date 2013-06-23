@@ -34,6 +34,12 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
+        public override void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        {
+            MultipleExplosion e = new MultipleExplosion(position, content);
+            explosionManager.createExplosion(e);
+        }
+
         public override void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;

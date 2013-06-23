@@ -113,6 +113,7 @@
     <Compile Include="Network\PilotDataClass.cs" />
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />
+    <Compile Include="System\GameLogic.cs" />
     <Compile Include="System\ItemManager.cs" />
     <Compile Include="System\NetworkManager.cs" />
     <Compile Include="Utils\MathFunctions.cs" />

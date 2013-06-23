@@ -10,13 +10,14 @@ namespace Projeto_Apollo_16
         public Vector2 Velocity { get; set; }
         public Vector2 centralPosition { get; set; }
         private bool isFliped;
-        private const int amplitude = 300;
+        private int amplitude = 300;
 
         public Ghost(Vector2 position, ContentManager content) : base(position, content)
         {
             globalPosition = position;
             centralPosition = position;
-            Speed = 3;
+            Speed = GameLogic.rand.Next(4, 20);
+            amplitude = GameLogic.rand.Next(300, 1000);
             Velocity = new Vector2(1, 0) * (float)Speed;
             isFliped = true;
         }
@@ -30,6 +31,12 @@ namespace Projeto_Apollo_16
         public override void LoadFont(ContentManager content)
         {
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
+        }
+
+        public override void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        {
+            SimpleExplosion e = new SimpleExplosion(position, content);
+            explosionManager.createExplosion(e);
         }
 
         public override void Update(GameTime gameTime)

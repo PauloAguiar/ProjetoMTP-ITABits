@@ -10,6 +10,7 @@ namespace Projeto_Apollo_16
 {
     public sealed class PlayerClass : ActorClass
     {
+   
         #region constants
         //Keyboard Control
         private const float deltaTheta = (float)Math.PI / 400;
@@ -19,7 +20,7 @@ namespace Projeto_Apollo_16
         private const float deltaThrottleDown = 0.000005f;
         
         //Camera Control
-        private const float maxCameraZoom = 1.0f;
+        private const float maxCameraZoom = 0.1f;
         private const float minCameraZoom = 0.1f;
         private const int maxCameraOffset = 300;
         private const float deltaZoom = 0.005f;
@@ -68,8 +69,14 @@ namespace Projeto_Apollo_16
         //0 -> shield
         //1 -> health
 
-        public enum Bullets { linear, circular, homing };
+        public enum Bullets 
+        { 
+            linear = 0,
+            circular,
+            homing,
+        }
         public Bullets bullets = Bullets.linear;
+        public const int numberBullets = 3;
 
         JoystickState joystickState = new JoystickState();
         public int joystickRange = 400;
