@@ -127,6 +127,7 @@
     <Compile Include="GameScreens\LabelsGameplayScreen.cs" />
     <Compile Include="GameScreens\NetworkScreen.cs" />
     <Compile Include="Network\IGameMessage.cs" />
+    <Compile Include="Network\InputDataClass.cs" />
     <Compile Include="Network\PilotDataClass.cs" />
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />

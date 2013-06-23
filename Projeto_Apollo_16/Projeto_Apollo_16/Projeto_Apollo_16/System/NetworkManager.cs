@@ -25,6 +25,8 @@ namespace Projeto_Apollo_16
 
     public class NetworkManager
     {
+        protected SystemClass systemRef; /* This is a reference to our SystemClass*/
+
         private int PORT = 14242;
         private int MAX_CONNECTIONS = 5;
         private String NETWORK_NAME = "apollo";
@@ -37,8 +39,9 @@ namespace Projeto_Apollo_16
         private NetPeerConfiguration networkConfig;
 
 
-        public NetworkManager()
+        public NetworkManager(Game game)
         {
+            systemRef = (SystemClass)game;
         }
 
         public void StartServer()
@@ -97,13 +100,13 @@ namespace Projeto_Apollo_16
 
                     /* RECEIVE ERROR MESSAGES */
                     case NetIncomingMessageType.ErrorMessage:
-                        
+
                     /* RECEIVE VERBOSE DEBUG MESSAGES */
                     case NetIncomingMessageType.VerboseDebugMessage:
 
                     /* RECEIVE DEBUG MESSAGES */
                     case NetIncomingMessageType.DebugMessage:
-                        
+
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
                         //status = msg.ReadString();
@@ -112,8 +115,8 @@ namespace Projeto_Apollo_16
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
-						string reason = msg.ReadString();
-						status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
+                        string reason = msg.ReadString();
+                        status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
                         break;
                     default:
                         status = "Unexpected Message of type " + msg.MessageType;
@@ -148,8 +151,8 @@ namespace Projeto_Apollo_16
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
-						string reason = msg.ReadString();
-						status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
+                        string reason = msg.ReadString();
+                        status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
                         break;
 
                     /* RECEIVE DATA MESSAGES */
@@ -157,15 +160,14 @@ namespace Projeto_Apollo_16
                         switch (msg.ReadByte())
                         {
                             case (byte)PacketTypes.INPUT_DATA:
-                                if (msg.ReadBoolean())
-                                    status = "T";
-                                else
-                                    status = "F";
+                                var input = new InputDataClass();
+                                input.Decode(msg);
+                                systemRef.gamePlayScreen.player.ParseInput(input);
                                 break;
                         }
                         break;
                     default:
-                        status = "Unhandled type: " + msg.MessageType;
+                        //status = "Unhandled type: " + msg.MessageType;
                         break;
                 }
                 networkServer.Recycle(msg);

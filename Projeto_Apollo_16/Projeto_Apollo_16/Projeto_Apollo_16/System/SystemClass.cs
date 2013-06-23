@@ -44,7 +44,7 @@ namespace Projeto_Apollo_16
             Components.Add(new InputHandler(this));
 
             stateManager = new GameStateManager(this);
-            networkManager = new NetworkManager();
+            networkManager = new NetworkManager(this);
             
             /* Add the gameState manager component to our list of components */
             Components.Add(stateManager);

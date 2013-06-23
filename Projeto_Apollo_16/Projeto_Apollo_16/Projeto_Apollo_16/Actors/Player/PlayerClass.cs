@@ -28,8 +28,18 @@ namespace Projeto_Apollo_16
         private const float MAX_SIDE_SPEED = 0.03f;
         private const float MAX_MAX_THROTTLE = 0.2f;
         private const float MIN_MIN_THROTTLE = -0.1f;
+<<<<<<< HEAD:Projeto_Apollo_16/Projeto_Apollo_16/Projeto_Apollo_16/Actors/Player/PlayerClass.cs
         const float MAX_ANGLE = (float)MathHelper.PiOver2;
         
+=======
+
+        private const float PLAYER_AXIS_RANGE = 1000;
+
+        const float maxAngle = (float)MathHelper.PiOver4;
+        private float cameraZoom;
+        private Vector2 cameraOffset;
+
+>>>>>>> Network Melhorada:Projeto_Apollo_16/Projeto_Apollo_16/Projeto_Apollo_16/Actors/PlayerClass.cs
         #endregion
 
         public float throttle { get; private set; }
@@ -49,7 +59,15 @@ namespace Projeto_Apollo_16
         float maxRotationZ;
         
         Texture2D naveRight;
+        Texture2D gun;
+        Vector2 gunPosition;
+
+        public Boolean isLoaded = false;
+
+        private Boolean hasShotPrimaryWeapon = false;
         
+        public JoystickState state { get; set; }
+
         public PlayerClass(Vector2 position, ContentManager content)
         {
             globalPosition = position;
@@ -61,6 +79,16 @@ namespace Projeto_Apollo_16
             initializeStats();
             this.LoadFont(content);
             this.LoadTexture(content);
+            isLoaded = true;
+        }
+
+        public Boolean HasShotPrimaryWeapon()
+        {
+            if (!hasShotPrimaryWeapon)
+                return false;
+
+            hasShotPrimaryWeapon = false;
+            return true;
         }
 
         #region loadContent
@@ -218,6 +246,49 @@ namespace Projeto_Apollo_16
             DrawGun(spriteBatch);
             DrawStats(spriteBatch);
         }
+
+        public void ParseInput(InputDataClass input)
+        {
+            const int range = 1000;
+   
+            if (input.buttons[(int)ButtonStates.BTN_1])
+            {
+                PrimaryShot();
+            }
+
+            if (input.buttons[(int)ButtonStates.BTN_2])
+            {
+                SecondaryShot();
+            }
+
+            sideAcceleration = ((input.position[(int)StickPosition.X_AXIS] * MAX_SIDE_ACCELERATION) * PLAYER_AXIS_RANGE) / range;
+
+            if (input.position[(int)StickPosition.Y_AXIS] < 0)
+            {
+                throttle = ((-input.position[(int)StickPosition.Y_AXIS] * maxThrottle) * PLAYER_AXIS_RANGE) / range;
+            }
+            else if (input.position[(int)StickPosition.Y_AXIS] > 0)
+            {
+                throttle = ((input.position[(int)StickPosition.Y_AXIS] * minThrottle) * PLAYER_AXIS_RANGE) / range;
+            }
+
+            maxThrottle = (MAX_MAX_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + range) * PLAYER_AXIS_RANGE) / range;
+            minThrottle = (MIN_MIN_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + range) * PLAYER_AXIS_RANGE) / range;
+
+            Angle += 1 / 100.0f * 1 / 4.0f * (input.rotationZ * maxAngle / maxRotationZ) / (float)MathHelper.TwoPi;
+        }
+
+        private void SecondaryShot()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PrimaryShot()
+        {
+            hasShotPrimaryWeapon = true;
+        }
+
+        #endregion
 
         private void DrawShip(SpriteBatch spriteBatch)
         {
