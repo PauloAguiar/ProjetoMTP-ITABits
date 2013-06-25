@@ -7,7 +7,8 @@ namespace Apollo_16_Piloto
     public class StartMenuScreen : BaseGameState
     {
         /* Constructor */
-        PictureBox backgroundImage;
+        Texture2D backgroundTexture;
+        PictureBox background;
         PictureBox arrowImage;
         LinkLabel startGame;
         LinkLabel exitGame;
@@ -28,8 +29,12 @@ namespace Apollo_16_Piloto
         protected override void LoadContent()
         {
             base.LoadContent();
-            backgroundImage = new PictureBox(content.Load<Texture2D>(@"Menus\Backgrounds\mulher"),systemRef.screenRectangle);
-            controlManager.Add(backgroundImage);
+            XML_StartMenuScreenData startMenuScreen = content.Load<XML_StartMenuScreenData>(@"StartMenuScreen\StartMenuScreen");
+
+            backgroundTexture = content.Load<Texture2D>(@"Backgrounds\" + startMenuScreen.background_assetName);
+            background = new PictureBox(backgroundTexture, new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height));
+            controlManager.Add(background);
+            background.SetPosition(new Vector2(startMenuScreen.background_positionX, startMenuScreen.background_positionY));
 
             Texture2D arrowTexture = content.Load<Texture2D>(@"Menus\Icons\icon_menu");
 

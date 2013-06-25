@@ -18,7 +18,6 @@ namespace Projeto_Apollo_16
         public PlayerClass(Vector2 position, ContentManager content)
         {
             globalPosition = position;
-            Speed = 0;
             throttle = 0;
             Speed = 0.001f;
             Angle = 0;

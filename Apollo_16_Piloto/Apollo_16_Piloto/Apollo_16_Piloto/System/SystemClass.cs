@@ -12,7 +12,6 @@ namespace Apollo_16_Piloto
         public SpriteBatch spriteBatch;
 
         GameStateManager stateManager;
-
         public NetworkManager networkManager;
 
         /* Screens */
@@ -22,8 +21,8 @@ namespace Apollo_16_Piloto
         public GamePlayScreen gamePlayScreen;
 
 		
-        const int screenWidth = 800;
-        const int screenHeight = 600;
+        const int screenWidth = 1024;
+        const int screenHeight = 768;
 
         public readonly Rectangle screenRectangle;
 

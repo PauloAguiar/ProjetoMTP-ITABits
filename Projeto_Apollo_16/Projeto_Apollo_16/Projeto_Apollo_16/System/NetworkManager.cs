@@ -15,7 +15,7 @@ namespace Projeto_Apollo_16
         ID_PACKET,
         LOGIN,
         PILOT_DATA,
-        INPUT_DATA
+        INPUT_DATA,
     }
 
     enum ConnectionID
@@ -56,7 +56,7 @@ namespace Projeto_Apollo_16
             //networkConfig.EnableMessageType(NetIncomingMessageType.Error);
             //networkConfig.EnableMessageType(NetIncomingMessageType.DebugMessage);
             networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
+            networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
             //networkConfig.EnableMessageType(NetIncomingMessageType.ErrorMessage);
             //networkConfig.EnableMessageType(NetIncomingMessageType.Data);
 
@@ -118,6 +118,15 @@ namespace Projeto_Apollo_16
                         string reason = msg.ReadString();
                         status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
                         break;
+
+                    case NetIncomingMessageType.DiscoveryRequest:
+                        // Create a response and write some example data to it
+                        NetOutgoingMessage response = networkServer.CreateMessage();
+
+                        // Send the response to the sender of the request
+                        networkServer.SendDiscoveryResponse(response, msg.SenderEndPoint);
+                        break;
+
                     default:
                         status = "Unexpected Message of type " + msg.MessageType;
                         break;

@@ -7,75 +7,49 @@ using Microsoft.Xna.Framework;
 
 namespace Apollo_16_Piloto
 {
-    enum PacketTypes
-    {
-        CONNECTION_ACCEPTED,
-        ID_PACKET,
-        LOGIN,
-        PILOT_DATA,
-        INPUT_DATA
-    }
-
-    enum ConnectionID
-    {
-        PILOT,
-    }
-
     public class NetworkManager
     {
-        protected SystemClass systemRef; /* This is a reference to our SystemClass*/
+        /* This is a reference to our SystemClass*/
+        protected SystemClass systemRef; 
 
-        const String IP = "192.168.0.101";
-        const int PORT = 14242;
-        const int MAX_CONNECTIONS = 5;
-        const String NETWORK_NAME = "apollo";
-        public Boolean connected = false;
-
-        public String status = "";
-
+        /* Network Object */
         NetClient networkClient;
-        NetPeerConfiguration networkConfig;
-
+        
         public NetworkManager(Game game)
         {
             systemRef = (SystemClass)game;
-        }
 
-        public void ConnectToServer()
-        {
+            NetPeerConfiguration networkConfig;
             // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            networkConfig = new NetPeerConfiguration(NETWORK_NAME);
+            networkConfig = new NetPeerConfiguration(Global.NETWORK_NAME);
             networkConfig.AutoFlushSendQueue = false;
-
-            //networkConfig.EnableMessageType(NetIncomingMessageType.WarningMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.VerboseDebugMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.ErrorMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.Error);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.DebugMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.Data);
+            networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
 
             // Create new server based on the configs just defined
             networkClient = new NetClient(networkConfig);
 
-            status = "networkClient Created!";
+            General.Log("NetworkClient Created!");
 
             networkClient.Start();
+            General.Log("NetworkClient Started!");
+        }
 
-            status = "Client Started!";
+        public void DiscoverServer()
+        {
+            networkClient.DiscoverLocalPeers(Global.PORT);
+        }
+
+        public void ConnectToServer()
+        {
+            networkClient.Start();
 
             NetOutgoingMessage outmsg = networkClient.CreateMessage();
             outmsg.Write((byte)PacketTypes.LOGIN);
             outmsg.Write((byte)ConnectionID.PILOT);
 
-            networkClient.Connect(IP, PORT, outmsg);
+            networkClient.Connect(Global.IP, Global.PORT, outmsg);
 
-            status = "Connection Requested!";
-        }
-
-        public void DiscoverServer()
-        {
-            //networkClient.DiscoverLocalServers(PORT);
+            General.Log("Connection Requested!");
         }
 
         public void ReadLobbyPackets()
@@ -97,7 +71,7 @@ namespace Apollo_16_Piloto
 
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
-                        status = msg.ReadString();
+                        General.Log(msg.ReadString());
                         break;
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
@@ -116,14 +90,20 @@ namespace Apollo_16_Piloto
                         }*/
                         NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
                         string reason = msg.ReadString();
-                        status = st.ToString() + ": " + reason;
+                        General.Log(st.ToString() + ": " + reason);
 
                         break;
+
+                    case NetIncomingMessageType.DiscoveryResponse:
+                        General.Log("Server is Online!");
+                        systemRef.networkScreen.networkStatus = true;
+                        break;
+
                     case NetIncomingMessageType.Data:
                         switch (msg.ReadByte())
                         {
                             case (byte)PacketTypes.CONNECTION_ACCEPTED:
-                                status = "ok";
+                                General.Log("Connection Accepted!");
                                 break;
                             case (byte)PacketTypes.PILOT_DATA:
                                 systemRef.networkScreen.pilot.HandlePilotData(msg);
@@ -131,8 +111,9 @@ namespace Apollo_16_Piloto
                         }
                         break;
 
+                    
                     default:
-                        status = "Unexpected Message of type " + msg.MessageType;
+                        General.Log("Unexpected Message of type " + msg.MessageType);
                         break;
                 }
                 networkClient.Recycle(msg);
