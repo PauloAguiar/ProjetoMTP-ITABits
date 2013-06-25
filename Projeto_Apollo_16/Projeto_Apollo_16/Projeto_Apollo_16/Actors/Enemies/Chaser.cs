@@ -10,13 +10,13 @@ namespace Projeto_Apollo_16
         public Vector2 Velocity { get; set; }
         public Vector2 centralPosition { get; set; }
         private bool isFliped;
-        private const int amplitude = 300;
+        private const int AMPLITUDE = 300;
         PlayerClass player;
 
         public Chaser(Vector2 position, ContentManager content, PlayerClass player)
             : base(position, content)
         {
-            globalPosition = position + new Vector2(2*amplitude, -2*amplitude); //futuramente será substituido por uma posição aleatória
+            globalPosition = position + new Vector2(2*AMPLITUDE, -2*AMPLITUDE); //futuramente será substituido por uma posição aleatória
             centralPosition = position;
             Speed = 0.1;
             Velocity = new Vector2(1, 0)* (float)Speed; 

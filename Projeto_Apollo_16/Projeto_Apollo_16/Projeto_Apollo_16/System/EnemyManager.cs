@@ -12,13 +12,13 @@ namespace Projeto_Apollo_16
         static SystemClass systemRef;
 
         public double spawnTime { get; private set; }
-        public const double tts = 1000;
+        public const double TTS = 1000;
 
         public EnemyManager(Game game) : base()
         {
             systemRef = (SystemClass)game;
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
-            spawnTime = tts;
+            spawnTime = TTS;
         }
 
         public void createEnemy(EnemyClass enemy)

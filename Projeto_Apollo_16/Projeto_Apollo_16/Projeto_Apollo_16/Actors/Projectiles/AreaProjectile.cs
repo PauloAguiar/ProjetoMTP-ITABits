@@ -9,8 +9,8 @@ namespace Projeto_Apollo_16
 {
     class AreaProjectile : ProjectileClass
     {
-        private const float speed = 2 / 3.0f;
-        private const float accelerationModule = 0.01f;
+        private const float SPEED = 2 / 3.0f;
+        private const float ACCELERATION_MODULE = 0.01f;
         private Vector2 velocity;
         private Vector2 acceleration;
         private bool shooted = false;
@@ -23,8 +23,8 @@ namespace Projeto_Apollo_16
             this.acceleration = velocity;
             ttl = 2000;
 
-            velocity *= speed;
-            acceleration *= accelerationModule;
+            velocity *= SPEED;
+            acceleration *= ACCELERATION_MODULE;
         }
 
         public override void LoadTexture(ContentManager content)

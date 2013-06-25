@@ -9,8 +9,8 @@ namespace Projeto_Apollo_16
     public class MultipleExplosion : ExplosionClass
     {
         int i, j;
-        const double delay = 0.005;
-        const int range = 200; // o ideal é que fosse circular
+        const double DELAY = 0.005;
+        const int RANGE = 200; // o ideal é que fosse circular
         double time;
         int x;
         int dx; //deslocamento aleatório do centro da explosão em x
@@ -49,8 +49,8 @@ namespace Projeto_Apollo_16
             
             if (x == 16)
             {
-                dx = randNum.Next(-range, range);
-                dy = randNum.Next(-range, range);
+                dx = randNum.Next(-RANGE, RANGE);
+                dy = randNum.Next(-RANGE, RANGE);
                 x = 1;
                 i = j = 0;
             }
@@ -63,7 +63,7 @@ namespace Projeto_Apollo_16
         {
             Rectangle r = new Rectangle(i, j, 64, 64);
             spriteBatch.Draw(texture, globalPosition + new Vector2(dx,dy) , r, Color.White);
-            if (time > delay * x)
+            if (time > DELAY * x)
             {
                 i = (i + 64) % 320;
                 j = (x / 4) * 64;

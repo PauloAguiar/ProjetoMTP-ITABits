@@ -15,8 +15,8 @@ namespace Projeto_Apollo_16
         public event EventHandler OnStateChange;
 
         Stack<GameState> gameStates = new Stack<GameState>();
-        const int startDrawOrder = 5000;
-        const int drawOrderInc = 100;
+        const int START_DRAW_ORDER = 5000;
+        const int DRAW_ORDER_INC = 100;
         int drawOrder;
 
         /* Getters and Setters */
@@ -29,7 +29,7 @@ namespace Projeto_Apollo_16
         public GameStateManager(Game game) 
             : base(game)
         {
-            drawOrder = startDrawOrder;
+            drawOrder = START_DRAW_ORDER;
         }
 
         /* Override methods from gameCOmponent, so they will be called each loop */
@@ -49,7 +49,7 @@ namespace Projeto_Apollo_16
             if (gameStates.Count > 0)
             {
                 RemoveState();
-                drawOrder -= drawOrderInc;
+                drawOrder -= DRAW_ORDER_INC;
 
                 if (OnStateChange != null)
                 {
@@ -69,7 +69,7 @@ namespace Projeto_Apollo_16
 
         public void PushState(GameState newState)
         {
-            drawOrder += drawOrderInc;
+            drawOrder += DRAW_ORDER_INC;
             newState.DrawOrder = drawOrder;
 
             AddState(newState);
@@ -96,8 +96,8 @@ namespace Projeto_Apollo_16
                 RemoveState();
             }
 
-            newState.DrawOrder = startDrawOrder;
-            drawOrder = startDrawOrder;
+            newState.DrawOrder = START_DRAW_ORDER;
+            drawOrder = START_DRAW_ORDER;
 
             AddState(newState);
 

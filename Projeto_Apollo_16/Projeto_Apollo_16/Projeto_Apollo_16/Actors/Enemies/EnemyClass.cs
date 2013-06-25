@@ -13,7 +13,7 @@ namespace Projeto_Apollo_16
             Sun,
             Chaser,
         }
-        public const int numberTypeEnemies = 4;
+        public const int NUMBER_TYPE_ENEMIES = 4;
 
         public EnemyClass(Vector2 pos, ContentManager content)
         {

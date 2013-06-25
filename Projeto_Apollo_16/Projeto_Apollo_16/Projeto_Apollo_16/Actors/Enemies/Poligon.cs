@@ -13,14 +13,14 @@ namespace Projeto_Apollo_16
         private Vector2 centralPosition;
         private int side;
         private List<Vector2> Vertex = new List<Vector2>(4);
-        private const int sides = 4;
+        private const int SIDES = 4;
         private int vertex = 0;
         Random rand = new Random();
 
         public Poligon(Vector2 position, ContentManager content) : base(position, content)
         {
             centralPosition = position;
-            vertex = GameLogic.rand.Next(sides);
+            vertex = GameLogic.rand.Next(SIDES);
             side = GameLogic.rand.Next(100, 500);
             speed = GameLogic.rand.Next(6, 20) / 10.0f;
             
@@ -54,7 +54,7 @@ namespace Projeto_Apollo_16
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            Vector2 d = Vertex.ElementAt((vertex + 1)%sides) - Vertex.ElementAt(vertex);
+            Vector2 d = Vertex.ElementAt((vertex + 1)%SIDES) - Vertex.ElementAt(vertex);
             Vector2 v = d;
             v.Normalize();
             v *= speed;
@@ -63,7 +63,7 @@ namespace Projeto_Apollo_16
 
             if ((globalPosition - Vertex.ElementAt(vertex)).Length() > d.Length())
             {
-                vertex = (vertex + 1) % sides; 
+                vertex = (vertex + 1) % SIDES; 
                 globalPosition = Vertex.ElementAt(vertex);
             }
         }

@@ -8,7 +8,7 @@ namespace Projeto_Apollo_16
     {
         static Joystick joystick;
         static JoystickState joystickState = new JoystickState();
-        public const int joystickRange = 10000;
+        public const int JOYSTICK_RANGE = 10000;
 
         static void CreateDevice()
         {
@@ -31,7 +31,7 @@ namespace Projeto_Apollo_16
                 foreach (DeviceObjectInstance deviceObject in joystick.GetObjects())
                 {
                     if ((deviceObject.ObjectType & ObjectDeviceType.Axis) != 0)
-                        joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-joystickRange, joystickRange);
+                        joystick.GetObjectPropertiesById((int)deviceObject.ObjectType).SetRange(-JOYSTICK_RANGE, JOYSTICK_RANGE);
                 }
 
                 joystick.Acquire();
@@ -73,15 +73,15 @@ namespace Projeto_Apollo_16
 
         static void checkJoystickStatus()
         {
-            if (joystickState.IsPressed((int)ButtonStates.BTN_6) && timeChangedWeapon > minTimeChangeWeapon)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_6) && timeChangedWeapon > MIN_TIME_CHANGE_WEAPON)
             {
                 ShiftBulletsRight();
             }
-            if (joystickState.IsPressed((int)ButtonStates.BTN_5) && timeChangedWeapon > minTimeChangeWeapon)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_5) && timeChangedWeapon > MIN_TIME_CHANGE_WEAPON)
             {
                 ShiftBulletsLeft();
             }
-            if (joystickState.IsPressed((int)ButtonStates.BTN_1) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_1) && projectilesManager.bulletSpawnTime > ProjectileManager.TTS)
             {
                 CreateBullets();
             }

@@ -5,8 +5,8 @@ namespace Projeto_Apollo_16
 {
     public static partial class GameLogic
     {
-        const int minTimeChangeWeapon = 300;
-        static double timeChangedWeapon = minTimeChangeWeapon;
+        const int MIN_TIME_CHANGE_WEAPON = 300;
+        static double timeChangedWeapon = MIN_TIME_CHANGE_WEAPON;
         static ProjectileManager projectilesManager;
 
         private static void CreateBullets()

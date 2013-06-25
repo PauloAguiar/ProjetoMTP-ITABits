@@ -8,7 +8,7 @@ namespace Projeto_Apollo_16
     public class AnimatedExplosion : ExplosionClass
     {
          int i, j;
-         const double delay = 0.005;
+         const double DELAY = 0.005;
          double time;
          int x;
          public AnimatedExplosion (Vector2 position, ContentManager content) : base(position, content)
@@ -48,7 +48,7 @@ namespace Projeto_Apollo_16
         {
             Rectangle r = new Rectangle (i,j,64,64);
             spriteBatch.Draw(texture, globalPosition, r, Color.White);
-            if (time > delay * x)
+            if (time > DELAY * x)
             {
                 i = (i + 64) % 320;
                 j = (x / 4) * 64;

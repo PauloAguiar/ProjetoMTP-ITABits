@@ -24,19 +24,19 @@ namespace Projeto_Apollo_16
 
         public bool NETWORK_MODE;
 		
-        const int screenWidth = 800;
-        const int screenHeight = 600;
+        const int SCREEN_WIDTH = 800;
+        const int SCREEN_HEIGHT = 600;
 
         public readonly Rectangle screenRectangle;
 
         public SystemClass()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
+            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
             graphics.IsFullScreen = false;
 
-            screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
+            screenRectangle = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
             Content.RootDirectory = "Content";
 

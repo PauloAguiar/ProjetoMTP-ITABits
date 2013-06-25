@@ -10,7 +10,7 @@ namespace Projeto_Apollo_16
     {
         static ContentManager content;
         static SystemClass systemRef;
-        public const double tts = 300;  //time to spawn
+        public const double TTS = 300;  //time to spawn
 
         public double bulletSpawnTime { get; private set; }
 
@@ -19,7 +19,7 @@ namespace Projeto_Apollo_16
         {
             systemRef = (SystemClass)game;
             content = new ContentManager(systemRef.Content.ServiceProvider, systemRef.Content.RootDirectory);
-            bulletSpawnTime = tts;
+            bulletSpawnTime = TTS;
         }
 
         public void CreateBullet(ProjectileClass p)

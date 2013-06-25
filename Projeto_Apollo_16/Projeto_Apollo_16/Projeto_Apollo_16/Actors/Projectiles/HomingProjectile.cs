@@ -8,7 +8,7 @@ namespace Projeto_Apollo_16
 {
     public class HomingProjectile : ProjectileClass
     {
-        private const float speed = 2f;
+        private const float SPEED = 2f;
         private Vector2 velocity;
         private bool shooted = false;
         EnemyClass enemy;
@@ -42,7 +42,7 @@ namespace Projeto_Apollo_16
 
             velocity = enemy.GlobalPosition - globalPosition;
             velocity.Normalize();
-            velocity *= speed;
+            velocity *= SPEED;
 
             globalPosition += velocity * (float)dt;
 

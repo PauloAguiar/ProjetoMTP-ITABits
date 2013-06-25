@@ -84,7 +84,7 @@ namespace Projeto_Apollo_16
 
         public void ParseInput(InputDataClass input)
         {
-            const int range = 1000;
+            const int RANGE = 1000;
 
             if (input.buttons[(int)ButtonStates.BTN_1])
             {
@@ -96,21 +96,21 @@ namespace Projeto_Apollo_16
                 SecondaryShot();
             }
 
-            sideAcceleration = ((input.position[(int)StickPosition.X_AXIS] * MAX_SIDE_ACCELERATION) * PLAYER_AXIS_RANGE) / range;
+            sideAcceleration = ((input.position[(int)StickPosition.X_AXIS] * MAX_SIDE_ACCELERATION) * PLAYER_AXIS_RANGE) / RANGE;
 
             if (input.position[(int)StickPosition.Y_AXIS] < 0)
             {
-                throttle = ((-input.position[(int)StickPosition.Y_AXIS] * maxThrottle) * PLAYER_AXIS_RANGE) / range;
+                throttle = ((-input.position[(int)StickPosition.Y_AXIS] * maxThrottle) * PLAYER_AXIS_RANGE) / RANGE;
             }
             else if (input.position[(int)StickPosition.Y_AXIS] > 0)
             {
-                throttle = ((input.position[(int)StickPosition.Y_AXIS] * minThrottle) * PLAYER_AXIS_RANGE) / range;
+                throttle = ((input.position[(int)StickPosition.Y_AXIS] * minThrottle) * PLAYER_AXIS_RANGE) / RANGE;
             }
 
-            maxThrottle = (MAX_MAX_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + range) * PLAYER_AXIS_RANGE) / range;
-            minThrottle = (MIN_MIN_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + range) * PLAYER_AXIS_RANGE) / range;
+            maxThrottle = (MAX_MAX_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + RANGE) * PLAYER_AXIS_RANGE) / RANGE;
+            minThrottle = (MIN_MIN_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + RANGE) * PLAYER_AXIS_RANGE) / RANGE;
 
-            Angle += 1 / 100.0f * 1 / 4.0f * (input.rotationZ * maxAngle / maxRotationZ) / (float)MathHelper.TwoPi;
+            Angle += 1 / 100.0f * 1 / 4.0f * (input.rotationZ * MAX_ANGLE / maxRotationZ) / (float)MathHelper.TwoPi;
         }
 
         private void SecondaryShot()

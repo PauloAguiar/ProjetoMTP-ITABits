@@ -28,7 +28,7 @@ namespace Projeto_Apollo_16
 
         #region turnMovement
         private const float ANGLE_MULTIPLIER = (float)MathHelper.PiOver2;
-        private const float maxAngle = (float)MathHelper.PiOver4;
+        private const float MAX_ANGLE = (float)MathHelper.PiOver4;
         public float Angle { get; private set; }
         #endregion
 
