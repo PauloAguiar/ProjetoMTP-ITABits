@@ -1,6 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Xml.Linq;
+using System.IO;
+using Microsoft.Xna.Framework.Storage;
+using System.Xml;
 
 namespace Apollo_16_Piloto
 {
@@ -11,25 +15,39 @@ namespace Apollo_16_Piloto
     public class TitleScreen : BaseGameState
     {
         /* Fields */
-        Texture2D backgroundImage;
+        Texture2D backgroundTexture;
+        PictureBox title;
+        PictureBox background;
+        Texture2D titleTexture;
         LinkLabel startLabel;
 
         /* Constructor */
         public TitleScreen(Game game, GameStateManager manager) 
             : base(game, manager)
         {
+            
         }
 
         /* XNA Methods */
         protected override void LoadContent()
         {
             base.LoadContent();
-            backgroundImage = content.Load<Texture2D>(@"Menus\Backgrounds\menuBackground");
+            XML_TitleScreenData titleScreen = content.Load<XML_TitleScreenData>(@"TitleScreen\TitleScreen");
+
+            backgroundTexture = content.Load<Texture2D>(@"Backgrounds\" + titleScreen.background_assetName);
+            background = new PictureBox(backgroundTexture, new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height));
+            controlManager.Add(background);
+            background.SetPosition(new Vector2(titleScreen.background_positionX, titleScreen.background_positionY));
+
+            titleTexture = content.Load<Texture2D>(@"TitleScreen\" + titleScreen.title_assetName);
+            title = new PictureBox(titleTexture, new Rectangle(0, 0, titleTexture.Width, titleTexture.Height));
+            controlManager.Add(title);
+            title.SetPosition(new Vector2(titleScreen.title_positionX, titleScreen.title_positionY));
 
             startLabel = new LinkLabel();
-            startLabel.Position = new Vector2(180, 400);
-            startLabel.Text = "Press ENTER to continue";
-            startLabel.Color = Color.White;
+            startLabel.Position = new Vector2(titleScreen.start_positionX, titleScreen.start_positionY);
+            startLabel.Text = titleScreen.start_text;
+            startLabel.SelectedColor = new Color(titleScreen.start_color_red, titleScreen.start_color_green, titleScreen.start_color_blue);
             startLabel.TabStop = true;
             startLabel.HasFocus = true;
             startLabel.Selected += new EventHandler(startLabel_Selected);
@@ -49,8 +67,6 @@ namespace Apollo_16_Piloto
             systemRef.spriteBatch.Begin();
 
             base.Draw(gameTime);
-
-            systemRef.spriteBatch.Draw(backgroundImage, systemRef.screenRectangle, Color.White);
 
             controlManager.Draw(systemRef.spriteBatch);
 

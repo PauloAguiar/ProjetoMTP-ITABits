@@ -7,7 +7,7 @@ namespace Apollo_16_Piloto
     public class LinkLabel : Control
     {
         /* Fields */
-        Color selectedColor = Color.Red;
+        Color selectedColor = Color.Blue;
 
         /* Getters and Setters */
         public Color SelectedColor

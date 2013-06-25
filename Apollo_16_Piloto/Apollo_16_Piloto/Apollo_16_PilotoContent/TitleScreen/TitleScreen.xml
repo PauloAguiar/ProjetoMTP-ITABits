@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="Apollo_16_Piloto.XML_TitleScreenData">
+    <background_assetName>nave_amarela_1024x768</background_assetName>
+    <background_positionX>0</background_positionX>
+    <background_positionY>0</background_positionY>
+    
+    <title_assetName>title</title_assetName>
+    <title_positionX>100</title_positionX>
+    <title_positionY>20</title_positionY>
+    
+    <start_text>Aperte Enter para continuar...</start_text>
+    <start_positionX>100</start_positionX>
+    <start_positionY>700</start_positionY>
+    <start_color_red>255</start_color_red>
+    <start_color_green>0</start_color_green>
+    <start_color_blue>0</start_color_blue>
+    
+  </Asset>
+</XnaContent>

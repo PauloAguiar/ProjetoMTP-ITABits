@@ -5,7 +5,7 @@
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Apollo_16_Piloto</RootNamespace>
     <AssemblyName>Apollo_16_Piloto</AssemblyName>
@@ -59,6 +59,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\libs\Antlr3.Runtime.dll</HintPath>
@@ -69,6 +72,7 @@
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -96,7 +100,9 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64" />
+    <Reference Include="SlimDX">
+      <HintPath>..\..\..\Projeto_Apollo_16\Projeto_Apollo_16\Projeto_Apollo_16\libs\SlimDX.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -139,12 +145,18 @@
     <Compile Include="System\Program.cs" />
     <Compile Include="System\ReceiveDataClass.cs" />
     <Compile Include="System\SystemClass.cs" />
+    <Compile Include="Utils\General.cs" />
+    <Compile Include="Utils\Global.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataContent\DataContent.csproj">
+      <Project>{C610E9DD-726B-4A43-92B4-8514C721AA03}</Project>
+      <Name>DataContent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Apollo_16_PilotoContent\Apollo_16_PilotoContent.contentproj">
       <Name>Apollo_16_PilotoContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
