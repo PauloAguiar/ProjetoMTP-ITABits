@@ -11,33 +11,30 @@ namespace Projeto_Apollo_16
     public sealed partial class PlayerClass : ActorClass
     {
         JoystickState joystickState = new JoystickState();
-        public int joystickRange = 400;
         public JoystickState state { get; set; }
-        float maxRotationZ; //dpende do joystickRange
-        
-        void UpdateJoystick(JoystickState joystickState, int joystickRange)
+        const float MAX_ROTATION_Z = Globals.JOYSTICK_RANGE / 25.0f;
+
+        void UpdateJoystick(JoystickState joystickState)
         {
             this.joystickState = joystickState;
-            this.joystickRange = joystickRange;
-            maxRotationZ = joystickRange / 25.0f;
         }
 
         void UpdateJoystickInput()
         {
             if (joystickState.Y < 0)
             {
-                throttle = -joystickState.Y * maxThrottle / joystickRange;
+                throttle = -joystickState.Y * maxThrottle / Globals.JOYSTICK_RANGE;
             }
             else if (joystickState.Y > 0)
             {
-                throttle = joystickState.Y * minThrottle / joystickRange;
+                throttle = joystickState.Y * minThrottle / Globals.JOYSTICK_RANGE;
             }
 
-            maxThrottle = MAX_MAX_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
-            minThrottle = MIN_MIN_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
+            maxThrottle = MAX_MAX_THROTTLE * (-joystickState.Z + Globals.JOYSTICK_RANGE) / Globals.JOYSTICK_RANGE;
+            minThrottle = MIN_MIN_THROTTLE * (-joystickState.Z + Globals.JOYSTICK_RANGE) / Globals.JOYSTICK_RANGE;
 
-            Angle += 1 / 100.0f * 1 / 4.0f * (joystickState.RotationZ * ANGLE_MULTIPLIER / maxRotationZ) / (float)MathHelper.TwoPi;
-            sideAcceleration = joystickState.X * MAX_SIDE_ACCELERATION / joystickRange;
+            Angle += ANGLE_MULTIPLIER * joystickState.RotationZ / MAX_ROTATION_Z;
+            sideAcceleration = joystickState.X * MAX_SIDE_ACCELERATION / Globals.JOYSTICK_RANGE;
         }
 
     }

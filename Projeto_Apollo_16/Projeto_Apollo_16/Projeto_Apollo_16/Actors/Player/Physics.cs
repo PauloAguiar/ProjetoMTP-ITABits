@@ -27,15 +27,14 @@ namespace Projeto_Apollo_16
         #endregion
 
         #region turnMovement
-        private const float ANGLE_MULTIPLIER = (float)MathHelper.PiOver2;
-        private const float MAX_ANGLE = (float)MathHelper.PiOver4;
+        private const float ANGLE_MULTIPLIER = 1/1000.0f;
         public float Angle { get; private set; }
         #endregion
 
         private void UpdatePosition(double dt)
         {
             UpdateTangetMovement(dt);
-            UpdateSideMovement(dt);
+            //UpdateSideMovement(dt);
             UpdateTurboPosition();
             UpdateGunPosition();
         }

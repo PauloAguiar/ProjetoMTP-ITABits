@@ -10,7 +10,7 @@ namespace Projeto_Apollo_16
 {
     public sealed partial class PlayerClass : ActorClass
     {
-        private const float PLAYER_AXIS_RANGE = 1;
+        //private const float PLAYER_AXIS_RANGE = 1;
         public Boolean isLoaded = false;
         private Boolean hasShotPrimaryWeapon = false;
 
@@ -58,13 +58,14 @@ namespace Projeto_Apollo_16
         #region update
         public override void Update(GameTime gameTime) { } //not implemented
 
-        public void Update(GameTime gameTime, JoystickState joystickState, int joystickRange)
+        public void Update(GameTime gameTime, JoystickState joystickState)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            UpdateJoystick(joystickState, joystickRange);
-            UpdateInput(gameTime);
             UpdatePosition(dt);
+            UpdateJoystick(joystickState);
+            UpdateInput(gameTime);
+            
             UpdateInventory();
             UpdateStats(dt);
         }
@@ -77,15 +78,13 @@ namespace Projeto_Apollo_16
                 globalPosition = new Vector2(0);
             }
 
-            UpdateCameraInput();
+            UpdateCameraInput(gameTime);
             UpdateJoystickInput();
             UpdateInventoryInput();
         }
 
         public void ParseInput(InputDataClass input)
         {
-            const int RANGE = 1000;
-
             if (input.buttons[(int)ButtonStates.BTN_1])
             {
                 PrimaryShot();
@@ -96,21 +95,21 @@ namespace Projeto_Apollo_16
                 SecondaryShot();
             }
 
-            sideAcceleration = ((input.position[(int)StickPosition.X_AXIS] * MAX_SIDE_ACCELERATION) * PLAYER_AXIS_RANGE) / RANGE;
-
+            sideAcceleration = (int)StickPosition.X_AXIS * MAX_SIDE_ACCELERATION / Globals.JOYSTICK_RANGE;
+            
             if (input.position[(int)StickPosition.Y_AXIS] < 0)
             {
-                throttle = ((-input.position[(int)StickPosition.Y_AXIS] * maxThrottle) * PLAYER_AXIS_RANGE) / RANGE;
+                throttle = -input.position[(int)StickPosition.Y_AXIS] * maxThrottle / Globals.JOYSTICK_RANGE;
             }
             else if (input.position[(int)StickPosition.Y_AXIS] > 0)
             {
-                throttle = ((input.position[(int)StickPosition.Y_AXIS] * minThrottle) * PLAYER_AXIS_RANGE) / RANGE;
+                throttle = input.position[(int)StickPosition.Y_AXIS] * minThrottle / Globals.JOYSTICK_RANGE;
             }
 
-            maxThrottle = (MAX_MAX_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + RANGE) * PLAYER_AXIS_RANGE) / RANGE;
-            minThrottle = (MIN_MIN_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + RANGE) * PLAYER_AXIS_RANGE) / RANGE;
+            maxThrottle = MAX_MAX_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + Globals.JOYSTICK_RANGE) / Globals.JOYSTICK_RANGE;
+            minThrottle = MIN_MIN_THROTTLE * (-input.position[(int)StickPosition.Z_AXIS] + Globals.JOYSTICK_RANGE) / Globals.JOYSTICK_RANGE;
 
-            Angle += 1 / 100.0f * 1 / 4.0f * (input.rotationZ * MAX_ANGLE / maxRotationZ) / (float)MathHelper.TwoPi;
+            Angle += ANGLE_MULTIPLIER * input.rotationZ / MAX_ROTATION_Z;
         }
 
         private void SecondaryShot()

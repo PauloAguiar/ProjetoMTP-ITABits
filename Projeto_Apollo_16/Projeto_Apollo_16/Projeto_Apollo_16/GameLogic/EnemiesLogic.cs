@@ -5,20 +5,20 @@ namespace Projeto_Apollo_16
     public static partial class GameLogic
     {
         public static double timeCreateEnemies;
-        private const double INITIAL_TIME_CREATE_ENEMIES = 7000;
+        private const double INITIAL_TIME_CREATE_ENEMIES = 50000;
         private const double MIN_TIME_CREATE_ENEMIES = 5000;
         private static double actualTimeCreateEnemies = INITIAL_TIME_CREATE_ENEMIES;
-        private static double deltaTimeCreateEnemies = 1000;
+        private static double deltaTimeCreateEnemies = 500;
         //const int MIN_TIME_CREATE_ENEMIES = 10000;
         //const int MAX_TIME_CREATE_ENEMIES = 20000;
-        const int MIN_NUMBER_ENEMIES = 50;
-        const int MAX_NUMBER_ENEMIES = 100;
+        const int MIN_NUMBER_ENEMIES_CREATE = 50;
+        const int MAX_NUMBER_ENEMIES_CREATE = 100;
         static int numberEnemies;
         static EnemyManager enemyManager;
 
         private static void CreateEnemies()
         {
-            numberEnemies = rand.Next(MIN_NUMBER_ENEMIES, MAX_NUMBER_ENEMIES);
+            numberEnemies = rand.Next(MIN_NUMBER_ENEMIES_CREATE, MAX_NUMBER_ENEMIES_CREATE);
             for (int i = 0; i < numberEnemies; i++)
             {
                 int j = rand.Next(EnemyClass.NUMBER_TYPE_ENEMIES-1);  //tem que tirar o -1, porque é só pra não pegar o Chaser

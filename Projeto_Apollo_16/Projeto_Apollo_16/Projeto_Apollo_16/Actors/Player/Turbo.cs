@@ -33,11 +33,11 @@ namespace Projeto_Apollo_16
         {
             if (Speed > 0)
             {
-                spriteBatch.Draw(turboTexture, turboPosition, null, Color.White, (float)turboAngle, new Vector2(turboTexture.Width / 2, turboTexture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+                spriteBatch.Draw(turboTexture, turboPosition, null, Color.White, (float)turboAngle, new Vector2(turboTexture.Width / 2, turboTexture.Height / 2), 1.0f, SpriteEffects.None, Globals.TURBO_LAYER);
             }
             else if (Speed < 0)
             {
-                spriteBatch.Draw(turboTexture, turboBackPosition, null, Color.White, (float)turboAngle, new Vector2(turboTexture.Width / 2, turboTexture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+                spriteBatch.Draw(turboTexture, turboBackPosition, null, Color.White, (float)turboAngle, new Vector2(turboTexture.Width / 2, turboTexture.Height / 2), 1.0f, SpriteEffects.None, Globals.TURBO_LAYER);
             }
         }
     }

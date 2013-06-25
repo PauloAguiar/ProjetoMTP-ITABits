@@ -39,7 +39,7 @@ namespace Projeto_Apollo_16
                 itemManager.Update(gameTime);
 
                 checkTimeEnemies(dt);
-                player.Update(gameTime, joystickState, JOYSTICK_RANGE);
+                player.Update(gameTime, joystickState);
 
                 timeChangedWeapon += dt;
 

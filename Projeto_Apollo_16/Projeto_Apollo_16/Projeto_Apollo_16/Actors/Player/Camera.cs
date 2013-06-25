@@ -6,21 +6,26 @@ namespace Projeto_Apollo_16
 {
     public sealed partial class PlayerClass : ActorClass
     {
-        private const float MAX_CAMERA_ZOOM = 0.4f;
+        private const float MAX_CAMERA_ZOOM = 1.0f;
         private const float MIN_CAMERA_ZOOM = 0.1f;
         private const int MAX_CAMERA_OFFSET = 300;
         private const float DELTA_ZOOM = 0.005f;
         private const float DELTA_SLIDE = 4.0f;
-        private const float INITIAL_CAMERA_ZOOM = 0.3f;
+        private const float INITIAL_CAMERA_ZOOM = 0.55f;
         private const float CAMERA_PROPORTION = (MAX_CAMERA_ZOOM - MIN_CAMERA_ZOOM) / MAX_MAX_THROTTLE;
-        private float cameraZoom;
         private Vector2 cameraOffset;
         private bool isCameraAutomatic = true;
-        
+        private float zoom = INITIAL_CAMERA_ZOOM;
+        private float zoomSpeed = 0;
+        private float zoomAcceleration = 0;
+        private float lastThrottle = 0;
+        private float actualZoom = INITIAL_CAMERA_ZOOM;
+
+
         //to provide external acess
         public float Zoom
         {
-            get { return cameraZoom; }
+            get { return zoom; }
         }
         public Vector2 CameraPosition
         {
@@ -29,26 +34,26 @@ namespace Projeto_Apollo_16
 
         void initializeCamera()
         {
-            cameraZoom = INITIAL_CAMERA_ZOOM;
+            zoom = INITIAL_CAMERA_ZOOM;
             cameraOffset = Vector2.Zero;
         }
 
         #region zoomControl
         void ZoomIn(float z)
         {
-            cameraZoom += z;
-            if (cameraZoom > MAX_CAMERA_ZOOM) cameraZoom = MAX_CAMERA_ZOOM;
+            zoom += z;
+            if (zoom > MAX_CAMERA_ZOOM) zoom = MAX_CAMERA_ZOOM;
         }
         void ZoomOut(float z)
         {
-            cameraZoom -= z;
-            if (cameraZoom < MIN_CAMERA_ZOOM) cameraZoom = MIN_CAMERA_ZOOM;
+            zoom -= z;
+            if (zoom < MIN_CAMERA_ZOOM) zoom = MIN_CAMERA_ZOOM;
         }
         void SetZoom(float z)
         {
-            cameraZoom = z;
-            if (cameraZoom < MIN_CAMERA_ZOOM) cameraZoom = MIN_CAMERA_ZOOM;
-            else if (cameraZoom > MAX_CAMERA_ZOOM) cameraZoom = MAX_CAMERA_ZOOM;
+            zoom = z;
+            if (zoom < MIN_CAMERA_ZOOM) zoom = MIN_CAMERA_ZOOM;
+            else if (zoom > MAX_CAMERA_ZOOM) zoom = MAX_CAMERA_ZOOM;
         }
         #endregion
 
@@ -75,17 +80,60 @@ namespace Projeto_Apollo_16
         }
         #endregion
 
-        void UpdateCameraInput()
+        void UpdateCameraInput(GameTime gameTime)
         {
-            UpdateCameraZoom();
+            UpdateCameraZoom(gameTime);
             UpdateCameraSlide();
         }
 
-        void UpdateCameraZoom()
+        void UpdateCameraZoom(GameTime gameTime)
         {
+            float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (isCameraAutomatic)
             {
+                //zoomAcceleration = MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle);
+                //zoomSpeed += zoomAcceleration;
+                //zoom += zoomSpeed;
+                //SetZoom(zoom);
+                //if (Math.Abs(throttle) > lastThrottle)
+                //{
+                //    zoomSpeed += Math.Abs(throttle) - lastThrottle;
+                //}
+
+                //zoomSpeed += Math.Abs(Math.Abs(throttle) - lastThrottle);
+
+                //zoom -= zoomSpeed * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                //zoomSpeed /= 2.0f;
+
+                
+                //SetZoom(zoom);
+
+                //if (Math.Abs(throttle) > MIN_MIN_THROTTLE / 2.0f)
+                //{
+                //    zoomSpeed = Math.Abs(throttle) - lastThrottle;
+                //}
+
+
+                //zoomSpeed *= 1.0f;
+                //zoom -= zoomSpeed;
+                //if (zoom != actualZoom)
+                //{
+                //    if (zoom > actualZoom)
+                //    {
+                //        actualZoom += (zoom - actualZoom) / (2.0f);
+                //    }
+                //    else
+                //    {
+                //        actualZoom -= (actualZoom - zoom) / (2.0f);
+                //    }
+                //}
+                //SetZoom(actualZoom);
+                //lastThrottle = Math.Abs(throttle);
+
                 SetZoom(MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle));
+                
+
             }
             else
             {
@@ -99,7 +147,7 @@ namespace Projeto_Apollo_16
                 }
             }
 
-            cameraZoom = MathHelper.Clamp(cameraZoom, MIN_CAMERA_ZOOM, MAX_CAMERA_ZOOM);
+            zoom = MathHelper.Clamp(zoom, MIN_CAMERA_ZOOM, MAX_CAMERA_ZOOM);
         }
 
         void UpdateCameraSlide()
