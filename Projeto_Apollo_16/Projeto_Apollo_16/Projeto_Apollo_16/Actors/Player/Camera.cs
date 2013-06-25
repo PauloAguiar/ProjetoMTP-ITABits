@@ -6,8 +6,8 @@ namespace Projeto_Apollo_16
 {
     public sealed partial class PlayerClass : ActorClass
     {
-        private const float MAX_CAMERA_ZOOM = 1.0f;
-        private const float MIN_CAMERA_ZOOM = 0.1f;
+        private const float MAX_CAMERA_ZOOM = 0.8f;
+        private const float MIN_CAMERA_ZOOM = 0.3f;
         private const int MAX_CAMERA_OFFSET = 300;
         private const float DELTA_ZOOM = 0.005f;
         private const float DELTA_SLIDE = 4.0f;
@@ -16,11 +16,8 @@ namespace Projeto_Apollo_16
         private Vector2 cameraOffset;
         private bool isCameraAutomatic = true;
         private float zoom = INITIAL_CAMERA_ZOOM;
-        private float zoomSpeed = 0;
-        private float zoomAcceleration = 0;
-        private float lastThrottle = 0;
         private float actualZoom = INITIAL_CAMERA_ZOOM;
-
+        private const float CAMERA_DELAY = (MAX_CAMERA_ZOOM - MIN_CAMERA_ZOOM) * 250;
 
         //to provide external acess
         public float Zoom
@@ -91,49 +88,11 @@ namespace Projeto_Apollo_16
             float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (isCameraAutomatic)
             {
-                //zoomAcceleration = MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle);
-                //zoomSpeed += zoomAcceleration;
-                //zoom += zoomSpeed;
-                //SetZoom(zoom);
-                //if (Math.Abs(throttle) > lastThrottle)
-                //{
-                //    zoomSpeed += Math.Abs(throttle) - lastThrottle;
-                //}
+                zoom = MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle);
+                actualZoom += actualZoom * (zoom - actualZoom) / CAMERA_DELAY;
+                SetZoom(actualZoom);
 
-                //zoomSpeed += Math.Abs(Math.Abs(throttle) - lastThrottle);
-
-                //zoom -= zoomSpeed * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                //zoomSpeed /= 2.0f;
-
-                
-                //SetZoom(zoom);
-
-                //if (Math.Abs(throttle) > MIN_MIN_THROTTLE / 2.0f)
-                //{
-                //    zoomSpeed = Math.Abs(throttle) - lastThrottle;
-                //}
-
-
-                //zoomSpeed *= 1.0f;
-                //zoom -= zoomSpeed;
-                //if (zoom != actualZoom)
-                //{
-                //    if (zoom > actualZoom)
-                //    {
-                //        actualZoom += (zoom - actualZoom) / (2.0f);
-                //    }
-                //    else
-                //    {
-                //        actualZoom -= (actualZoom - zoom) / (2.0f);
-                //    }
-                //}
-                //SetZoom(actualZoom);
-                //lastThrottle = Math.Abs(throttle);
-
-                SetZoom(MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle));
-                
-
+                //SetZoom(MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle));
             }
             else
             {

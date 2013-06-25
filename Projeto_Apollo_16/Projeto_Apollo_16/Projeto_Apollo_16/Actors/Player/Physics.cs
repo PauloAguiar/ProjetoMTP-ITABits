@@ -34,7 +34,7 @@ namespace Projeto_Apollo_16
         private void UpdatePosition(double dt)
         {
             UpdateTangetMovement(dt);
-            //UpdateSideMovement(dt);
+            UpdateSideMovement(dt);
             UpdateTurboPosition();
             UpdateGunPosition();
         }
