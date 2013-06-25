@@ -20,6 +20,15 @@ namespace Projeto_Apollo_16
             turboTexture = content.Load<Texture2D>(@"Sprites\Nave\hadouken");
         }
 
+        void UpdateTurboPosition()
+        {
+            turboPosition = -texture.Height / 2 * Direction;
+            turboBackPosition = texture.Height / 2 * Direction;
+            turboAngle = Angle + MathHelper.PiOver2;
+            turboPosition += globalPosition;
+            turboBackPosition += globalPosition;
+        }
+
         void DrawTurbo(SpriteBatch spriteBatch)
         {
             if (Speed > 0)

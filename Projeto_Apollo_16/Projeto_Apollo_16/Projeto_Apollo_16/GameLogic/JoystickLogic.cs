@@ -49,7 +49,7 @@ namespace Projeto_Apollo_16
             joystick = null;
         }
 
-        static void updateJoystick()
+        static void UpdateJoystick()
         {
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.L))
             {
@@ -73,18 +73,34 @@ namespace Projeto_Apollo_16
 
         static void checkJoystickStatus()
         {
-            if (((Input.Keyboard.GetState().IsKeyDown(Input.Keys.F2)) || joystickState.IsPressed(5)) && timeChangedWeapon > minTimeChangeWeapon)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_6) && timeChangedWeapon > minTimeChangeWeapon)
+            {
+                ShiftBulletsRight();
+            }
+            if (joystickState.IsPressed((int)ButtonStates.BTN_5) && timeChangedWeapon > minTimeChangeWeapon)
+            {
+                ShiftBulletsLeft();
+            }
+            if (joystickState.IsPressed((int)ButtonStates.BTN_1) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+            {
+                CreateBullets();
+            }
+
+            //Keyboard
+            /*
+            if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.F2) && timeChangedWeapon > minTimeChangeWeapon)
             {
                 shiftBulletsRight();
             }
-            if (((Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1)) || joystickState.IsPressed(4)) && timeChangedWeapon > minTimeChangeWeapon)
+            if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1) && timeChangedWeapon > minTimeChangeWeapon)
             {
                 shiftBulletsLeft();
             }
-            if (((Input.Keyboard.GetState().IsKeyDown(Input.Keys.Space)) || joystickState.IsPressed(0)) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+            if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.Space) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
             {
                 createBullets();
             }
+             */
 
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D1))
             {
@@ -95,5 +111,6 @@ namespace Projeto_Apollo_16
                 createItem2();
             }
         }
+
     }
 }

@@ -58,7 +58,7 @@ namespace Projeto_Apollo_16
             updateManagers(gameTime);
 
             if (systemRef.NETWORK_MODE && player.isLoaded)
-                systemRef.networkManager.SendPackets(new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Velocity));
+                systemRef.networkManager.SendPackets(new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Direction));
 
             base.Update(gameTime);
         }

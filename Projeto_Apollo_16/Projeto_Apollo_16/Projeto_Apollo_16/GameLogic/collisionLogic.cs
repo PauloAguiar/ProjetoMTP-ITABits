@@ -8,7 +8,7 @@ namespace Projeto_Apollo_16
 {
     public static partial class GameLogic
     {
-        static void checkCollision()
+        static void CheckCollision()
         {
             ///checa colisão entre todos os tiros e inimigos
             for (int i = 0; i < projectilesManager.Count; i++)

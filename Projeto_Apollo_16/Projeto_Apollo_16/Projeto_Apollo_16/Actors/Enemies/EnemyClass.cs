@@ -13,7 +13,7 @@ namespace Projeto_Apollo_16
             Sun,
             Chaser,
         }
-        public const int numberEnemies = 4;
+        public const int numberTypeEnemies = 4;
 
         public EnemyClass(Vector2 pos, ContentManager content)
         {
@@ -21,8 +21,6 @@ namespace Projeto_Apollo_16
             isAlive = true;
             this.LoadFont(content);
             this.LoadTexture(content);
-            //this.LoadSound(content);
-
         }
 
         public abstract void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager);

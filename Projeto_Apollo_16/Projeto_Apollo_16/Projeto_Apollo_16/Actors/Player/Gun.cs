@@ -18,9 +18,14 @@ namespace Projeto_Apollo_16
             gun = content.Load<Texture2D>(@"Sprites\Nave\gun");
         }
 
+        void UpdateGunPosition()
+        {
+            gunPosition = globalPosition;
+        }
+
         void DrawGun(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(gun, gunPosition, null, Color.White, (float)Angle, new Vector2(gun.Width / 2, gun.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER - 0.1f);
+            spriteBatch.Draw(gun, gunPosition, null, Color.White, (float)Angle, new Vector2(gun.Width / 2, gun.Height / 2), 1.0f, SpriteEffects.None, Globals.GUN_LAYER);
         }
     }
 }

@@ -11,10 +11,21 @@ namespace Projeto_Apollo_16
         private const int MAX_CAMERA_OFFSET = 300;
         private const float DELTA_ZOOM = 0.005f;
         private const float DELTA_SLIDE = 4.0f;
-        private const float INITIAL_CAMERA_ZOOM = 0.7f;
-
+        private const float INITIAL_CAMERA_ZOOM = 0.3f;
+        private const float CAMERA_PROPORTION = (MAX_CAMERA_ZOOM - MIN_CAMERA_ZOOM) / MAX_MAX_THROTTLE;
         private float cameraZoom;
         private Vector2 cameraOffset;
+        private bool isCameraAutomatic = true;
+        
+        //to provide external acess
+        public float Zoom
+        {
+            get { return cameraZoom; }
+        }
+        public Vector2 CameraPosition
+        {
+            get { return cameraOffset; }
+        }
 
         void initializeCamera()
         {
@@ -22,36 +33,26 @@ namespace Projeto_Apollo_16
             cameraOffset = Vector2.Zero;
         }
 
-        #region cameraControl
-        public float Zoom
-        {
-            get { return cameraZoom; }
-        }
-
-        public Vector2 CameraPosition
-        {
-            get { return cameraOffset; }
-        }
-
+        #region zoomControl
         void ZoomIn(float z)
         {
             cameraZoom += z;
             if (cameraZoom > MAX_CAMERA_ZOOM) cameraZoom = MAX_CAMERA_ZOOM;
         }
-
         void ZoomOut(float z)
         {
             cameraZoom -= z;
             if (cameraZoom < MIN_CAMERA_ZOOM) cameraZoom = MIN_CAMERA_ZOOM;
         }
-
         void SetZoom(float z)
         {
             cameraZoom = z;
             if (cameraZoom < MIN_CAMERA_ZOOM) cameraZoom = MIN_CAMERA_ZOOM;
             else if (cameraZoom > MAX_CAMERA_ZOOM) cameraZoom = MAX_CAMERA_ZOOM;
         }
+        #endregion
 
+        #region slideControl
         void SlideTop(float a)
         {
             cameraOffset.Y -= a;
@@ -72,23 +73,37 @@ namespace Projeto_Apollo_16
             cameraOffset.X += a;
             if (cameraOffset.X > MAX_CAMERA_OFFSET) cameraOffset.X = MAX_CAMERA_OFFSET;
         }
-
         #endregion
 
         void UpdateCameraInput()
         {
-            SetZoom(MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle));
+            UpdateCameraZoom();
+            UpdateCameraSlide();
+        }
 
-
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Q))
+        void UpdateCameraZoom()
+        {
+            if (isCameraAutomatic)
             {
-                ZoomIn(DELTA_ZOOM);
+                SetZoom(MAX_CAMERA_ZOOM - CAMERA_PROPORTION * Math.Abs(throttle));
             }
-            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.E))
+            else
             {
-                ZoomOut(DELTA_ZOOM);
+                if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Q))
+                {
+                    ZoomIn(DELTA_ZOOM);
+                }
+                else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.E))
+                {
+                    ZoomOut(DELTA_ZOOM);
+                }
             }
 
+            cameraZoom = MathHelper.Clamp(cameraZoom, MIN_CAMERA_ZOOM, MAX_CAMERA_ZOOM);
+        }
+
+        void UpdateCameraSlide()
+        {
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.W))
             {
                 SlideTop(DELTA_SLIDE);
@@ -105,7 +120,7 @@ namespace Projeto_Apollo_16
             {
                 SlideRight(DELTA_SLIDE);
             }
-
         }
+
     }
 }

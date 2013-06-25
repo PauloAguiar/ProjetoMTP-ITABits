@@ -9,7 +9,7 @@ namespace Projeto_Apollo_16
         static double timeChangedWeapon = minTimeChangeWeapon;
         static ProjectileManager projectilesManager;
 
-        private static void createBullets()
+        private static void CreateBullets()
         {
             if (player.bullets == PlayerClass.Bullets.linear)
             {
@@ -35,16 +35,16 @@ namespace Projeto_Apollo_16
 
         }
 
-        private static void shiftBulletsRight()
+        private static void ShiftBulletsRight()
         {
             timeChangedWeapon = 0;
-            player.bullets = (PlayerClass.Bullets)(((int)player.bullets + 1) % PlayerClass.NUMBER_BULLETS);
+            player.bullets = (PlayerClass.Bullets)(((int)player.bullets + 1) % PlayerClass.NUMBER_TYPE_BULLETS);
         }
 
-        private static void shiftBulletsLeft()
+        private static void ShiftBulletsLeft()
         {
             timeChangedWeapon = 0;
-            player.bullets = (PlayerClass.Bullets)(((int)player.bullets - 1 + PlayerClass.NUMBER_BULLETS) % PlayerClass.NUMBER_BULLETS);
+            player.bullets = (PlayerClass.Bullets)(((int)player.bullets - 1 + PlayerClass.NUMBER_TYPE_BULLETS) % PlayerClass.NUMBER_TYPE_BULLETS);
         }
 
     }

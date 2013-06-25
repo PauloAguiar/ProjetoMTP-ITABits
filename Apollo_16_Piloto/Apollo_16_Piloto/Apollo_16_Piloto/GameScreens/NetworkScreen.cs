@@ -65,22 +65,9 @@ namespace Apollo_16_Piloto
             systemRef.networkManager.ReadLobbyPackets();
             InputDataClass inputData = new InputDataClass();
 
-            /*
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.K))
-            {
-                inputData.spaceBar = true;
-            }
-             */ 
-
             updateJoystick();
             ReadImmediateData();
 
-            /*
-            if (joystickState.IsPressed(0))
-            {
-                inputData.button0 = true;
-            }
-             */
             for (int i = 0; i < 7; i++)
             {
                 if (joystickState.IsPressed(i))

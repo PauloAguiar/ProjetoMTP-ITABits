@@ -8,18 +8,18 @@ namespace Projeto_Apollo_16
 {
     public class CircularProjectile : ProjectileClass
     {
-        private const float speed = 2f;
-        private const int radius = 400;
+        private const float SPEED = 2f;
+        private const int RADIUS = 400;
         private Vector2 centralPosition;
-        private Vector2 velocity;
-        float period = 6.28f*radius/speed;
+        private Vector2 direction;
+        float period = 6.28f*RADIUS/SPEED;
         PlayerClass player;
         
         public CircularProjectile(Vector2 initialPosition, ContentManager content, PlayerClass player)
             : base(initialPosition, content)
         {
             ttl = 4000;
-            globalPosition = initialPosition + new Vector2(radius, 0);
+            globalPosition = initialPosition + new Vector2(RADIUS, 0);
             centralPosition = initialPosition;
             this.player = player;
         }
@@ -46,35 +46,31 @@ namespace Projeto_Apollo_16
 
             //o som tem que tocar a cada período
             period += (float)dt;
-            if (period >= 2 * 3.14 * radius / speed)
+            if (period >= 2 * 3.14 * RADIUS / SPEED)
             {
                 sound.Play();
                 period = 0;
             }
             
             centralPosition = player.GlobalPosition;
-            Vector2 r = globalPosition - centralPosition;
+            Vector2 radial = globalPosition - centralPosition;
+            Vector2 tangent = new Vector2(-radial.Y, radial.X);
+            tangent.Normalize();
+            direction = tangent;
 
-            Vector2 v = new Vector2(-r.Y, r.X);
+            globalPosition += tangent * SPEED * (float)dt;
 
-            v.Normalize();
-            velocity = v;
-            v *= speed;
+            radial = globalPosition - centralPosition;
+            radial.Normalize();
+            radial *= RADIUS;
 
-            globalPosition += v * (float)dt;
-
-            r = globalPosition - centralPosition;
-            r.Normalize();
-            r *= radius;
-
-            globalPosition = centralPosition + r;
-            globalPosition += player.Velocity * (float)dt;
-            
+            globalPosition = centralPosition + radial;
+            globalPosition += player.Direction * player.Speed * (float)dt;
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y)-(float)Math.PI/2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(direction.X, direction.Y)-(float)Math.PI/2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
         }
     }
 }

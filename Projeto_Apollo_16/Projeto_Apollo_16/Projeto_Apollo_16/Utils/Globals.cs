@@ -6,5 +6,7 @@
         public const float ENEMY_LAYER = 0.4f;
         public const float PLAYER_LAYER = 0.3f;
         public const float BULLET_LAYER = 0.2f;
+        public const float GUN_LAYER = 0.1f;
+
     }
 }

@@ -10,48 +10,7 @@ namespace Projeto_Apollo_16
 {
     public sealed partial class PlayerClass : ActorClass
     {
-   
-        #region constants
-        //Keyboard Control
-        private const float DELTA_THETA = (float)Math.PI / 400;
-        private const float EPSILON_SPEED = 0.1f;
-        private const float EPSILON_THROTTLE = 0.0001f;
-        private const float DELTA_THROTTLE_UP = 0.0001f;
-        private const float DELTA_THROTTLE_DOWN = 0.000005f;
-        
-        
-        //Joystick Control
-        private const float MAX_SPEED = 2.0f;
-        private const float MIN_SPEED = -0.75f;
-        private const float CAMERA_PROPORTION = (MAX_CAMERA_ZOOM - MIN_CAMERA_ZOOM) / MAX_MAX_THROTTLE;
-        private const float MAX_SIDE_ACCELERATION = 0.007f;
-        private const float MAX_SIDE_SPEED = 0.03f;
-        private const float MAX_MAX_THROTTLE = 0.2f;
-        private const float MIN_MIN_THROTTLE = -0.1f;
-
-        const float MAX_ANGLE = (float)MathHelper.PiOver2;
-        private const float PLAYER_AXIS_RANGE = 1000;
-
-        const float maxAngle = (float)MathHelper.PiOver4;
-        #endregion
-
-        public float throttle { get; private set; }
-        public float Speed { get; private set; }
-        public float Angle { get; private set; }
-        public Vector2 Velocity { get; private set; }
-
-        float sideAcceleration;
-        public Vector2 SideVelocity { get; private set; }
-        public float SideSpeed { get; private set; }
-
-        //dependem do throttle (alavanca do joystick)
-        private float maxThrottle = 0.4f;
-        private float minThrottle = -0.2f;
-
-        //dpende do joystickRange
-        float maxRotationZ;
-        
-        Texture2D naveRight;
+        private const float PLAYER_AXIS_RANGE = 1;
         public Boolean isLoaded = false;
         private Boolean hasShotPrimaryWeapon = false;
 
@@ -63,8 +22,9 @@ namespace Projeto_Apollo_16
             throttle = 0;
             Speed = 0.001f;
             Angle = 0;
-            Velocity = Vector2.Zero;
+            Direction = Vector2.Zero;
             initializeStats();
+            initializeCamera();
             this.LoadFont(content);
             this.LoadTexture(content);
             isLoaded = true;
@@ -96,10 +56,7 @@ namespace Projeto_Apollo_16
         #endregion
 
         #region update
-        public override void Update(GameTime gameTime)
-        {
-
-        }
+        public override void Update(GameTime gameTime) { } //not implemented
 
         public void Update(GameTime gameTime, JoystickState joystickState, int joystickRange)
         {
@@ -110,113 +67,19 @@ namespace Projeto_Apollo_16
             UpdatePosition(dt);
             UpdateInventory();
             UpdateStats(dt);
-
         }
 
-        private void UpdatePosition(double dt)
-        {
-            throttle = MathHelper.Clamp(throttle, minThrottle, maxThrottle);
-            Speed += throttle;
-            Speed = MathHelper.Clamp(Speed, MIN_SPEED, MAX_SPEED);
-
-            Velocity = MathFunctions.AngleToVector(Angle);
-
-            Velocity.Normalize();
-            SideVelocity = new Vector2(-Velocity.Y, Velocity.X);
-            
-            turboPosition =  - texture.Height/2*Velocity;
-            turboBackPosition =  texture.Height / 2 * Velocity;
-
-            gunPosition = 0 * Velocity;
-
-            turboAngle = Angle + MathHelper.PiOver2;
-
-            sideAcceleration *= Math.Abs(throttle);
-            
-            sideAcceleration = MathHelper.Clamp(sideAcceleration, -MAX_SIDE_ACCELERATION, MAX_SIDE_ACCELERATION);
-            SideSpeed += sideAcceleration * (float)dt;
-            SideSpeed = MathHelper.Clamp(SideSpeed, -MAX_SIDE_SPEED, MAX_SIDE_SPEED);
-            SideVelocity *= SideSpeed * (float)dt +0.5f * sideAcceleration * (float)(dt * dt);
-            SideSpeed /= 2.0f;
-
-            Velocity = Velocity * Speed;
-            
-            globalPosition += Velocity * (float)dt;
-            globalPosition += SideVelocity * (float)dt;
-            turboPosition += globalPosition;
-            turboBackPosition += globalPosition;
-            gunPosition += globalPosition;
-        }
-        
         private void UpdateInput(GameTime gameTime)
         {
-            UpdateCameraInput();
-            UpdatePositionInput();
-            UpdateInventoryInput();
-        }
-
-        private void UpdatePositionInput()
-        {
-            maxThrottle = MAX_MAX_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
-            minThrottle = MIN_MIN_THROTTLE * (-joystickState.Z + joystickRange) / joystickRange;
-
-            velocityInput();
-            angleInput();
-
+            //just for debug
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.R))
             {
                 globalPosition = new Vector2(0);
             }
 
-
-            sideAcceleration = joystickState.X * MAX_SIDE_ACCELERATION / joystickRange;
-
-        }
-
-        private void angleInput()
-        {
-            Angle += 1/100.0f * 1/4.0f*(joystickState.RotationZ * MAX_ANGLE / maxRotationZ)/(float)MathHelper.TwoPi;
-
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Left))
-            {
-                Angle -= DELTA_THETA;
-                if (Angle < -MathHelper.TwoPi)
-                {
-                    Angle += MathHelper.TwoPi;
-                }
-            }
-            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Right))
-            {
-                Angle += DELTA_THETA;
-                if (Angle > MathHelper.TwoPi)
-                {
-                    Angle -= MathHelper.TwoPi;
-                }
-
-            }
-            
-        }
-
-        private void velocityInput()
-        {
-            
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Up))
-            {
-                throttle += DELTA_THROTTLE_UP;
-            }
-            else if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.Down))
-            {
-                throttle -= DELTA_THROTTLE_DOWN;
-            }
-            else
-            {
-                throttle *= 1.0f / 2;
-                if (Math.Abs(throttle) <= EPSILON_THROTTLE)
-                {
-                    throttle = 0;
-                }
-            }
-            
+            UpdateCameraInput();
+            UpdateJoystickInput();
+            UpdateInventoryInput();
         }
 
         public void ParseInput(InputDataClass input)

@@ -20,8 +20,9 @@ namespace Projeto_Apollo_16
             enemyManager = eM;
             content = cont;
             player = plr;
-            timeCreateEnemies = rand.Next(MIN_TIME_CREATE_ENEMIES, MAX_TIME_CREATE_ENEMIES);
-            createEnemies();
+            timeCreateEnemies = INITIAL_TIME_CREATE_ENEMIES;
+            //timeCreateEnemies = rand.Next(MIN_TIME_CREATE_ENEMIES, MAX_TIME_CREATE_ENEMIES);
+            CreateEnemies();
             CreateDevice();
         }
 
@@ -42,9 +43,9 @@ namespace Projeto_Apollo_16
 
                 timeChangedWeapon += dt;
 
-                checkCollision();
+                CheckCollision();
 
-                updateJoystick();
+                UpdateJoystick();
 
             }
         }

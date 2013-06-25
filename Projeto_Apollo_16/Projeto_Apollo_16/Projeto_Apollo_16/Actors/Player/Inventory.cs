@@ -15,8 +15,8 @@ namespace Projeto_Apollo_16
             Shield = 0,
             Health,
         }
-        const int NUMBER_ITEMS = 2;
-        public int[] inventory = new int[NUMBER_ITEMS];
+        const int NUMBER_TYPE_ITEMS = 2;
+        public int[] inventory = new int[NUMBER_TYPE_ITEMS];
 
         void UpdateInventory()
         {
