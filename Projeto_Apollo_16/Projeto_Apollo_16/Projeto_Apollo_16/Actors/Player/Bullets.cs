@@ -15,6 +15,7 @@ namespace Projeto_Apollo_16
             linear = 0,
             circular,
             homing,
+
         }
         public Bullets bullets = Bullets.linear;
         public const int NUMBER_TYPE_BULLETS = 3;
