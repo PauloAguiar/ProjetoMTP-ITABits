@@ -19,7 +19,7 @@ namespace Projeto_Apollo_16
         private float actualZoom = INITIAL_CAMERA_ZOOM;
         private const float CAMERA_DELAY = (MAX_CAMERA_ZOOM - MIN_CAMERA_ZOOM) * 250;
 
-        //to provide external acess
+        //to provide external access
         public float Zoom
         {
             get { return zoom; }

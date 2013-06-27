@@ -57,6 +57,7 @@ namespace Projeto_Apollo_16
             sideAcceleration *= Math.Abs(throttle);
             sideAcceleration = MathHelper.Clamp(sideAcceleration, -MAX_SIDE_ACCELERATION, MAX_SIDE_ACCELERATION);
             SideSpeed += sideAcceleration * (float)dt;
+            SideSpeed /= 2.0f;
             SideSpeed = MathHelper.Clamp(SideSpeed, -MAX_SIDE_SPEED, MAX_SIDE_SPEED);
             globalPosition += SideDirection * (SideSpeed * (float)dt + 0.5f * sideAcceleration * (float)(dt * dt)) * (float)dt;
         }

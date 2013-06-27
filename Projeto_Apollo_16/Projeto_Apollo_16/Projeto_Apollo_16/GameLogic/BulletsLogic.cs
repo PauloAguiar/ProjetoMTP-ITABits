@@ -8,17 +8,27 @@ namespace Projeto_Apollo_16
         const int MIN_TIME_CHANGE_WEAPON = 300;
         static double timeChangedWeapon = MIN_TIME_CHANGE_WEAPON;
         static ProjectileManager projectilesManager;
+        public enum Bullets
+        {
+            linear = 0,
+            circular,
+            homing,
+
+        }
+        
+        public const int NUMBER_TYPE_BULLETS = 3;
+
 
         private static void CreateBullets()
         {
-            if (player.bullets == PlayerClass.Bullets.linear)
+            if (player.bullets == Bullets.linear)
             {
                 Vector2 playerDirection = new Vector2((float)Math.Sin(player.Angle), -(float)Math.Cos(player.Angle));
 
                 LinearProjectile p = new LinearProjectile(player.GlobalPosition, playerDirection, content);
                 projectilesManager.CreateBullet(p);
             }
-            else if (player.bullets == PlayerClass.Bullets.circular)
+            else if (player.bullets == Bullets.circular)
             {
                 CircularProjectile p = new CircularProjectile(player.GlobalPosition, content, player);
                 projectilesManager.CreateBullet(p);
@@ -38,13 +48,13 @@ namespace Projeto_Apollo_16
         private static void ShiftBulletsRight()
         {
             timeChangedWeapon = 0;
-            player.bullets = (PlayerClass.Bullets)(((int)player.bullets + 1) % PlayerClass.NUMBER_TYPE_BULLETS);
+            player.bullets = (Bullets)(((int)player.bullets + 1) % NUMBER_TYPE_BULLETS);
         }
 
         private static void ShiftBulletsLeft()
         {
             timeChangedWeapon = 0;
-            player.bullets = (PlayerClass.Bullets)(((int)player.bullets - 1 + PlayerClass.NUMBER_TYPE_BULLETS) % PlayerClass.NUMBER_TYPE_BULLETS);
+            player.bullets = (Bullets)(((int)player.bullets - 1 + NUMBER_TYPE_BULLETS) % NUMBER_TYPE_BULLETS);
         }
 
     }
