@@ -13,10 +13,10 @@ namespace Projeto_Apollo_16
             linear = 0,
             circular,
             homing,
-
+            area,
         }
         
-        public const int NUMBER_TYPE_BULLETS = 3;
+        public const int NUMBER_TYPE_BULLETS = 4;
 
 
         private static void CreateBullets()
@@ -33,7 +33,7 @@ namespace Projeto_Apollo_16
                 CircularProjectile p = new CircularProjectile(player.GlobalPosition, content, player);
                 projectilesManager.CreateBullet(p);
             }
-            else //homing
+            else if(player.bullets == Bullets.homing)
             {
                 if (enemyManager.Count > 0)
                 {
@@ -41,6 +41,12 @@ namespace Projeto_Apollo_16
                     HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.findNearest(player, enemyManager));
                     projectilesManager.CreateBullet(p);
                 }
+            }
+
+            else if (player.bullets == Bullets.area)
+            {
+                AreaProjectile p = new AreaProjectile(player.GlobalPosition, player.Direction * player.Speed, content);
+                projectilesManager.CreateBullet(p);
             }
 
         }
