@@ -15,8 +15,8 @@ namespace Projeto_Apollo_16
             homing,
             area,
         }
-        
-        public const int NUMBER_TYPE_BULLETS = 4;
+
+        private static int NUMBER_TYPE_BULLETS = Enum.GetNames(typeof(Bullets)).Length;
 
 
         private static void CreateBullets()
@@ -42,7 +42,6 @@ namespace Projeto_Apollo_16
                     projectilesManager.CreateBullet(p);
                 }
             }
-
             else if (player.bullets == Bullets.area)
             {
                 AreaProjectile p = new AreaProjectile(player.GlobalPosition, player.Direction * player.Speed, content);
