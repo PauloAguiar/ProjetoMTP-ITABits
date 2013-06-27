@@ -20,7 +20,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\Enemies\sun");
+            texture = content.Load<Texture2D>(@"Sprites\Enemies\enemy02");
         }
 
         public override void LoadFont(ContentManager content)

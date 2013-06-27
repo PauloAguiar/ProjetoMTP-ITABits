@@ -14,8 +14,7 @@ namespace Projeto_Apollo_16
         private Vector2 velocity;
         private Vector2 acceleration;
         private bool shooted = false;
-        float rot = 0;
-
+        
         public LinearProjectile(Vector2 initialPosition, Vector2 velocity, ContentManager content)
             : base(initialPosition, content)
         {

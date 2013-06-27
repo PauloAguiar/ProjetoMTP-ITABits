@@ -15,7 +15,6 @@ namespace Projeto_Apollo_16
             homing,
             area,
         }
-
         private static int NUMBER_TYPE_BULLETS = Enum.GetNames(typeof(Bullets)).Length;
 
 
