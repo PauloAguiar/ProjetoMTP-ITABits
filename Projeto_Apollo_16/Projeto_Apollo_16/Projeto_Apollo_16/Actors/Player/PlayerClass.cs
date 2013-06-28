@@ -22,7 +22,7 @@ namespace Projeto_Apollo_16
             Speed = 0.001f;
             Angle = 0;
             Direction = Vector2.Zero;
-            initializeStats();
+            InitializeStats();
             initializeCamera();
             this.LoadFont(content);
             this.LoadTexture(content);
@@ -65,7 +65,7 @@ namespace Projeto_Apollo_16
             UpdateJoystick(joystickState);
             UpdateInput(gameTime);
             
-            UpdateInventory();
+            UpdateInventory(dt);
             UpdateStats(dt);
         }
 
@@ -79,7 +79,6 @@ namespace Projeto_Apollo_16
 
             UpdateCameraInput(gameTime);
             UpdateJoystickInput();
-            UpdateInventoryInput();
         }
 
         public void ParseInput(InputDataClass input)
@@ -135,15 +134,15 @@ namespace Projeto_Apollo_16
         {
             if (SideSpeed == 0)
             {
-                spriteBatch.Draw(texture, GlobalPosition, null, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+                spriteBatch.Draw(texture, GlobalPosition, null, Color.White * transparency, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
             }
             else if (SideSpeed < 0)
             {
-                spriteBatch.Draw(naveRight, GlobalPosition, null, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+                spriteBatch.Draw(naveRight, GlobalPosition, null, Color.White * transparency, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
             }
             else
             {
-                spriteBatch.Draw(naveRight, GlobalPosition, null, Color.White, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.FlipHorizontally, Globals.PLAYER_LAYER);
+                spriteBatch.Draw(naveRight, GlobalPosition, null, Color.White * transparency, (float)Angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.FlipHorizontally, Globals.PLAYER_LAYER);
             }
         }
         #endregion

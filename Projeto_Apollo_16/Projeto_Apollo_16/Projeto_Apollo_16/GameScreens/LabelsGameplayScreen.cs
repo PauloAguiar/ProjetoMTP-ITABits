@@ -11,9 +11,10 @@ namespace Projeto_Apollo_16
         Label statusLabel;
         Label weaponLabel;
         Label timeLabel;
+        Label itemLabel;
         #endregion
 
-        private void loadLabels()
+        private void LoadLabels()
         {
             sectorLabel = new Label();
             sectorLabel.Position = Vector2.Zero;
@@ -56,7 +57,29 @@ namespace Projeto_Apollo_16
             timeLabel.Color = Color.White;
             timeLabel.Size = timeLabel.SpriteFont.MeasureString(timeLabel.Text);
             controlManager.Add(timeLabel);
+
+            itemLabel = new Label();
+            itemLabel.Position = Vector2.Zero + 6 * (new Vector2(0.0f, 25.0f));
+            itemLabel.Text = itemLabel.Text = "Item: " + (PlayerClass.items).ToString() + " " + player.inventory[(int)PlayerClass.items].ToString();
+            itemLabel.Color = Color.Orange;
+            itemLabel.Size = itemLabel.SpriteFont.MeasureString(itemLabel.Text);
+            controlManager.Add(itemLabel);
+
         }
 
+        private void UpdateLabels()
+        {
+            sectorLabel.Text = "Zoom:" + player.Zoom;
+            positionLabel.Text = "Position:" + (int)player.GlobalPosition.X + " " + (int)player.GlobalPosition.Y;
+            cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
+            weaponLabel.Text = "Weapon:" + player.bullets;
+            timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
+            itemLabel.Text = "Item: " + (PlayerClass.items).ToString() + " " + player.inventory[(int)PlayerClass.items].ToString();
+
+            //statusLabel.Text = NetworkClass.status;
+            if (systemRef.NETWORK_MODE)
+                statusLabel.Text = systemRef.networkManager.status;
+
+        }
     }
 }

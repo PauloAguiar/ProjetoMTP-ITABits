@@ -73,42 +73,31 @@ namespace Projeto_Apollo_16
 
         static void checkJoystickStatus()
         {
-            if (joystickState.IsPressed((int)ButtonStates.BTN_6) && timeChangedWeapon > MIN_TIME_CHANGE_WEAPON)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_6) && timeChangedWeapon >= MIN_TIME_CHANGE_WEAPON)
             {
                 ShiftBulletsRight();
             }
-            if (joystickState.IsPressed((int)ButtonStates.BTN_5) && timeChangedWeapon > MIN_TIME_CHANGE_WEAPON)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_5) && timeChangedWeapon >= MIN_TIME_CHANGE_WEAPON)
             {
                 ShiftBulletsLeft();
             }
+            if (joystickState.IsPressed((int)ButtonStates.BTN_4) && PlayerClass.timeChangedItem >= PlayerClass.MIN_TIME_CHANGE_ITEM)
+            {
+                PlayerClass.ShiftItemsRight();
+            }
+            if (joystickState.IsPressed((int)ButtonStates.BTN_3) && PlayerClass.timeChangedItem >= PlayerClass.MIN_TIME_CHANGE_ITEM)
+            {
+                PlayerClass.ShiftItemsLeft();
+            }
+
             if (joystickState.IsPressed((int)ButtonStates.BTN_1) && projectilesManager.bulletSpawnTime > ProjectileManager.TTS)
             {
                 CreateBullets();
             }
 
-            //Keyboard
-            /*
-            if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.F2) && timeChangedWeapon > minTimeChangeWeapon)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_7) && PlayerClass.timeUsedItem > PlayerClass.MIN_TIME_USE_ITEM)
             {
-                shiftBulletsRight();
-            }
-            if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1) && timeChangedWeapon > minTimeChangeWeapon)
-            {
-                shiftBulletsLeft();
-            }
-            if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.Space) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
-            {
-                createBullets();
-            }
-             */
-
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D1))
-            {
-                createItem1();
-            }
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D2))
-            {
-                createItem2();
+                player.UseItem();
             }
         }
 

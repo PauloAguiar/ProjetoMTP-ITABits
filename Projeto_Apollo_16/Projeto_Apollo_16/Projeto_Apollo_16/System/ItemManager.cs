@@ -28,7 +28,6 @@ namespace Projeto_Apollo_16
             bulletSpawnTime = 0;
         }
 
-
         public void destroyItem(ItemClass item)
         {
             this.Remove(item);
@@ -46,11 +45,10 @@ namespace Projeto_Apollo_16
                 item.Update(gameTime);
 
                 item.timeLiving += gameTime.ElapsedGameTime.TotalMilliseconds;
-
                 
                 if (item.timeLiving >= item.ttl)
                 {
-                    this.RemoveAt(i);
+                    destroyItem(item);
                     i--;
                 
                 }
@@ -65,5 +63,6 @@ namespace Projeto_Apollo_16
                 item.Draw(spriteBatch);
             }
         }
+
     }
 }

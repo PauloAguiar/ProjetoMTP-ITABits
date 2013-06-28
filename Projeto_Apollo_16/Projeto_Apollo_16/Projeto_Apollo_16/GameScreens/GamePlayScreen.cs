@@ -42,7 +42,7 @@ namespace Projeto_Apollo_16
         {
             base.LoadContent();
             engine.LoadContent();
-            loadLabels();
+            LoadLabels();
         }
         #endregion
 
@@ -54,8 +54,8 @@ namespace Projeto_Apollo_16
             if (systemRef.NETWORK_MODE && player.isLoaded)
                 systemRef.networkManager.ReadInGamePackets();
             
-            cameraUpdate();
-            updateManagers(gameTime);
+            CameraUpdate();
+            UpdateManagers(gameTime);
 
             if (systemRef.NETWORK_MODE && player.isLoaded)
                 systemRef.networkManager.SendPackets(new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Direction));
@@ -63,7 +63,7 @@ namespace Projeto_Apollo_16
             base.Update(gameTime);
         }
 
-        private void updateManagers(GameTime gameTime)
+        private void UpdateManagers(GameTime gameTime)
         {
             GameLogic.Update(gameTime);
             controlManager.Update(gameTime);
@@ -75,7 +75,7 @@ namespace Projeto_Apollo_16
         {
             systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.TransformMatrix);
             engine.Draw(systemRef.spriteBatch, player);
-            drawActors();
+            DrawActors();
             systemRef.spriteBatch.End();
 
             //câmera diferente pra desenhar o HUD
@@ -86,7 +86,7 @@ namespace Projeto_Apollo_16
             base.Draw(gameTime);
         }
         
-        private void drawActors()
+        private void DrawActors()
         {
             player.Draw(systemRef.spriteBatch);
             projectilesManager.Draw(systemRef.spriteBatch);

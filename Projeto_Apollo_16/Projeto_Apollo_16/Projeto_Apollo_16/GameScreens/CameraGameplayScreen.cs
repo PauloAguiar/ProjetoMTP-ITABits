@@ -5,17 +5,9 @@ namespace Projeto_Apollo_16
     {
         CameraClass camera;
         
-        private void cameraUpdate()
+        private void CameraUpdate()
         {
-            sectorLabel.Text = "Zoom:" + player.Zoom;
-            positionLabel.Text = "Position:" + (int)player.GlobalPosition.X + " " + (int)player.GlobalPosition.Y;
-            cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
-            weaponLabel.Text = "Weapon:" + player.bullets;
-            timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
-
-            //statusLabel.Text = NetworkClass.status;
-            if (systemRef.NETWORK_MODE)
-                statusLabel.Text = systemRef.networkManager.status;
+            UpdateLabels();
 
             camera.Zoom = player.Zoom;
             camera.Position = player.GlobalPosition;

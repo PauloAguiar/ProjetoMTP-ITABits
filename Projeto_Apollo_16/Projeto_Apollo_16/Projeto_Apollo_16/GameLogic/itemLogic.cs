@@ -7,16 +7,35 @@ namespace Projeto_Apollo_16
     {
         static ItemManager itemManager;
 
-        static void createItem1()
+        private static void CreateItem(Vector2 position)
         {
-            Health i = new Health(100, player, new Vector2(player.GlobalPosition.X + 300, player.GlobalPosition.Y), content);
-            itemManager.CreateItem(i);
+            int i = rand.Next(0, 10);
+            if (i == 0)
+            {
+                Health health = new Health(100, player, position, content);
+                itemManager.CreateItem(health);
+            }
+            else if (i == 1)
+            {
+                Shield shield = new Shield(100, player, position, content);
+                itemManager.CreateItem(shield);
+            }
         }
 
-        static void createItem2()
+        private static void GetItem(ItemClass item)
         {
-            Shield i = new Shield(100, player, new Vector2(player.GlobalPosition.X, player.GlobalPosition.Y - 300), content);
-            itemManager.CreateItem(i);
+            if (item is Shield)
+            {
+                player.inventory[0]++;
+            }
+            else if (item is Health)
+            {
+                player.inventory[1]++;
+            }
+
+            //player.inventory[(int)PlayerClass.item]++;
+            itemManager.destroyItem(item);
         }
+
     }
 }

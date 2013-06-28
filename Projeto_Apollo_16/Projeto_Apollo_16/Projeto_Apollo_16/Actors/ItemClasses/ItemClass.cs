@@ -28,10 +28,12 @@ namespace Projeto_Apollo_16
         {
         }
 
+        /*
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\items\item");
         }
+         */ 
 
         public override void LoadFont(ContentManager content)
         {
@@ -42,6 +44,7 @@ namespace Projeto_Apollo_16
         {
             spriteBatch.Draw(texture, globalPosition, Color.White);
         }
+          
 
     }
 }

@@ -10,16 +10,17 @@ namespace Projeto_Apollo_16
     {
         static void CheckCollision()
         {
-            ///checa colisão entre todos os tiros e inimigos
+            //checa colisão entre todos os tiros e inimigos
             for (int i = 0; i < projectilesManager.Count; i++)
             {
                 for (int j = 0; j < enemyManager.Count; j++)
                 {
                     if (CollisionManager.CircularCollision(projectilesManager.ElementAt(i), enemyManager.ElementAt(j)))
                     {
-                        enemyManager.ElementAt(j).Destroy(projectilesManager.ElementAt(i).GlobalPosition, content, explosionManager);
-                        projectilesManager.RemoveAt(i);
-                        enemyManager.RemoveAt(j);
+                        CreateItem(enemyManager.ElementAt(j).GlobalPosition);
+                        enemyManager.destroyEnemy(j, projectilesManager.ElementAt(i).GlobalPosition, explosionManager);
+                        projectilesManager.destroyBullet(projectilesManager.ElementAt(i));
+                        
                         i--;
                         break;
                     }
@@ -31,17 +32,19 @@ namespace Projeto_Apollo_16
             {
                 if (CollisionManager.CircularCollision(player, itemManager.ElementAt(i)))
                 {
-                    ItemClass item = itemManager.ElementAt(i);
-                    if (item is Shield)
-                    {
-                        player.inventory[0]++;
-                    }
-                    else if (item is Health)
-                    {
-                        player.inventory[1]++;
-                    }
-                    itemManager.destroyItem(item);
+                    GetItem(itemManager.ElementAt(i));
                     i--;
+                }
+            }
+
+            //checa colisão entre o player e os inimigos
+            for (int i = 0; i < enemyManager.Count; i++)
+            {
+                if (CollisionManager.CircularCollision(player, enemyManager.ElementAt(i)))
+                {
+                    player.UpdateLifeCollision();
+                    //enemyManager.destroyEnemy(i, enemyManager.ElementAt(i).GlobalPosition, explosionManager);
+                    //i--;
                 }
             }
 

@@ -57,5 +57,20 @@ namespace Projeto_Apollo_16
         }
          */
 
+        //bullets
+        /*
+        if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.F2) && timeChangedWeapon > minTimeChangeWeapon)
+        {
+            shiftBulletsRight();
+        }
+        if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.F1) && timeChangedWeapon > minTimeChangeWeapon)
+        {
+            shiftBulletsLeft();
+        }
+        if ( Input.Keyboard.GetState().IsKeyDown(Input.Keys.Space) && projectilesManager.bulletSpawnTime > ProjectileManager.tts)
+        {
+            createBullets();
+        }
+         */
     }
 }

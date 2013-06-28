@@ -11,7 +11,7 @@ namespace Projeto_Apollo_16
         public Shield(int health, PlayerClass player, Vector2 position, ContentManager content) : base (player, position, content)
         {
             name = "shield";
-            ttl = 2000;
+            ttl = 15000;
             timeLiving = 0;
             IsUsing = true;
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 namespace Projeto_Apollo_16
@@ -11,10 +12,14 @@ namespace Projeto_Apollo_16
         {
             this.heath = health;
             name = "life";
-            ttl = 1000;
+            ttl = 20000;
         }
 
-        //não precisa de update e draw porque são iguais ao da classe pai
+        public override void LoadTexture(ContentManager content)
+        {
+            texture = content.Load<Texture2D>(@"Sprites\items\item");
+        }
+
 
     }
 }

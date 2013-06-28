@@ -27,6 +27,12 @@ namespace Projeto_Apollo_16
             spawnTime = 0;
         }
 
+        public void destroyEnemy(int index, Vector2 position, ExplosionManager explosionManager)
+        {
+            this.ElementAt(index).Destroy(position, content, explosionManager);
+            this.RemoveAt(index);
+        }
+
         public void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;

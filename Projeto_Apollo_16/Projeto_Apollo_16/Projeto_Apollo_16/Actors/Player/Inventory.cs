@@ -10,33 +10,59 @@ namespace Projeto_Apollo_16
 {
     public sealed partial class PlayerClass : ActorClass
     {
+        public const int MIN_TIME_CHANGE_ITEM = 300;
+        public static double timeChangedItem = MIN_TIME_CHANGE_ITEM;
+        public const int MIN_TIME_USE_ITEM = 300;
+        public static double timeUsedItem = MIN_TIME_USE_ITEM;
+
         public enum Items
         {
             Shield = 0,
             Health,
         }
-        const int NUMBER_TYPE_ITEMS = 2;
+        private static int NUMBER_TYPE_ITEMS = Enum.GetNames(typeof(Items)).Length;
         public int[] inventory = new int[NUMBER_TYPE_ITEMS];
+        public static Items items = Items.Shield;
 
-        void UpdateInventory()
+        void UpdateInventory(double dt)
         {
-            while (inventory[1] > 0)
-            {
-                Life += 10;
-                inventory[1]--;
-            }
-
-            UpdateInventoryInput();
+            timeChangedItem += dt;
+            timeUsedItem += dt;
         }
 
-        void UpdateInventoryInput()
+        public void UseItem()
         {
-            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.D0) && inventory[0] > 0)
+            timeUsedItem = 0;
+            if (items == Items.Health)
             {
-                Life += 40;
-                inventory[0]--;
+                if (inventory[(int)items] > 0)
+                {
+                    Life += 40;
+                    inventory[(int)Items.Health]--;
+                }
+            }
+            else if (items == Items.Shield)
+            {
+                if (inventory[(int)items] > 0)
+                {
+                    damageTime = 0;
+                    inventory[(int)Items.Shield]--;
+                }
             }
         }
+
+        public static void ShiftItemsRight()
+        {
+            timeChangedItem = 0;
+            items = (Items)(((int)items + 1) % NUMBER_TYPE_ITEMS);
+        }
+
+        public static void ShiftItemsLeft()
+        {
+            timeChangedItem = 0;
+            items = (Items)(((int)items - 1 + NUMBER_TYPE_ITEMS) % NUMBER_TYPE_ITEMS);
+        }
+
 
     }
 }
