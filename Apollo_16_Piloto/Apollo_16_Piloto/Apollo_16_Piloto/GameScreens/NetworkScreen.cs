@@ -32,12 +32,12 @@ namespace Apollo_16_Piloto
         JoystickState joystickState = new JoystickState();
         public const int joystickRange = 1000;
 
-        public PilotClass pilot;
+        
         /* Constructor */
         public NetworkScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
-            pilot = new PilotClass();
+            
             networkStatus = false;
         }
 
@@ -50,7 +50,7 @@ namespace Apollo_16_Piloto
         protected override void LoadContent()
         {
             base.LoadContent();
-            pilot.LoadFont(content);
+            
 
             XML_StartMenuScreenData startMenuScreen = content.Load<XML_StartMenuScreenData>(@"StartMenuScreen\StartMenuScreen");
 
@@ -149,8 +149,7 @@ namespace Apollo_16_Piloto
             systemRef.spriteBatch.Begin();
 
             controlManager.Draw(systemRef.spriteBatch);
-            pilot.Draw(systemRef.spriteBatch);
-
+            
             systemRef.spriteBatch.End();
 
             base.Draw(gameTime);
@@ -166,7 +165,7 @@ namespace Apollo_16_Piloto
         {
             if (sender == connect)
             {
-                if(isOnline)
+                //if(isOnline)
                     stateManager.PushState(systemRef.gamePlayScreen);
             }
 

@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System;
 
 namespace Projeto_Apollo_16
 {
     public abstract class EnemyClass : ActorClass
     {
         public bool isAlive;
+        public Int32 type;
         public enum Enemies
         {
             Ghost = 0,

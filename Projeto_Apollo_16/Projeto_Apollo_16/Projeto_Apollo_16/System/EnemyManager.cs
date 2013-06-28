@@ -63,5 +63,19 @@ namespace Projeto_Apollo_16
         }
 
 
+
+        public RadarDataClass GetRadarData(PlayerClass player)
+        {
+            List<EnemyClass> temp = new List<EnemyClass>();
+            foreach (EnemyClass enemy in this)
+            {
+                Vector2 dist = enemy.GlobalPosition - player.GlobalPosition;
+                if (dist.Length() < 1000)
+                {
+                    temp.Add(enemy);
+                }
+            }
+            return new RadarDataClass(temp, player.GlobalPosition);
+        }
     }
 }

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="Apollo_16_Piloto.XML_StartMenuScreenData">
+    <background_assetName>nave_amarela_1024x768</background_assetName>
+    <background_positionX>0</background_positionX>
+    <background_positionY>0</background_positionY>
+  </Asset>
+</XnaContent>

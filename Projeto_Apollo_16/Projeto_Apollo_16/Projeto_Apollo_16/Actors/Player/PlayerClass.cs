@@ -14,6 +14,7 @@ namespace Projeto_Apollo_16
         public Boolean isLoaded = false;
         private Boolean hasShotPrimaryWeapon = false;
 
+
         #region ctor
         public PlayerClass(Vector2 position, ContentManager content)
         {

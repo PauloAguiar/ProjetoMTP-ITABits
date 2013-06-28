@@ -106,7 +106,7 @@ namespace Apollo_16_Piloto
                                 General.Log("Connection Accepted!");
                                 break;
                             case (byte)PacketTypes.PILOT_DATA:
-                                systemRef.networkScreen.pilot.HandlePilotData(msg);
+                                //systemRef.networkScreen.pilot.HandlePilotData(msg);
                                 break;
                         }
                         break;

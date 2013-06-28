@@ -12,10 +12,19 @@ namespace Apollo_16_Piloto
 {
     public class GamePlayScreen : BaseGameState
     {
+        Texture2D powerBox;
+        Texture2D powerText;
+        Texture2D redBlock;
+        Texture2D yellowBlock;
+        Texture2D greenBlock;
+
+        public PilotClass pilot;
+
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
+            pilot = new PilotClass();
         }
 
         /* XNA Methods */
@@ -26,6 +35,8 @@ namespace Apollo_16_Piloto
 
         protected override void LoadContent()
         {
+            powerBox = content.Load<Texture2D>(@"UI\PowerBox");
+            pilot.LoadFont(content);
             base.LoadContent();
         }
 
@@ -37,6 +48,13 @@ namespace Apollo_16_Piloto
 
         public override void Draw(GameTime gameTime)
         {
+
+            systemRef.spriteBatch.Begin();
+
+            systemRef.spriteBatch.Draw(powerBox, new Vector2(100, 100), Color.White);
+            systemRef.spriteBatch.DrawString(pilot.SpriteFont, "teste", Vector2.Zero, Color.White);
+            systemRef.spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

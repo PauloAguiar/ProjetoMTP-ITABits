@@ -7,13 +7,14 @@ using Lidgren.Network;
 
 namespace Projeto_Apollo_16
 {
-    public class PilotDataClass
+    
+    public class PilotDataClass 
     {
         /* Os membros que contém underline contém dados obtidos diretamente da classe player */
-        private float _throttle = 0;
-        private float _speed;
-        private float _angle;
-        private Vector2 _velocity;
+        public float _throttle;
+        public float _speed;
+        public float _angle;
+        public Vector2 _velocity;
 
         public PilotDataClass(float throttle, float speed, float angle, Vector2 velocity)
         {

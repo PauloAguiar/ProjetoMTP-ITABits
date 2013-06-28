@@ -16,11 +16,13 @@ namespace Projeto_Apollo_16
         LOGIN,
         PILOT_DATA,
         INPUT_DATA,
+        RADAR_DATA
     }
 
     enum ConnectionID
     {
         PILOT,
+        RADAR
     }
 
     public class NetworkManager
@@ -32,6 +34,7 @@ namespace Projeto_Apollo_16
         private String NETWORK_NAME = "apollo";
 
         private NetConnection pilotConnection = null;
+        private NetConnection radarConnection = null;
 
         public String status = "";
 
@@ -67,11 +70,37 @@ namespace Projeto_Apollo_16
 
         public Boolean NetworkIsReady()
         {
-            if (pilotConnection != null)
+            if (pilotConnection != null || radarConnection != null)
                 return true;
             return false;
         }
 
+        public void HandleConnectionPackets(NetIncomingMessage msg)
+        {
+            
+            switch (msg.ReadByte())
+            {
+                case (byte)PacketTypes.LOGIN:
+                    NetOutgoingMessage outmsg = networkServer.CreateMessage();
+                    switch(msg.ReadByte())
+                    {
+                        case (byte)ConnectionID.PILOT:
+                            status = "O Piloto conectou-se...";
+                            pilotConnection = msg.SenderConnection;
+                            outmsg.Write((byte)PacketTypes.CONNECTION_ACCEPTED);
+                            pilotConnection.Approve(outmsg);
+                            break;
+
+                        case (byte)ConnectionID.RADAR:
+                            status = "O Radar conectou-se...";
+                            radarConnection = msg.SenderConnection;
+                            outmsg.Write((byte)PacketTypes.CONNECTION_ACCEPTED);
+                            radarConnection.Approve(outmsg);
+                            break;
+                    }
+                    break;
+            }
+        }
         public void ReadLobbyPackets()
         {
             NetIncomingMessage msg;
@@ -82,20 +111,7 @@ namespace Projeto_Apollo_16
                 {
                     /* RECEIVE CONNECTION REQUEST */
                     case NetIncomingMessageType.ConnectionApproval:
-                        if (msg.ReadByte() == (byte)PacketTypes.LOGIN)
-                        {
-                            switch (msg.ReadByte())
-                            {
-                                case (byte)ConnectionID.PILOT:
-                                    status = "O Piloto conectou-se...";
-                                    pilotConnection = msg.SenderConnection;
-                                    pilotConnection.Approve();
-                                    NetOutgoingMessage outmsg = networkServer.CreateMessage();
-                                    outmsg.Write((byte)PacketTypes.CONNECTION_ACCEPTED);
-                                    networkServer.SendMessage(outmsg, pilotConnection, NetDeliveryMethod.ReliableOrdered);
-                                    break;
-                            }
-                        }
+                        HandleConnectionPackets(msg);
                         break;
 
                     /* RECEIVE ERROR MESSAGES */
@@ -142,6 +158,10 @@ namespace Projeto_Apollo_16
             {
                 switch (msg.MessageType)
                 {
+                    case NetIncomingMessageType.ConnectionApproval:
+                        HandleConnectionPackets(msg);
+                        break;
+
                     /* RECEIVE ERROR MESSAGES */
                     case NetIncomingMessageType.ErrorMessage:
 
@@ -184,7 +204,7 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public void SendPackets(PilotDataClass pilotData)
+        public void SendPackets(PilotDataClass pilotData, RadarDataClass radarData)
         {
             if (pilotConnection != null)
             {
@@ -192,6 +212,14 @@ namespace Projeto_Apollo_16
                 pilotmsg.Write((byte)PacketTypes.PILOT_DATA);
                 pilotData.EncodePilotData(pilotmsg);
                 networkServer.SendMessage(pilotmsg, pilotConnection, NetDeliveryMethod.ReliableOrdered);
+            }
+
+            if (radarConnection != null)
+            {
+                NetOutgoingMessage radarmsg = networkServer.CreateMessage();
+                radarmsg.Write((byte)PacketTypes.RADAR_DATA);
+                radarData.EncodeRadarData(radarmsg);
+                networkServer.SendMessage(radarmsg, radarConnection, NetDeliveryMethod.ReliableOrdered);
             }
         }
     }

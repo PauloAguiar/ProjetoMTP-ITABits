@@ -128,6 +128,8 @@
     <Compile Include="Actors\ItemClasses\ItemClass.cs" />
     <Compile Include="GameScreens\LabelsGameplayScreen.cs" />
     <Compile Include="GameScreens\NetworkScreen.cs" />
+    <Compile Include="Network\EnemyData.cs" />
+    <Compile Include="Network\RadarDataClass.cs" />
     <Compile Include="Network\IGameMessage.cs" />
     <Compile Include="Network\InputDataClass.cs" />
     <Compile Include="Network\PilotDataClass.cs" />
