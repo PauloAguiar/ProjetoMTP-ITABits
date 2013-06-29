@@ -40,7 +40,7 @@ namespace Projeto_Apollo_16
 
                 checkTimeEnemies(dt);
                 player.Update(gameTime, joystickState);
-
+                
                 timeChangedWeapon += dt;
 
                 CheckCollision();

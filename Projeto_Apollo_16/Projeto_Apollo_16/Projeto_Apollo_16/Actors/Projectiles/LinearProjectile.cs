@@ -9,8 +9,8 @@ namespace Projeto_Apollo_16
 {
     class LinearProjectile : ProjectileClass
     {
-        private const float SPEED = 2 / 3.0f;
-        private const float ACCELERATION_MODULE = 0.01f;
+        private const float SPEED = 2000 / 3.0f;
+        private const float ACCELERATION_MODULE = 0.3f;
         private Vector2 velocity;
         private Vector2 acceleration;
         private bool shooted = false;
@@ -20,7 +20,7 @@ namespace Projeto_Apollo_16
         {
             this.velocity = velocity;
             velocity.Normalize();
-            this.acceleration = velocity;
+            this.acceleration = this.velocity;
             ttl = 2000;
 
             velocity *= SPEED;
@@ -55,14 +55,13 @@ namespace Projeto_Apollo_16
                 sound.Play();
                 shooted = true;
             }
-            
-            globalPosition += velocity * dt + 0.5f * dt * dt * acceleration;
-            velocity += acceleration * dt;
+
+            globalPosition += velocity * dt +0.5f * dt * dt * acceleration;
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y) - (float)Math.PI / 2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y) - (float)Math.PI / 2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.BULLET_LAYER);
         }
     }
 }

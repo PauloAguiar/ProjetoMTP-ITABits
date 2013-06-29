@@ -22,9 +22,7 @@ namespace Projeto_Apollo_16
         {
             if (player.bullets == Bullets.linear)
             {
-                Vector2 playerDirection = new Vector2((float)Math.Sin(player.Angle), -(float)Math.Cos(player.Angle));
-
-                LinearProjectile p = new LinearProjectile(player.GlobalPosition, playerDirection, content);
+                LinearProjectile p = new LinearProjectile(player.GlobalPosition, player.Direction, content);
                 projectilesManager.CreateBullet(p);
             }
             else if (player.bullets == Bullets.circular)
