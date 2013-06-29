@@ -217,7 +217,7 @@ namespace Projeto_Apollo_16
                 networkServer.SendMessage(pilotmsg, pilotConnection, NetDeliveryMethod.ReliableOrdered);
             }
             
-            if (radarConnection != null && updateRadar > TimeSpan.FromSeconds(1))
+            if (radarConnection != null && updateRadar > TimeSpan.FromMilliseconds(300))
             {
                 NetOutgoingMessage radarmsg = networkServer.CreateMessage();
                 radarmsg.Write((byte)PacketTypes.RADAR_DATA);

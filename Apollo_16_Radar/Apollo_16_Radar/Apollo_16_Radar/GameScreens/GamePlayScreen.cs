@@ -36,7 +36,8 @@ namespace Apollo_16_Radar
 
         protected override void LoadContent()
         {
-            backgroundTexture = content.Load<Texture2D>(@"nave_amarela_1024x768");
+//            backgroundTexture = content.Load<Texture2D>(@"nave_amarela_1024x768");
+            backgroundTexture = content.Load<Texture2D>(@"radarBackground");
             redDot = content.Load<Texture2D>(@"red_dot_2");
             playerIcon = content.Load<Texture2D>(@"playerIcon");
             base.LoadContent();
@@ -80,7 +81,7 @@ namespace Apollo_16_Radar
 
         private Vector2 CalculateRelativePosition(EnemyClass enemy, Vector2 playerPos)
         {
-            int factor = 10;
+            int factor = 5;
             float X = systemRef.screenRectangle.Width/2;
             float Y = systemRef.screenRectangle.Height/2;
             X += (enemy.globalPosition.X - playerPos.X) / factor;
