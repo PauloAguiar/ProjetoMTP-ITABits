@@ -6,7 +6,7 @@ namespace Projeto_Apollo_16
 {
     public class Fuel : ItemClass
     {
-        private int fuel;
+        //private int fuel;
 
         public Fuel(int health, PlayerClass player, Vector2 position, ContentManager content)
             : base(player, position, content)
@@ -18,7 +18,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\items\item");
+            texture = content.Load<Texture2D>(@"Sprites\items\fuel");
         }
 
 

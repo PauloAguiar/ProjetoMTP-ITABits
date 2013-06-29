@@ -101,6 +101,7 @@
     <Compile Include="Actors\Explosions\MultipleExplosion.cs" />
     <Compile Include="Actors\Explosions\AnimatedExplosion.cs" />
     <Compile Include="Actors\Explosions\ExplosionClass.cs" />
+    <Compile Include="Actors\ItemClasses\Fuel.cs" />
     <Compile Include="Actors\Player\Bullets.cs" />
     <Compile Include="Actors\Player\Camera.cs" />
     <Compile Include="Actors\Player\Gun.cs" />

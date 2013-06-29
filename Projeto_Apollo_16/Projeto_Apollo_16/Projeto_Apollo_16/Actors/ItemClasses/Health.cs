@@ -6,11 +6,11 @@ namespace Projeto_Apollo_16
 {
     public class Health : ItemClass
     {
-        private int heath;
+        private int health;
 
         public Health(int health, PlayerClass player, Vector2 position, ContentManager content) : base (player, position, content)
         {
-            this.heath = health;
+            //this.health = health;
             name = "life";
             ttl = 20000;
         }

@@ -20,6 +20,11 @@ namespace Projeto_Apollo_16
                 Shield shield = new Shield(100, player, position, content);
                 itemManager.CreateItem(shield);
             }
+            else if (i == 2)
+            {
+                Fuel fuel = new Fuel(100, player, position, content);
+                itemManager.CreateItem(fuel);
+            }
         }
 
         private static void GetItem(ItemClass item)
@@ -32,7 +37,10 @@ namespace Projeto_Apollo_16
             {
                 player.inventory[1]++;
             }
-
+            else if (item is Fuel)
+            {
+                player.inventory[2]++;            
+            }
             //player.inventory[(int)PlayerClass.item]++;
             itemManager.destroyItem(item);
         }

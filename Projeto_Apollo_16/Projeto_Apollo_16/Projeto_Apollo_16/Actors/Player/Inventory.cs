@@ -19,6 +19,7 @@ namespace Projeto_Apollo_16
         {
             Shield = 0,
             Health,
+            Fuel
         }
         private static int NUMBER_TYPE_ITEMS = Enum.GetNames(typeof(Items)).Length;
         public int[] inventory = new int[NUMBER_TYPE_ITEMS];
@@ -46,6 +47,14 @@ namespace Projeto_Apollo_16
                 {
                     damageTime = 0;
                     inventory[(int)Items.Shield]--;
+                }
+            }
+            else if (items == Items.Fuel)
+            {
+                if (inventory[(int)items] > 0)
+                {
+                    Fuel += 40;
+                    inventory[(int)Items.Fuel]--;
                 }
             }
         }
