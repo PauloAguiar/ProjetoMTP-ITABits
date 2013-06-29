@@ -123,6 +123,7 @@
     <Compile Include="GameScreens\NetworkScreen.cs" />
     <Compile Include="Network\InputDataClass.cs" />
     <Compile Include="Network\RadarDataClass.cs" />
+    <Compile Include="Network\RadarImmediateData.cs" />
     <Compile Include="Radar\EnemyClass.cs" />
     <Compile Include="System\ControlManager.cs" />
     <Compile Include="System\GameStateManager.cs" />

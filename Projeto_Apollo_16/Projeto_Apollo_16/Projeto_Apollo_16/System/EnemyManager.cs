@@ -63,7 +63,6 @@ namespace Projeto_Apollo_16
         }
 
 
-
         public RadarDataClass GetRadarData(PlayerClass player)
         {
             List<EnemyClass> temp = new List<EnemyClass>();
@@ -77,5 +76,6 @@ namespace Projeto_Apollo_16
             }
             return new RadarDataClass(temp, player.GlobalPosition);
         }
+
     }
 }

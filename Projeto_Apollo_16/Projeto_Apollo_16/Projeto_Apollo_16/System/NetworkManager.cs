@@ -16,7 +16,8 @@ namespace Projeto_Apollo_16
         LOGIN,
         PILOT_DATA,
         INPUT_DATA,
-        RADAR_DATA
+        RADAR_DATA,
+        RADAR_DATA_IMMEDIATE,
     }
 
     enum ConnectionID
@@ -204,7 +205,7 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public void SendPackets(GameTime gameTime, PilotDataClass pilotData, RadarDataClass radarData)
+        public void SendPackets(GameTime gameTime, PilotDataClass pilotData, RadarDataClass radarData, RadarDataImmediate radarImmediateData)
         {
             updateRadar += gameTime.ElapsedGameTime;
 
@@ -215,7 +216,7 @@ namespace Projeto_Apollo_16
                 pilotData.EncodePilotData(pilotmsg);
                 networkServer.SendMessage(pilotmsg, pilotConnection, NetDeliveryMethod.ReliableOrdered);
             }
-
+            
             if (radarConnection != null && updateRadar > TimeSpan.FromSeconds(1))
             {
                 NetOutgoingMessage radarmsg = networkServer.CreateMessage();
@@ -224,6 +225,15 @@ namespace Projeto_Apollo_16
                 networkServer.SendMessage(radarmsg, radarConnection, NetDeliveryMethod.ReliableOrdered);
                 updateRadar = TimeSpan.Zero;
             }
+            
+            if (radarConnection != null)
+            {
+                NetOutgoingMessage radarmsg = networkServer.CreateMessage();
+                radarmsg.Write((byte)PacketTypes.RADAR_DATA_IMMEDIATE);
+                radarImmediateData.EncodeRadarImmediateData(radarmsg);
+                networkServer.SendMessage(radarmsg, radarConnection, NetDeliveryMethod.ReliableOrdered);
+            }
+
         }
     }
 }

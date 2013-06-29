@@ -15,14 +15,17 @@ namespace Apollo_16_Radar
     public class GamePlayScreen : BaseGameState
     {
         public RadarDataClass data;
+        public RadarImmediateData immediateData;
         Texture2D redDot;
         Texture2D backgroundTexture;
+        Texture2D playerIcon;
 
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
             data = new RadarDataClass();
+            immediateData = new RadarImmediateData();
         }
 
         /* XNA Methods */
@@ -35,6 +38,7 @@ namespace Apollo_16_Radar
         {
             backgroundTexture = content.Load<Texture2D>(@"nave_amarela_1024x768");
             redDot = content.Load<Texture2D>(@"red_dot_2");
+            playerIcon = content.Load<Texture2D>(@"playerIcon");
             base.LoadContent();
         }
 
@@ -56,9 +60,17 @@ namespace Apollo_16_Radar
             {
                 DrawEnemy(systemRef.spriteBatch, enemy, data.playerGlobalPosition);
             }
+            DrawPlayer(systemRef.spriteBatch, new Vector2(systemRef.screenRectangle.Width / 2, systemRef.screenRectangle.Height / 2), immediateData.playerAngle);
+
             systemRef.spriteBatch.End();
 
             
+        }
+
+        private void DrawPlayer(SpriteBatch spriteBatch, Vector2 position, float angle)
+        {
+            spriteBatch.Draw(playerIcon, position, null, Color.White, angle, new Vector2(playerIcon.Width/2, playerIcon.Height/2), 1.0f, SpriteEffects.None, 0);
+            //spriteBatch.Draw(playerIcon, position, Color.White);
         }
 
         private void DrawEnemy(SpriteBatch spriteBatch, EnemyClass enemy, Vector2 playerPos)

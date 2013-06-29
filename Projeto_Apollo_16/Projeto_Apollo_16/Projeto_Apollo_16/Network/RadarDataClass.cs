@@ -25,6 +25,7 @@ namespace Projeto_Apollo_16
             outmsg.Write(size);
             outmsg.Write(playerGlobalPosition.X);
             outmsg.Write(playerGlobalPosition.Y);
+
             foreach (EnemyClass enemy in enemies)
             {
                 outmsg.Write(enemy.type);

@@ -155,6 +155,11 @@ namespace Apollo_16_Radar
                                 systemRef.gamePlayScreen.data.DecodeRadarData(msg);
                                 General.Log("Radar Updated!");
                                 break;
+                            case (byte)PacketTypes.RADAR_DATA_IMMEDIATE:
+                                systemRef.gamePlayScreen.immediateData.DecodeRadarImmediateData(msg);
+                                //General.Log("Radar Updated!");
+                                break;
+
                         }
                         break;
 

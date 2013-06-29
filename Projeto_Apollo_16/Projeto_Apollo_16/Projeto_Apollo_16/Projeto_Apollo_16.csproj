@@ -102,6 +102,7 @@
     <Compile Include="Actors\Player\JoystickInput.cs" />
     <Compile Include="Actors\Player\KeyboardControl.cs" />
     <Compile Include="Actors\Player\Physics.cs" />
+    <Compile Include="Actors\Player\RadarData.cs" />
     <Compile Include="Actors\Player\SideMovementEffects.cs" />
     <Compile Include="Actors\Player\Stats.cs" />
     <Compile Include="Actors\Player\Turbo.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Network\IGameMessage.cs" />
     <Compile Include="Network\InputDataClass.cs" />
     <Compile Include="Network\PilotDataClass.cs" />
+    <Compile Include="Network\RadarDataImmediate.cs" />
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />
     <Compile Include="GameLogic\GameLogic.cs" />

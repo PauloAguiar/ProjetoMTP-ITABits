@@ -24,6 +24,7 @@ namespace Apollo_16_Radar
             General.Log("Number of enemies: " + size);
             playerGlobalPosition.X = incmsg.ReadFloat();
             playerGlobalPosition.Y = incmsg.ReadFloat();
+
             enemies = new List<EnemyClass>();
             for (int i = 0; i < size; i++)
             {

@@ -9,7 +9,7 @@ namespace Projeto_Apollo_16
 {
     class LinearProjectile : ProjectileClass
     {
-        private const float SPEED = 2000 / 3.0f;
+        private const float SPEED =  0.5f;
         private const float ACCELERATION_MODULE = 0.3f;
         private Vector2 velocity;
         private Vector2 acceleration;
@@ -19,18 +19,17 @@ namespace Projeto_Apollo_16
             : base(initialPosition, content)
         {
             this.velocity = velocity;
-            velocity.Normalize();
+            this.velocity.Normalize();
             this.acceleration = this.velocity;
             ttl = 2000;
 
-            velocity *= SPEED;
+            this.velocity *= SPEED;
             acceleration *= ACCELERATION_MODULE;
         }
 
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
-
         }
 
         public override void LoadFont(ContentManager content)
