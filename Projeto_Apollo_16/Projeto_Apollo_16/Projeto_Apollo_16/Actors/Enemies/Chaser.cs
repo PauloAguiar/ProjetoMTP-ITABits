@@ -11,7 +11,7 @@ namespace Projeto_Apollo_16
         public Vector2 Velocity { get; set; }
         PlayerClass player;
         int initialDirection;
-        float delta = 0.1f;
+        const float DELTA = 0.1f;
         float angle;
 
         public Chaser(Vector2 position, ContentManager content, PlayerClass player)
@@ -73,7 +73,7 @@ namespace Projeto_Apollo_16
             r.Normalize();
             //r *= 1 / d;
 
-            Velocity += r * delta;
+            Velocity += r * DELTA;
             Velocity.Normalize();
             Velocity *= Speed;
             globalPosition += Velocity * (float)dt;

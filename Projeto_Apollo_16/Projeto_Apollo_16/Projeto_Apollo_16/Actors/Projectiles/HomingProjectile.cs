@@ -8,16 +8,18 @@ namespace Projeto_Apollo_16
 {
     public class HomingProjectile : ProjectileClass
     {
-        private const float SPEED = 2f;
+        private const float SPEED = 1f;
+        private const float DELTA = 0.1f;
         private Vector2 velocity;
         private bool shooted = false;
         EnemyClass enemy;
 
-        public HomingProjectile(Vector2 initialPosition, ContentManager content, EnemyClass enemy)
+        public HomingProjectile(Vector2 initialPosition, ContentManager content, EnemyClass enemy, Vector2 direction)
             : base(initialPosition, content)
         {
-            ttl = 1000;
+            ttl = 1500;
             globalPosition = initialPosition;
+            velocity = direction * SPEED * 10;
             this.enemy = enemy;
         }
         
@@ -39,8 +41,9 @@ namespace Projeto_Apollo_16
         public override void  Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            velocity = enemy.GlobalPosition - globalPosition;
+            Vector2 d = (enemy.GlobalPosition - globalPosition);
+            d.Normalize();
+            velocity += d*DELTA;
             velocity.Normalize();
             velocity *= SPEED;
 

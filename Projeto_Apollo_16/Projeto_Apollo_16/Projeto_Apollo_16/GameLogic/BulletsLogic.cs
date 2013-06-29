@@ -35,7 +35,7 @@ namespace Projeto_Apollo_16
                 if (enemyManager.Count > 0)
                 {
 
-                    HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.findNearest(player, enemyManager));
+                    HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.findNearest(player, enemyManager), player.Direction);
                     projectilesManager.CreateBullet(p);
                 }
             }
