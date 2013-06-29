@@ -13,19 +13,16 @@ namespace Projeto_Apollo_16
         Viewport viewport;
         public SpriteBatch spriteBatch;
         GameStateManager stateManager;
-        GameConsole console;
         public NetworkManager networkManager;
 
         /* Screens */
-        public TitleScreen titleScreen;
-        public StartMenuScreen startMenuScreen;
+        private InitGameScreen initGameScreen;
         public GamePlayScreen gamePlayScreen;
-        public NetworkScreen networkScreen;
 
         public bool NETWORK_MODE;
 		
-        const int SCREEN_WIDTH = 800;
-        const int SCREEN_HEIGHT = 600;
+        const int SCREEN_WIDTH = 1024;
+        const int SCREEN_HEIGHT = 768;
 
         public readonly Rectangle screenRectangle;
 
@@ -49,12 +46,11 @@ namespace Projeto_Apollo_16
             /* Add the gameState manager component to our list of components */
             Components.Add(stateManager);
 
-            titleScreen = new TitleScreen(this, stateManager);
-            startMenuScreen = new StartMenuScreen(this, stateManager);
+            initGameScreen = new InitGameScreen(this, stateManager);
             gamePlayScreen = new GamePlayScreen(this, stateManager);
-            networkScreen = new NetworkScreen(this, stateManager);
+            
 
-            stateManager.ChangeState(titleScreen);
+            stateManager.ChangeState(initGameScreen);
         }
 
         protected override void Initialize()

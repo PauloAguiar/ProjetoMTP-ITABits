@@ -10,6 +10,7 @@ using Input = Microsoft.Xna.Framework.Input;
 using Lidgren.Network;
 
 using SlimDX.DirectInput;
+using DataContent;
 
 namespace Apollo_16_Piloto
 {
@@ -25,7 +26,7 @@ namespace Apollo_16_Piloto
         TimeSpan updateNetworkStatus = TimeSpan.Zero;
         TimeSpan lastUpdateNetworkStatus = TimeSpan.Zero;
         public Boolean networkStatus { get;  set; }
-        Boolean isOnline = false;
+        Boolean isOnline;
         float maxItemWidth = 0f;
 
         Joystick joystick;
@@ -165,6 +166,7 @@ namespace Apollo_16_Piloto
         {
             if (sender == connect)
             {
+                systemRef.networkManager.ConnectToServer();
                 //if(isOnline)
                     stateManager.PushState(systemRef.gamePlayScreen);
             }

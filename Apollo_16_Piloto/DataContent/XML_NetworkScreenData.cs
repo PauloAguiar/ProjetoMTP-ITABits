@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Apollo_16_Piloto
+namespace DataContent
 {
     public class XML_NetworkScreenData
     {

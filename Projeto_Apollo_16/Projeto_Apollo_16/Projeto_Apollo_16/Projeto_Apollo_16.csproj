@@ -5,7 +5,7 @@
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Projeto_Apollo_16</RootNamespace>
     <AssemblyName>Projeto_Apollo_16</AssemblyName>
@@ -127,8 +127,8 @@
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="Actors\ItemClasses\Health.cs" />
     <Compile Include="Actors\ItemClasses\ItemClass.cs" />
+    <Compile Include="GameScreens\InitGameScreen.cs" />
     <Compile Include="GameScreens\LabelsGameplayScreen.cs" />
-    <Compile Include="GameScreens\NetworkScreen.cs" />
     <Compile Include="Network\EnemyData.cs" />
     <Compile Include="Network\RadarDataClass.cs" />
     <Compile Include="Network\IGameMessage.cs" />
@@ -140,6 +140,7 @@
     <Compile Include="GameLogic\GameLogic.cs" />
     <Compile Include="System\ItemManager.cs" />
     <Compile Include="System\NetworkManager.cs" />
+    <Compile Include="Utils\General.cs" />
     <Compile Include="Utils\MathFunctions.cs" />
     <Compile Include="System\CameraClass.cs" />
     <Compile Include="System\ControlManager.cs" />
@@ -147,8 +148,6 @@
     <Compile Include="Controls\LinkLabel.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\GameState.cs" />
-    <Compile Include="GameScreens\StartMenuScreen.cs" />
-    <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="System\ProjectileManager.cs" />
     <Compile Include="Utils\Globals.cs" />
     <Compile Include="WorldEngine\WorldSectorClass.cs" />
@@ -168,6 +167,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Apollo_16_Piloto\DataContent\DataContent.csproj">
+      <Project>{C610E9DD-726B-4A43-92B4-8514C721AA03}</Project>
+      <Name>DataContent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Projeto_Apollo_16Content\Projeto_Apollo_16Content.contentproj">
       <Name>Projeto_Apollo_16Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>

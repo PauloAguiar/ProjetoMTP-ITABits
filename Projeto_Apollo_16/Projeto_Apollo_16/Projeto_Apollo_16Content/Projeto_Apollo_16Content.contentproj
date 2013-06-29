@@ -298,11 +298,43 @@
   <ItemGroup>
     <Compile Include="Sprites\Shoots\smoke.png">
       <Name>smoke</Name>
+    <Compile Include="Screens\NetworkScreen.xml">
+      <Name>NetworkScreen</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Screens\StartMenuScreen.xml">
+      <Name>StartMenuScreen</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Screens\TitleScreen.xml">
+      <Name>TitleScreen</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Screens\title.png">
+      <Name>title</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
+  <ItemGroup>
+    <Compile Include="Backgrounds\nave_amarela_1024x768.jpg">
+      <Name>nave_amarela_1024x768</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Apollo_16_Piloto\DataContent\DataContent.csproj">
+      <Project>{C610E9DD-726B-4A43-92B4-8514C721AA03}</Project>
+      <Name>DataContent</Name>
+    </ProjectReference>
+  </ItemGroup>
+<Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

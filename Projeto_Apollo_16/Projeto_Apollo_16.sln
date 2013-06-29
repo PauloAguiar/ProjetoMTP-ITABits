@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto_Apollo_16", "Projet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto_Apollo_16Content", "Projeto_Apollo_16\Projeto_Apollo_16Content\Projeto_Apollo_16Content.contentproj", "{3BE9ADA0-E33B-410D-BFF5-9A4D611A930B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContent", "..\Apollo_16_Piloto\DataContent\DataContent.csproj", "{C610E9DD-726B-4A43-92B4-8514C721AA03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -17,6 +19,10 @@ Global
 		{934FB74C-F42F-4AA5-838C-121DDB53544C}.Release|x86.Build.0 = Release|x86
 		{3BE9ADA0-E33B-410D-BFF5-9A4D611A930B}.Debug|x86.ActiveCfg = Debug|x86
 		{3BE9ADA0-E33B-410D-BFF5-9A4D611A930B}.Release|x86.ActiveCfg = Release|x86
+		{C610E9DD-726B-4A43-92B4-8514C721AA03}.Debug|x86.ActiveCfg = Debug|x86
+		{C610E9DD-726B-4A43-92B4-8514C721AA03}.Debug|x86.Build.0 = Debug|x86
+		{C610E9DD-726B-4A43-92B4-8514C721AA03}.Release|x86.ActiveCfg = Release|x86
+		{C610E9DD-726B-4A43-92B4-8514C721AA03}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

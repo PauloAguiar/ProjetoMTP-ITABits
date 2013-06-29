@@ -7,7 +7,7 @@ namespace Apollo_16_Radar
 {
     enum PacketTypes
     {
-        CONNECTION_ACCEPTED,
+        CONNECTION_ACCEPTED = 0,
         ID_PACKET,
         LOGIN,
         PILOT_DATA,
@@ -18,7 +18,7 @@ namespace Apollo_16_Radar
 
     enum ConnectionID
     {
-        PILOT,
+        PILOT = 0,
         RADAR
     }
 

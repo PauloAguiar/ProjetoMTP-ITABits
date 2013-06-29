@@ -53,7 +53,7 @@ namespace Projeto_Apollo_16
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
             
             if (systemRef.NETWORK_MODE && player.isLoaded)
-                systemRef.networkManager.ReadInGamePackets();
+                systemRef.networkManager.ReadPackets(this);
             
             CameraUpdate();
             UpdateManagers(gameTime);

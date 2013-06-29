@@ -75,11 +75,6 @@ namespace Projeto_Apollo_16
             weaponLabel.Text = "Weapon:" + player.bullets;
             timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
             itemLabel.Text = "Item: " + (PlayerClass.items).ToString() + " " + player.inventory[(int)PlayerClass.items].ToString();
-
-            //statusLabel.Text = NetworkClass.status;
-            if (systemRef.NETWORK_MODE)
-                statusLabel.Text = systemRef.networkManager.status;
-
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using System.IO;
 using Microsoft.Xna.Framework.Storage;
 using System.Xml;
+using DataContent;
 
 namespace Apollo_16_Piloto
 {

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
+using System.Net;
 
 namespace Apollo_16_Piloto
 {
     public class NetworkManager
     {
         /* This is a reference to our SystemClass*/
-        protected SystemClass systemRef; 
-
+        protected SystemClass systemRef;
+        protected IPEndPoint serverIP;
         /* Network Object */
         NetClient networkClient;
         
@@ -47,7 +48,7 @@ namespace Apollo_16_Piloto
             outmsg.Write((byte)PacketTypes.LOGIN);
             outmsg.Write((byte)ConnectionID.PILOT);
 
-            networkClient.Connect(Global.IP, Global.PORT, outmsg);
+            networkClient.Connect(serverIP, outmsg);
 
             General.Log("Connection Requested!");
         }
@@ -97,6 +98,7 @@ namespace Apollo_16_Piloto
                     case NetIncomingMessageType.DiscoveryResponse:
                         General.Log("Server is Online!");
                         systemRef.networkScreen.networkStatus = true;
+                        serverIP = msg.SenderEndPoint;
                         break;
 
                     case NetIncomingMessageType.Data:

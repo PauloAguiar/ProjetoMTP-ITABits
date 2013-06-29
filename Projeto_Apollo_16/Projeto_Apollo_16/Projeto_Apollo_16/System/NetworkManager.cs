@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Lidgren.Network;
-
 using Microsoft.Xna.Framework;
 
 namespace Projeto_Apollo_16
@@ -20,25 +16,32 @@ namespace Projeto_Apollo_16
         RADAR_DATA_IMMEDIATE,
     }
 
-    enum ConnectionID
+    public enum ConnectionID
     {
         PILOT,
         RADAR
     }
 
+    public class ClientConnection
+    {
+        public NetConnection connection;
+
+        public ClientConnection(NetConnection conn)
+        {
+            this.connection = conn;
+        }
+    }
+
     public class NetworkManager
     {
-        protected SystemClass systemRef; /* This is a reference to our SystemClass*/
+        protected SystemClass systemRef;
         TimeSpan updateRadar = TimeSpan.Zero;
 
         private int PORT = 14242;
         private int MAX_CONNECTIONS = 5;
         private String NETWORK_NAME = "apollo";
 
-        private NetConnection pilotConnection = null;
-        private NetConnection radarConnection = null;
-
-        public String status = "";
+        private Dictionary<ConnectionID, ClientConnection> connections = new Dictionary<ConnectionID, ClientConnection>();
 
         private NetServer networkServer;
         private NetPeerConfiguration networkConfig;
@@ -51,23 +54,22 @@ namespace Projeto_Apollo_16
 
         public void StartServer()
         {
-            // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
             networkConfig = new NetPeerConfiguration(NETWORK_NAME);
             networkConfig.Port = PORT;
             networkConfig.MaximumConnections = MAX_CONNECTIONS;
 
-            //networkConfig.EnableMessageType(NetIncomingMessageType.WarningMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.VerboseDebugMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.Error);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.DebugMessage);
             networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.ErrorMessage);
-            //networkConfig.EnableMessageType(NetIncomingMessageType.Data);
 
             networkServer = new NetServer(networkConfig);
 
             networkServer.Start();
+        }
+
+        public void StopServer()
+        {
+            networkServer.Shutdown("Server Manually Shutdown");
+            General.Log("Server Manually Shutdown");
         }
 
         public void HandleConnectionPackets(NetIncomingMessage msg)
@@ -79,22 +81,50 @@ namespace Projeto_Apollo_16
                     switch(msg.ReadByte())
                     {
                         case (byte)ConnectionID.PILOT:
-                            status = "O Piloto conectou-se...";
-                            pilotConnection = msg.SenderConnection;
-                            pilotConnection.Approve();
+                            General.Log("O Piloto conectou-se...");
+                            AddConnectionByID(ConnectionID.PILOT, msg.SenderConnection);
+                            GetConnectionByID(ConnectionID.PILOT).Approve();
                             break;
 
                         case (byte)ConnectionID.RADAR:
-                            status = "O Radar conectou-se...";
-                            radarConnection = msg.SenderConnection;
-                            radarConnection.Approve();
+                            General.Log("O Radar conectou-se...");
+                            AddConnectionByID(ConnectionID.RADAR, msg.SenderConnection);
+                            GetConnectionByID(ConnectionID.RADAR).Approve();
                             break;
                     }
                     break;
             }
         }
 
-        public void ReadLobbyPackets()
+        private void HandleStatusChangePackets(NetIncomingMessage msg)
+        {
+            NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
+            switch (st)
+            {
+                case NetConnectionStatus.Connected:
+                    General.Log("Connected to " + msg.SenderEndPoint + " (MAC: " + NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + ")");
+                    break;
+                case NetConnectionStatus.Disconnected:
+                    General.Log("Disconnected from " + msg.SenderEndPoint);
+                    break;
+                case NetConnectionStatus.Disconnecting:
+                    General.Log("Disconnecting from " + msg.SenderEndPoint);
+                    break;
+                case NetConnectionStatus.RespondedAwaitingApproval:
+                    General.Log("Responded awaiting approval to " + msg.SenderEndPoint);
+                    break;
+                case NetConnectionStatus.RespondedConnect:
+                    General.Log("Responded connect to " + msg.SenderEndPoint);
+                    break;
+                default:
+                    General.Log("Unhandled status change packet");
+                    string reason = msg.ReadString();
+                    General.Log(st.ToString() + ": " + reason);
+                    break;
+            }
+        }
+
+        public void ReadPackets(GameState state)
         {
             NetIncomingMessage msg;
 
@@ -118,90 +148,38 @@ namespace Projeto_Apollo_16
 
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
-                        //status = msg.ReadString();
+                        General.Log(msg.MessageType.ToString() + ": " +  msg.ReadString());
                         break;
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
-                        string reason = msg.ReadString();
-                        status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
+                        HandleStatusChangePackets(msg);
                         break;
 
                     case NetIncomingMessageType.DiscoveryRequest:
-                        // Create a response and write some example data to it
                         NetOutgoingMessage response = networkServer.CreateMessage();
-
-                        // Send the response to the sender of the request
                         networkServer.SendDiscoveryResponse(response, msg.SenderEndPoint);
-                        break;
-
-                    default:
-                        status = "Unexpected Message of type " + msg.MessageType;
-                        break;
-                }
-            }
-        }
-
-        public void ReadInGamePackets()
-        {
-            NetIncomingMessage msg;
-
-            while ((msg = networkServer.ReadMessage()) != null)
-            {
-                switch (msg.MessageType)
-                {
-                    case NetIncomingMessageType.ConnectionApproval:
-                        HandleConnectionPackets(msg);
-                        break;
-
-                    /* RECEIVE ERROR MESSAGES */
-                    case NetIncomingMessageType.ErrorMessage:
-
-                    /* RECEIVE VERBOSE DEBUG MESSAGES */
-                    case NetIncomingMessageType.VerboseDebugMessage:
-
-                    /* RECEIVE DEBUG MESSAGES */
-                    case NetIncomingMessageType.DebugMessage:
-
-                    /* RECEIVE WARNING MESSAGES */
-                    case NetIncomingMessageType.WarningMessage:
-
-                        //status = msg.ReadString();
-                        break;
-
-                    /* RECEIVE STATUS CHANGE MESSAGES */
-                    case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
-                        string reason = msg.ReadString();
-                        status = NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " " + st + ": " + reason;
-                        break;
-
-                    case NetIncomingMessageType.DiscoveryRequest:
-                        // Create a response and write some example data to it
-                        NetOutgoingMessage response = networkServer.CreateMessage();
-
-                        // Send the response to the sender of the request
-                        networkServer.SendDiscoveryResponse(response, msg.SenderEndPoint);
+                        General.Log("Discovery response sent to " + msg.SenderEndPoint);
                         break;
 
                     /* RECEIVE DATA MESSAGES */
                     case NetIncomingMessageType.Data:
-                        switch (msg.ReadByte())
+                        if (state is GamePlayScreen)
                         {
-                            case (byte)PacketTypes.INPUT_DATA:
-                                var input = new InputDataClass();
-                                input.Decode(msg);
-                                systemRef.gamePlayScreen.player.ParseInput(input);
-                                break;
+                            switch (msg.ReadByte())
+                            {
+                                case (byte)PacketTypes.INPUT_DATA:
+                                    var input = new InputDataClass();
+                                    input.Decode(msg);
+                                    systemRef.gamePlayScreen.player.ParseInput(input);
+                                    break;
+                            }
                         }
                         break;
                     default:
-                        //status = "Unhandled type: " + msg.MessageType;
+                        General.Log("Unexpected Message of type " + msg.MessageType);
                         break;
                 }
-                networkServer.Recycle(msg);
-
             }
         }
 
@@ -209,24 +187,24 @@ namespace Projeto_Apollo_16
         {
             updateRadar += gameTime.ElapsedGameTime;
 
-            if (pilotConnection != null)
+            if (GetConnectionStatudByID(ConnectionID.PILOT) == NetConnectionStatus.Connected)
             {
                 NetOutgoingMessage pilotmsg = networkServer.CreateMessage();
                 pilotmsg.Write((byte)PacketTypes.PILOT_DATA);
                 pilotData.EncodePilotData(pilotmsg);
-                networkServer.SendMessage(pilotmsg, pilotConnection, NetDeliveryMethod.ReliableOrdered);
+                networkServer.SendMessage(pilotmsg, GetConnectionByID(ConnectionID.PILOT), NetDeliveryMethod.ReliableOrdered);
             }
-            
-            if (radarConnection != null && updateRadar > TimeSpan.FromMilliseconds(300))
+			
+            if (GetConnectionStatudByID(ConnectionID.PILOT) == NetConnectionStatus.Connected && updateRadar > TimeSpan.FromMilliseconds(300))
             {
                 NetOutgoingMessage radarmsg = networkServer.CreateMessage();
                 radarmsg.Write((byte)PacketTypes.RADAR_DATA);
                 radarData.EncodeRadarData(radarmsg);
-                networkServer.SendMessage(radarmsg, radarConnection, NetDeliveryMethod.ReliableOrdered);
+                networkServer.SendMessage(radarmsg, GetConnectionByID(ConnectionID.RADAR), NetDeliveryMethod.ReliableOrdered);
                 updateRadar = TimeSpan.Zero;
             }
             
-            if (radarConnection != null)
+            if (GetConnectionStatudByID(ConnectionID.PILOT) == NetConnectionStatus.Connected)
             {
                 NetOutgoingMessage radarmsg = networkServer.CreateMessage();
                 radarmsg.Write((byte)PacketTypes.RADAR_DATA_IMMEDIATE);
@@ -234,6 +212,34 @@ namespace Projeto_Apollo_16
                 networkServer.SendMessage(radarmsg, radarConnection, NetDeliveryMethod.ReliableOrdered);
             }
 
+        }
+
+        private void AddConnectionByID(ConnectionID id, NetConnection conn)
+        {
+            General.Log("Connection Added at ID:" + (int)id);
+            connections.Add(id, new ClientConnection(conn));
+        }
+
+        public NetConnectionStatus GetConnectionStatudByID(ConnectionID id)
+        {
+            NetConnection conn = GetConnectionByID(id);
+            if (conn != null)
+                return conn.Status;
+            return NetConnectionStatus.None;
+        }
+
+        private NetConnection GetConnectionByID(ConnectionID id)
+        {
+            if(connections.ContainsKey(id) && connections[id] != null)
+                return connections[id].connection;
+            return null;
+        }
+
+        public NetPeerStatus GetStatus()
+        {
+            if(networkServer != null)
+                return networkServer.Status;
+            return NetPeerStatus.NotRunning;
         }
     }
 }
