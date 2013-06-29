@@ -73,11 +73,11 @@ namespace Projeto_Apollo_16
 
         static void checkJoystickStatus()
         {
-            if (joystickState.IsPressed((int)ButtonStates.BTN_4) && timeChangedWeapon >= MIN_TIME_CHANGE_WEAPON)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_6) && timeChangedWeapon >= MIN_TIME_CHANGE_WEAPON)
             {
                 ShiftBulletsRight();
             }
-            if (joystickState.IsPressed((int)ButtonStates.BTN_3) && timeChangedWeapon >= MIN_TIME_CHANGE_WEAPON)
+            if (joystickState.IsPressed((int)ButtonStates.BTN_5) && timeChangedWeapon >= MIN_TIME_CHANGE_WEAPON)
             {
                 ShiftBulletsLeft();
             }
