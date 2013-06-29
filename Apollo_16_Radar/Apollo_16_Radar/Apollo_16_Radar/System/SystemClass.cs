@@ -7,7 +7,7 @@ namespace Apollo_16_Radar
 {
     public class SystemClass : Game
     {
-        GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
         Viewport viewport;
         public SpriteBatch spriteBatch;
 
@@ -76,8 +76,6 @@ namespace Apollo_16_Radar
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
             base.Draw(gameTime);
         }
     }

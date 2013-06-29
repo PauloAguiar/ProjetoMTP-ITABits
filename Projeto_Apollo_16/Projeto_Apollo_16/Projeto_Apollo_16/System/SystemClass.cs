@@ -9,7 +9,7 @@ namespace Projeto_Apollo_16
 {
     public class SystemClass : Game
     {
-        GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
         Viewport viewport;
         public SpriteBatch spriteBatch;
         GameStateManager stateManager;

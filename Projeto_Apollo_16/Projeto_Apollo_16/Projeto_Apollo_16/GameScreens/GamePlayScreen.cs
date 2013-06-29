@@ -10,6 +10,7 @@ namespace Projeto_Apollo_16
         WorldEngine engine;
         public PlayerClass player;
 
+
         #region managers
         ProjectileManager projectilesManager;
         ExplosionManager explosionManager;

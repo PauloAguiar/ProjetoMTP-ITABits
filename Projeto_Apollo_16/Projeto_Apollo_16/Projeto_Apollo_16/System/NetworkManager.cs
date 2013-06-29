@@ -187,7 +187,7 @@ namespace Projeto_Apollo_16
                 networkServer.SendMessage(pilotmsg, GetConnectionByID(ConnectionID.PILOT), NetDeliveryMethod.ReliableOrdered);
             }
 
-            if (GetConnectionStatudByID(ConnectionID.RADAR) == NetConnectionStatus.Connected && updateRadar > TimeSpan.FromMilliseconds(300))
+            if (GetConnectionStatudByID(ConnectionID.RADAR) == NetConnectionStatus.Connected && updateRadar > TimeSpan.FromMilliseconds(100))
             {
                 NetOutgoingMessage radarmsg = networkServer.CreateMessage();
                 radarmsg.Write((byte)PacketTypes.RADAR_DATA);
@@ -208,7 +208,13 @@ namespace Projeto_Apollo_16
         private void AddConnectionByID(ConnectionID id, NetConnection conn)
         {
             General.Log("Connection Added at ID:" + (int)id);
-            connections.Add(id, new ClientConnection(conn));
+            if (!connections.ContainsKey(id))
+                connections.Add(id, new ClientConnection(conn));
+            else
+            {
+                connections.Remove(id);
+                connections.Add(id, new ClientConnection(conn));
+            }
         }
 
         public NetConnectionStatus GetConnectionStatudByID(ConnectionID id)
