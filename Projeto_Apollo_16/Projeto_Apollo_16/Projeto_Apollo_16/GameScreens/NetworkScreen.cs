@@ -39,7 +39,7 @@ namespace Projeto_Apollo_16
             controlManager.Add(titleLabel);
 
             infoLabel = new Label();
-            infoLabel.Position = new Vector2(10, systemRef.screenRectangle.Height - 100);
+            infoLabel.Position = Vector2.Zero + 2 * (new Vector2(0.0f, 25.0f));
             infoLabel.Text = "Aperte Espaco para continuar no modo Offline!";
             infoLabel.Color = Color.Red;
             infoLabel.Size = infoLabel.SpriteFont.MeasureString(infoLabel.Text);
@@ -47,7 +47,7 @@ namespace Projeto_Apollo_16
 
             statusLabel = new Label();
             statusLabel.Position = Vector2.Zero + 3 * (new Vector2(0.0f, 25.0f));
-            statusLabel.Text = "";
+            statusLabel.Text = "Aperte Enter para iniciar no modo online";
             statusLabel.Color = Color.Red;
             statusLabel.Size = statusLabel.SpriteFont.MeasureString(statusLabel.Text);
             controlManager.Add(statusLabel);
@@ -61,10 +61,7 @@ namespace Projeto_Apollo_16
                 stateManager.PushState(systemRef.gamePlayScreen);
             }
 
-            systemRef.networkManager.ReadLobbyPackets();
-            statusLabel.Text = systemRef.networkManager.status;
-
-            if (systemRef.networkManager.NetworkIsReady())
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 systemRef.NETWORK_MODE = true;
                 stateManager.PushState(systemRef.gamePlayScreen);

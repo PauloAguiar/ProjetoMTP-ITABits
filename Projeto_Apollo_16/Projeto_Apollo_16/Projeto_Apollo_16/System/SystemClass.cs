@@ -66,7 +66,7 @@ namespace Projeto_Apollo_16
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            console = new GameConsole((Game)this, spriteBatch);
+            base.LoadContent();
         }
 
         protected override void UnloadContent()

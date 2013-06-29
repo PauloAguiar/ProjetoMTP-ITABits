@@ -70,7 +70,7 @@ namespace Projeto_Apollo_16
             foreach (EnemyClass enemy in this)
             {
                 Vector2 dist = enemy.GlobalPosition - player.GlobalPosition;
-                if (dist.Length() < 1000)
+                if (dist.Length() < 10000)
                 {
                     temp.Add(enemy);
                 }

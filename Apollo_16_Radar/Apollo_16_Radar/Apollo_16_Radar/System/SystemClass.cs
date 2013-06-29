@@ -51,13 +51,13 @@ namespace Apollo_16_Radar
         protected override void Initialize()
         {
             viewport = GraphicsDevice.Viewport;
-            spriteBatch = new SpriteBatch(GraphicsDevice);
             
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             base.LoadContent();
         }
 
@@ -75,7 +75,7 @@ namespace Apollo_16_Radar
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             base.Draw(gameTime);
         }

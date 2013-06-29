@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Projeto_Apollo_16
 {
@@ -58,7 +59,7 @@ namespace Projeto_Apollo_16
             UpdateManagers(gameTime);
 
             if (systemRef.NETWORK_MODE && player.isLoaded)
-                systemRef.networkManager.SendPackets(new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Direction),
+                systemRef.networkManager.SendPackets(gameTime, new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Direction),
                                                      enemyManager.GetRadarData(player));
 
             base.Update(gameTime);

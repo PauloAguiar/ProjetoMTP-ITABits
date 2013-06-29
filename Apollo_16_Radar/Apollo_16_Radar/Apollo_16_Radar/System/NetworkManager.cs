@@ -152,9 +152,8 @@ namespace Apollo_16_Radar
                         switch (msg.ReadByte())
                         {
                             case (byte)PacketTypes.RADAR_DATA:
-                                RadarDataClass data = new RadarDataClass();
-                                data.DecodeRadarData(msg);
-                                General.Log(data.size.ToString());
+                                systemRef.gamePlayScreen.data.DecodeRadarData(msg);
+                                General.Log("Radar Updated!");
                                 break;
                         }
                         break;

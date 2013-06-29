@@ -17,7 +17,7 @@ namespace Apollo_16_Radar
     public class EnemyClass
     {
         public Int32 type;
-        protected Vector2 globalPosition;
+        public Vector2 globalPosition;
        
         public EnemyClass()
         {
