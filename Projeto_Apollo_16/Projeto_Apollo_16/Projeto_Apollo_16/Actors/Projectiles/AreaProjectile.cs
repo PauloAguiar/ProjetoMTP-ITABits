@@ -10,23 +10,22 @@ namespace Projeto_Apollo_16
     class AreaProjectile : ProjectileClass
     {
         private const float SPEED = 2 / 3.0f;
-        private const float ACCELERATION_MODULE = 0.01f;
         private Vector2 velocity;
-        private Vector2 velocityAux;
         private Vector2 acceleration;
         private bool shooted = false;
-        private float rot = 0;
+        PlayerClass player;
+        
 
-        public AreaProjectile(Vector2 initialPosition, Vector2 velocity, ContentManager content)
+        public AreaProjectile(Vector2 initialPosition, Vector2 velocity, ContentManager content, PlayerClass player)
             : base(initialPosition, content)
         {
+            this.player = player;
             this.velocity = velocity;
             velocity.Normalize();
             this.acceleration = velocity;
-            ttl = 2000;
+            ttl = 500;
 
             velocity *= SPEED;
-            acceleration *= ACCELERATION_MODULE;
         }
 
         public override void LoadTexture(ContentManager content)
@@ -56,19 +55,14 @@ namespace Projeto_Apollo_16
                 sound.Play();
                 shooted = true;
             }
-                velocityAux = velocity;
-                velocity = MathFunctions.RotateVector(velocity, rot * (float)Math.PI / 2);
-                //velocity.X = (float)Math.Cos(rot*Math.PI/2) * velocityAux.X - (float)Math.Sin(rot*Math.PI/2) * velocityAux.Y ;
-                //velocity.Y = (float)Math.Sin(rot * Math.PI / 2) * velocityAux.X + (float)Math.Cos(rot * Math.PI / 2) * velocityAux.Y;             
-                globalPosition += velocity * dt + 0.5f * dt * dt * acceleration;
-                velocity += acceleration * dt;
+            globalPosition += velocity * dt + player.Direction*player.Speed*dt;
 
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y) - rot * (float)Math.PI / 2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
-                rot += 0.5f;
+
+            spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y) - (float)Math.PI / 2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.BULLET_LAYER);
         }
     }
 }  

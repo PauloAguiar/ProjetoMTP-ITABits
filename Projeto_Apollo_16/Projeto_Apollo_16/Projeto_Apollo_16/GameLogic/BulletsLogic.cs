@@ -34,15 +34,19 @@ namespace Projeto_Apollo_16
             {
                 if (enemyManager.Count > 0)
                 {
-
                     HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.findNearest(player, enemyManager), player.Direction);
                     projectilesManager.CreateBullet(p);
                 }
             }
             else if (player.bullets == Bullets.area)
             {
-                AreaProjectile p = new AreaProjectile(player.GlobalPosition, player.Direction * player.Speed, content);
-                projectilesManager.CreateBullet(p);
+                float ang = 0;
+                while (ang < 2 * Math.PI)
+                {
+                    AreaProjectile p = new AreaProjectile(player.GlobalPosition, MathFunctions.RotateVector(player.Direction , ang), content, player);
+                    projectilesManager.CreateBullet(p);
+                    ang += (float)Math.PI /4.0f;
+                }
             }
 
         }
