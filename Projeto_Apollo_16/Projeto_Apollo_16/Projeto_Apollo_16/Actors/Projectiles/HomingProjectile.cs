@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 
 namespace Projeto_Apollo_16
 {
@@ -13,6 +14,8 @@ namespace Projeto_Apollo_16
         private Vector2 velocity;
         private bool shooted = false;
         EnemyClass enemy;
+        Texture2D SmokeTexture;
+        List<Vector2> SmokeList = new List<Vector2>();
 
         public HomingProjectile(Vector2 initialPosition, ContentManager content, EnemyClass enemy, Vector2 direction)
             : base(initialPosition, content)
@@ -26,6 +29,7 @@ namespace Projeto_Apollo_16
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
+            SmokeTexture = content.Load<Texture2D>(@"Sprites\Shoots\smoke");
         }
 
         public override void LoadFont(ContentManager content)
@@ -59,12 +63,37 @@ namespace Projeto_Apollo_16
                 sound.Play();
                 shooted = true;
             }
+
+            CreateSmoke();
+            
+        }
+
+        private void CreateSmoke()
+        {
+            
+            for (int i = 0; i < 5; i++)
+            {
+                Vector2 smokePosition = globalPosition;
+                smokePosition.X -= GameLogic.rand.Next(2, 10);
+                smokePosition.Y -= GameLogic.rand.Next(2, 10);
+                SmokeList.Add(smokePosition);
+            }
             
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GlobalPosition, texture.Bounds, Color.White, (float)-Math.Atan2(velocity.X, velocity.Y)-(float)Math.PI/2, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.PLAYER_LAYER);
+
+            DrawSmoke(spriteBatch);
+        }
+
+        private void DrawSmoke(SpriteBatch spriteBatch)
+        {
+            foreach (Vector2 v in SmokeList)
+            {
+                spriteBatch.Draw(SmokeTexture, v, Color.White);
+            }
         }
     }
 }
