@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -6,21 +7,45 @@ namespace Projeto_Apollo_16
 {
     public sealed class Chaser : EnemyClass
     {
-        public double Speed { get; private set; }
+        public float Speed { get; private set; }
         public Vector2 Velocity { get; set; }
-        public Vector2 centralPosition { get; set; }
-        private bool isFliped;
-        private const int AMPLITUDE = 300;
         PlayerClass player;
+        int initialDirection;
+        float delta = 0.1f;
+        float angle;
 
         public Chaser(Vector2 position, ContentManager content, PlayerClass player)
             : base(position, content)
         {
-            globalPosition = position + new Vector2(2*AMPLITUDE, -2*AMPLITUDE); //futuramente será substituido por uma posição aleatória
-            centralPosition = position;
-            Speed = 0.1;
-            Velocity = new Vector2(1, 0)* (float)Speed; 
-            isFliped = true;
+            globalPosition = position;
+            Speed = GameLogic.rand.Next(5, 9) * 0.1f;
+            initialDirection = GameLogic.rand.Next(4);
+            if (initialDirection == 0)
+            {
+                Velocity = new Vector2(1, 0) * (float)Speed; 
+            }
+            else if (initialDirection == 1)
+            {
+                Velocity = new Vector2(0, 1) * (float)Speed;
+            }
+            else if (initialDirection == 2)
+            {
+                Velocity = new Vector2(-1, 0) * (float)Speed;
+            }
+            else
+            {
+                Velocity = new Vector2(0, -1) * (float)Speed;
+            }
+
+            if (Velocity.Y < 0)
+            {
+                angle = MathFunctions.VectorToAngle(Velocity);
+            }
+            else
+            {
+                angle = MathFunctions.VectorToAngle(Velocity) + (float)Math.PI;
+            }
+
             this.player = player;
         }
 
@@ -43,40 +68,28 @@ namespace Projeto_Apollo_16
         public override void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
-            Velocity = player.GlobalPosition - globalPosition;
+            Vector2 r = (player.GlobalPosition - globalPosition);
+            //float d = r.Length();
+            r.Normalize();
+            //r *= 1 / d;
+
+            Velocity += r * delta;
             Velocity.Normalize();
-            Velocity *= (float)Speed;
-            globalPosition += Velocity;
-
-            /* talvez seja mais bizu fazer uma rotação, que nem no caso do player
-             * if (globalPosition.X >= centralPosition.X + amplitude)
+            Velocity *= Speed;
+            globalPosition += Velocity * (float)dt;
+            if (Velocity.Y < 0)
             {
-                globalPosition.X = centralPosition.X + amplitude - 1;
-                Velocity = -Velocity;
-                isFliped = !isFliped;
-            }
-            if (globalPosition.X <= centralPosition.X - amplitude)
-            {
-                globalPosition.X = centralPosition.X - amplitude + 1;
-                Velocity = -Velocity;
-                isFliped = !isFliped;
-            }
-            */
-        }
-
-        //projeto de radar, só quem vai poder ver é o copiloto
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            if (!isFliped)
-            {
-                spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.ENEMY_LAYER);
+                angle = MathFunctions.VectorToAngle(Velocity);
             }
             else
             {
-                spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.FlipHorizontally, Globals.ENEMY_LAYER);
+                angle = MathFunctions.VectorToAngle(Velocity) + (float)Math.PI;
             }
+        }
 
-
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, globalPosition, texture.Bounds, Color.White, angle, new Vector2(texture.Width / 2, texture.Height / 2), 1.0f, SpriteEffects.None, Globals.ENEMY_LAYER);
             spriteBatch.DrawString(spriteFont, "Pos:" + globalPosition.ToString(), globalPosition - new Vector2((texture.Width / 2) - 1, (texture.Height / 2) - 1), Color.Red);
         }
     }

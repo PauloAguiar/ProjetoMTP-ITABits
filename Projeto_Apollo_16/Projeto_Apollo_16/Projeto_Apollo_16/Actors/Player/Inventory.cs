@@ -23,7 +23,6 @@ namespace Projeto_Apollo_16
         private static int NUMBER_TYPE_ITEMS = Enum.GetNames(typeof(Items)).Length;
         public int[] inventory = new int[NUMBER_TYPE_ITEMS];
         public static Items items = Items.Shield;
-
         void UpdateInventory(double dt)
         {
             timeChangedItem += dt;

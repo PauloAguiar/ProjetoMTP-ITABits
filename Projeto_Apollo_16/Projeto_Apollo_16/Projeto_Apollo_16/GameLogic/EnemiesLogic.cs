@@ -21,7 +21,7 @@ namespace Projeto_Apollo_16
             numberEnemies = rand.Next(MIN_NUMBER_ENEMIES_CREATE, MAX_NUMBER_ENEMIES_CREATE);
             for (int i = 0; i < numberEnemies; i++)
             {
-                int j = rand.Next(EnemyClass.NUMBER_TYPE_ENEMIES-1);  //tem que tirar o -1, porque é só pra não pegar o Chaser
+                int j = rand.Next(EnemyClass.NUMBER_TYPE_ENEMIES);  //tem que tirar o -1, porque é só pra não pegar o Chaser
                 int x = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
                 int y = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
 

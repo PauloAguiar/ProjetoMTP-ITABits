@@ -6,19 +6,43 @@ namespace Projeto_Apollo_16
 {
     public sealed class Ghost : EnemyClass
     {
-        public double Speed { get; private set; }
+        public double HorizontalSpeed { get; private set; }
+        public double VerticalSpeed { get; private set; }
         public Vector2 Velocity { get; set; }
         public Vector2 centralPosition { get; set; }
         private bool isFliped;
-        private int amplitude = 300;
+        private int horizontalAmplitude = 300;
+        private int verticalAmplitude = 300;
+        private const float epsilon = 0.0001f;
 
         public Ghost(Vector2 position, ContentManager content) : base(position, content)
         {
             globalPosition = position;
             centralPosition = position;
-            Speed = GameLogic.rand.Next(4, 20);
-            amplitude = GameLogic.rand.Next(300, 1000);
-            Velocity = new Vector2(1, 0) * (float)Speed;
+
+            HorizontalSpeed = GameLogic.rand.Next(4, 20);
+            VerticalSpeed = GameLogic.rand.Next(6, 20);
+
+            horizontalAmplitude = GameLogic.rand.Next(300, 1000);
+            verticalAmplitude = GameLogic.rand.Next(200, 500);
+            if (GameLogic.rand.Next(2) == 0)
+            {
+                Velocity = new Vector2(1, 0) * (float)HorizontalSpeed;
+            }
+            else
+            {
+                Velocity = -new Vector2(1, 0) * (float)HorizontalSpeed;
+            }
+
+            if (GameLogic.rand.Next(2) == 0)
+            {
+                Velocity += new Vector2(0, 1) * (float)VerticalSpeed;
+            }
+            else
+            {
+                Velocity += -new Vector2(0, 1) * (float)VerticalSpeed;
+            }
+
             isFliped = true;
         }
 
@@ -43,20 +67,19 @@ namespace Projeto_Apollo_16
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
             globalPosition += Velocity;
-        
-            if (globalPosition.X >= centralPosition.X + amplitude)
+
+            if (globalPosition.X - centralPosition.X >= horizontalAmplitude || globalPosition.X - centralPosition.X <= -horizontalAmplitude)
             {
-                globalPosition.X = centralPosition.X + amplitude - 1;
-                Velocity = -Velocity;
-                isFliped = !isFliped;
-            }
-            if (globalPosition.X <= centralPosition.X - amplitude)
-            {
-                globalPosition.X = centralPosition.X - amplitude + 1;
-                Velocity = -Velocity;
+                globalPosition.X = MathHelper.Clamp(globalPosition.X, centralPosition.X - horizontalAmplitude, centralPosition.X + horizontalAmplitude);
+                Velocity = new Vector2(-Velocity.X, Velocity.Y);
                 isFliped = !isFliped;
             }
 
+            if (globalPosition.Y - centralPosition.Y >= verticalAmplitude || globalPosition.Y - centralPosition.Y <= -verticalAmplitude)
+            {
+                globalPosition.Y = MathHelper.Clamp(globalPosition.Y, centralPosition.Y - verticalAmplitude, centralPosition.Y + verticalAmplitude);
+                Velocity = new Vector2(Velocity.X, -Velocity.Y);
+            }
         }
 
 

@@ -14,8 +14,8 @@ namespace Projeto_Apollo_16
         {
             centralPosition = position;
             globalPosition = position + new Vector2(radius, 0);
-            speed = GameLogic.rand.Next(7, 15)/10.0f;
-            radius = GameLogic.rand.Next(200, 400);
+            speed = GameLogic.rand.Next(9, 18)/10.0f;
+            radius = GameLogic.rand.Next(300, 600);
         }
 
         public override void LoadTexture(ContentManager content)

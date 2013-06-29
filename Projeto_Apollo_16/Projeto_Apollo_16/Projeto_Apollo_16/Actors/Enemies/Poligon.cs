@@ -12,8 +12,8 @@ namespace Projeto_Apollo_16
         private float speed = 0.7f;
         private Vector2 centralPosition;
         private int side;
-        private List<Vector2> Vertex = new List<Vector2>(4);
-        private const int SIDES = 4;
+        private const int SIDES = 8;
+        private List<Vector2> Vertex = new List<Vector2>(SIDES);
         private int vertex = 0;
         Random rand = new Random();
 
@@ -21,16 +21,20 @@ namespace Projeto_Apollo_16
         {
             centralPosition = position;
             vertex = GameLogic.rand.Next(SIDES);
-            side = GameLogic.rand.Next(100, 500);
+            side = GameLogic.rand.Next(200, 400);
             speed = GameLogic.rand.Next(6, 20) / 10.0f;
             
             globalPosition = position + new Vector2(side, -side);
-
-            Vertex.Add(new Vector2(side, -side) + centralPosition);
-            Vertex.Add(new Vector2(-side) + centralPosition);
-            Vertex.Add(new Vector2(-side, side) + centralPosition);
-            Vertex.Add(new Vector2(side) + centralPosition);
-            
+            Vector2 v = new Vector2( side, -side) + centralPosition;
+            Vertex.Add(v);
+            Vertex.Add(MathFunctions.RotateVector(v, (float)Math.PI / 4));
+            Vertex.Add(MathFunctions.RotateVector(v, 2*(float)Math.PI / 4));
+            Vertex.Add(MathFunctions.RotateVector(v, 3*(float)Math.PI / 4));
+            Vertex.Add(MathFunctions.RotateVector(v, 4*(float)Math.PI / 4));
+            Vertex.Add(MathFunctions.RotateVector(v, 5*(float)Math.PI / 4));
+            Vertex.Add(MathFunctions.RotateVector(v, 6 * (float)Math.PI / 4));
+            Vertex.Add(MathFunctions.RotateVector(v, 7 * (float)Math.PI / 4));
+   
         }
 
 
@@ -61,7 +65,7 @@ namespace Projeto_Apollo_16
 
             globalPosition += v*(float)dt;
 
-            if ((globalPosition - Vertex.ElementAt(vertex)).Length() > d.Length())
+            if ((globalPosition - Vertex.ElementAt(vertex)).Length() >= d.Length())
             {
                 vertex = (vertex + 1) % SIDES; 
                 globalPosition = Vertex.ElementAt(vertex);

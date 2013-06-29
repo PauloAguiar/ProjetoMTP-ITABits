@@ -57,8 +57,9 @@ namespace Projeto_Apollo_16
                 shooted = true;
             }
                 velocityAux = velocity;
-                velocity.X = (float)Math.Cos(rot*Math.PI/2) * velocityAux.X - (float)Math.Sin(rot*Math.PI/2) * velocityAux.Y ;
-                velocity.Y = (float)Math.Sin(rot * Math.PI / 2) * velocityAux.X + (float)Math.Cos(rot * Math.PI / 2) * velocityAux.Y;             
+                velocity = MathFunctions.RotateVector(velocity, rot * (float)Math.PI / 2);
+                //velocity.X = (float)Math.Cos(rot*Math.PI/2) * velocityAux.X - (float)Math.Sin(rot*Math.PI/2) * velocityAux.Y ;
+                //velocity.Y = (float)Math.Sin(rot * Math.PI / 2) * velocityAux.X + (float)Math.Cos(rot * Math.PI / 2) * velocityAux.Y;             
                 globalPosition += velocity * dt + 0.5f * dt * dt * acceleration;
                 velocity += acceleration * dt;
 
