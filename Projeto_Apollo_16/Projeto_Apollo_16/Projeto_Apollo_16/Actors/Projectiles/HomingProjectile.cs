@@ -29,7 +29,7 @@ namespace Projeto_Apollo_16
         public override void LoadTexture(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"Sprites\Shoots\bullet");
-            SmokeTexture = content.Load<Texture2D>(@"Sprites\Shoots\smoke");
+            SmokeTexture = content.Load<Texture2D>(@"Sprites\Shoots\smoke2");
         }
 
         public override void LoadFont(ContentManager content)
@@ -74,8 +74,8 @@ namespace Projeto_Apollo_16
             for (int i = 0; i < 5; i++)
             {
                 Vector2 smokePosition = globalPosition;
-                smokePosition.X -= GameLogic.rand.Next(2, 10);
-                smokePosition.Y -= GameLogic.rand.Next(2, 10);
+                smokePosition.X -= GameLogic.rand.Next(8, 20);
+                smokePosition.Y -= GameLogic.rand.Next(8, 20);
                 SmokeList.Add(smokePosition);
             }
             
