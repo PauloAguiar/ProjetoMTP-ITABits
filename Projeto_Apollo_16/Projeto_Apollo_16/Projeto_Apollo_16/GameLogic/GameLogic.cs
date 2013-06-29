@@ -23,7 +23,7 @@ namespace Projeto_Apollo_16
             timeCreateEnemies = INITIAL_TIME_CREATE_ENEMIES;
             //timeCreateEnemies = rand.Next(MIN_TIME_CREATE_ENEMIES, MAX_TIME_CREATE_ENEMIES);
             CreateEnemies();
-            CreateDevice();
+            //CreateDevice();
         }
 
         public static void Update(GameTime gameTime)

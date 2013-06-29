@@ -118,10 +118,9 @@
     <Compile Include="Controls\LinkLabel.cs" />
     <Compile Include="Controls\PictureBox.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
+    <Compile Include="GameScreens\InitGameScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="GameScreens\GameState.cs" />
-    <Compile Include="GameScreens\NetworkScreen.cs" />
-    <Compile Include="Network\InputDataClass.cs" />
     <Compile Include="Network\RadarDataClass.cs" />
     <Compile Include="Network\RadarImmediateData.cs" />
     <Compile Include="Radar\EnemyClass.cs" />
@@ -133,7 +132,7 @@
     <Compile Include="System\Program.cs" />
     <Compile Include="System\SystemClass.cs" />
     <Compile Include="Utils\General.cs" />
-    <Compile Include="Utils\Global.cs" />
+    <Compile Include="Utils\Globals.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

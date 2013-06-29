@@ -12,21 +12,24 @@ namespace Apollo_16_Piloto
     {
         /* This is a reference to our SystemClass*/
         protected SystemClass systemRef;
-        protected IPEndPoint serverIP;
+
         /* Network Object */
         NetClient networkClient;
-        
+
+        private IPEndPoint serverIP;
+        private Boolean isOnline = false;
+
         public NetworkManager(Game game)
         {
             systemRef = (SystemClass)game;
 
             NetPeerConfiguration networkConfig;
-            // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            networkConfig = new NetPeerConfiguration(Global.NETWORK_NAME);
+            networkConfig = new NetPeerConfiguration(Globals.NETWORK_NAME);
             networkConfig.AutoFlushSendQueue = false;
-            networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
 
-            // Create new server based on the configs just defined
+            networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+            networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+
             networkClient = new NetClient(networkConfig);
 
             General.Log("NetworkClient Created!");
@@ -37,26 +40,58 @@ namespace Apollo_16_Piloto
 
         public void DiscoverServer()
         {
-            networkClient.DiscoverLocalPeers(Global.PORT);
+            networkClient.DiscoverLocalPeers(Globals.PORT);
         }
 
+        public Boolean IsOnline()
+        {
+            return isOnline;
+        }
+            
         public void ConnectToServer()
         {
             networkClient.Start();
 
             NetOutgoingMessage outmsg = networkClient.CreateMessage();
-            outmsg.Write((byte)PacketTypes.LOGIN);
             outmsg.Write((byte)ConnectionID.PILOT);
-
             networkClient.Connect(serverIP, outmsg);
 
-            General.Log("Connection Requested!");
+            General.Log("Connection Requested to " + serverIP.ToString());
         }
 
-        public void ReadLobbyPackets()
+        private void HandleStatusChangePackets(NetIncomingMessage msg)
+        {
+            NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
+            switch (st)
+            {
+                case NetConnectionStatus.Connected:
+                    General.Log("Connected to " + msg.SenderEndPoint + " (MAC: " + NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + ")");
+                    break;
+                case NetConnectionStatus.Disconnected:
+                    General.Log("Disconnected from " + msg.SenderEndPoint);
+                    isOnline = false;
+                    systemRef.stateManager.ChangeState(systemRef.initGameScreen);
+                    break;
+                case NetConnectionStatus.Disconnecting:
+                    General.Log("Disconnecting from " + msg.SenderEndPoint);
+                    break;
+                case NetConnectionStatus.RespondedAwaitingApproval:
+                    General.Log("Responded awaiting approval to " + msg.SenderEndPoint);
+                    break;
+                case NetConnectionStatus.RespondedConnect:
+                    General.Log("Responded connect to " + msg.SenderEndPoint);
+                    break;
+                default:
+                    General.Log("Unhandled status change packet");
+                    string reason = msg.ReadString();
+                    General.Log(st.ToString() + ": " + reason);
+                    break;
+            }
+        }
+
+        public void ReadPackets(GameState state)
         {
             NetIncomingMessage msg;
-
             while ((msg = networkClient.ReadMessage()) != null)
             {
                 switch (msg.MessageType)
@@ -65,60 +100,43 @@ namespace Apollo_16_Piloto
                     case NetIncomingMessageType.ErrorMessage:
 
                     /* RECEIVE VERBOSE DEBUG MESSAGES */
-                    //case NetIncomingMessageType.VerboseDebugMessage:
+                    case NetIncomingMessageType.VerboseDebugMessage:
 
                     /* RECEIVE DEBUG MESSAGES */
                     case NetIncomingMessageType.DebugMessage:
 
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
-                        General.Log(msg.ReadString());
+                        General.Log(msg.MessageType.ToString() + ": " + msg.ReadString());
                         break;
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        /*switch ((NetConnectionStatus)msg.ReadByte())
-                        {
-                            case NetConnectionStatus.Connected:
-                                status = "Connected: " + msg.SenderEndPoint;
-                                break;
-                            case NetConnectionStatus.Disconnected:
-                                status = "Disconnected" + msg.SenderEndPoint;
-                                break;
-                            case NetConnectionStatus.RespondedAwaitingApproval:
-                                msg.SenderConnection.Approve();
-                                break;
-                        }*/
-                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
-                        string reason = msg.ReadString();
-                        General.Log(st.ToString() + ": " + reason);
-
+                        HandleStatusChangePackets(msg);
                         break;
 
                     case NetIncomingMessageType.DiscoveryResponse:
-                        General.Log("Server is Online!");
-                        systemRef.networkScreen.networkStatus = true;
+                        General.Log("Server exists at" + msg.SenderEndPoint);
                         serverIP = msg.SenderEndPoint;
+                        isOnline = true;
                         break;
 
+                    /* RECEIVE DATA MESSAGES */
                     case NetIncomingMessageType.Data:
-                        switch (msg.ReadByte())
+                        if (state is GamePlayScreen)
                         {
-                            case (byte)PacketTypes.CONNECTION_ACCEPTED:
-                                General.Log("Connection Accepted!");
-                                break;
-                            case (byte)PacketTypes.PILOT_DATA:
-                                //systemRef.networkScreen.pilot.HandlePilotData(msg);
-                                break;
+                            switch (msg.ReadByte())
+                            {
+                                case (byte)PacketTypes.PILOT_DATA:
+                                    General.Log("Pilot Data Received");
+                                    break;
+                            }
                         }
                         break;
-
-                    
                     default:
                         General.Log("Unexpected Message of type " + msg.MessageType);
                         break;
                 }
-                networkClient.Recycle(msg);
             }
         }
 
@@ -130,7 +148,6 @@ namespace Apollo_16_Piloto
                 inputmsg.Write((byte)PacketTypes.INPUT_DATA);
                 inputData.Encode(inputmsg);
                 networkClient.SendMessage(inputmsg, NetDeliveryMethod.ReliableOrdered);
-                networkClient.FlushSendQueue();
             }
         }
     }

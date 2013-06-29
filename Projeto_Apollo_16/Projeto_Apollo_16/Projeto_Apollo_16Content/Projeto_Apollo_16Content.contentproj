@@ -298,6 +298,7 @@
   <ItemGroup>
     <Compile Include="Sprites\Shoots\smoke.png">
       <Name>smoke</Name>
+	 </Compile>
     <Compile Include="Screens\NetworkScreen.xml">
       <Name>NetworkScreen</Name>
       <Importer>XmlImporter</Importer>

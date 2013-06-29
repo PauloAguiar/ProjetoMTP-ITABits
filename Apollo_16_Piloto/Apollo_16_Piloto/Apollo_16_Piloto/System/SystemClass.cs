@@ -11,13 +11,11 @@ namespace Apollo_16_Piloto
         Viewport viewport;
         public SpriteBatch spriteBatch;
 
-        GameStateManager stateManager;
+        public GameStateManager stateManager;
         public NetworkManager networkManager;
 
         /* Screens */
-        public TitleScreen titleScreen;
-        public StartMenuScreen startMenuScreen;
-        public NetworkScreen networkScreen;
+        public InitGameScreen initGameScreen;
         public GamePlayScreen gamePlayScreen;
 
 		
@@ -46,13 +44,10 @@ namespace Apollo_16_Piloto
 
             /* Add the gameState manager component to our list of components */
             Components.Add(stateManager);
-            Components.Add(new DebugTerminalClass(this));
 
-            titleScreen = new TitleScreen(this, stateManager);
-            startMenuScreen = new StartMenuScreen(this, stateManager);
             gamePlayScreen = new GamePlayScreen(this, stateManager);
-            networkScreen = new NetworkScreen(this, stateManager);
-            stateManager.ChangeState(titleScreen);
+            initGameScreen = new InitGameScreen(this, stateManager);
+            stateManager.ChangeState(initGameScreen);
         }
 
         protected override void Initialize()

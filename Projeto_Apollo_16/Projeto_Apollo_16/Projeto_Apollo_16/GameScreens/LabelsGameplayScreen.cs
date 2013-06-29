@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Lidgren.Network;
 
 namespace Projeto_Apollo_16
 {
@@ -39,7 +40,7 @@ namespace Projeto_Apollo_16
 
             statusLabel = new Label();
             statusLabel.Position = Vector2.Zero + 3 * (new Vector2(0.0f, 25.0f));
-            statusLabel.Text = "Nao Conectado!";
+            statusLabel.Text = "Mode: Offline";
             statusLabel.Color = Color.Red;
             statusLabel.Size = statusLabel.SpriteFont.MeasureString(statusLabel.Text);
             controlManager.Add(statusLabel);
@@ -75,6 +76,12 @@ namespace Projeto_Apollo_16
             weaponLabel.Text = "Weapon:" + player.bullets;
             timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
             itemLabel.Text = "Item: " + (PlayerClass.items).ToString() + " " + player.inventory[(int)PlayerClass.items].ToString();
+
+            if(systemRef.networkManager.GetStatus() == NetPeerStatus.Running)
+                statusLabel.Text = "Modo: Online";
+            else
+                statusLabel.Text = "Modo: Offline";
+
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Lidgren.Network;
 
 namespace Projeto_Apollo_16
 {
@@ -51,16 +52,18 @@ namespace Projeto_Apollo_16
         public override void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
-            
-            if (systemRef.NETWORK_MODE && player.isLoaded)
+
+            if (systemRef.networkManager.GetStatus() == NetPeerStatus.Running)
                 systemRef.networkManager.ReadPackets(this);
             
             CameraUpdate();
             UpdateManagers(gameTime);
 
-            if (systemRef.NETWORK_MODE && player.isLoaded)
-                systemRef.networkManager.SendPackets(gameTime, new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Direction),
-                                                     enemyManager.GetRadarData(player), player.GetRadarImmediateData(player));
+            if (systemRef.networkManager.GetStatus() == NetPeerStatus.Running)
+                systemRef.networkManager.SendPackets(gameTime, 
+                                                     new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Direction),
+                                                     enemyManager.GetRadarData(player), 
+                                                     player.GetRadarImmediateData(player));
 
             base.Update(gameTime);
         }

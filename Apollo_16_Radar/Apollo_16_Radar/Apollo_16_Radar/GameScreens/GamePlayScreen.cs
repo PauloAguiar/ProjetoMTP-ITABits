@@ -45,7 +45,7 @@ namespace Apollo_16_Radar
 
         public override void Update(GameTime gameTime)
         {
-            systemRef.networkManager.ReadInGamePackets();
+            systemRef.networkManager.ReadPackets(this);
             base.Update(gameTime);
         }
 

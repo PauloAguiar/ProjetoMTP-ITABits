@@ -14,7 +14,6 @@ namespace Apollo_16_Radar
         public void DecodeRadarImmediateData(NetIncomingMessage incmsg)
         {
             playerAngle = incmsg.ReadFloat();
-
         }
     }
 }

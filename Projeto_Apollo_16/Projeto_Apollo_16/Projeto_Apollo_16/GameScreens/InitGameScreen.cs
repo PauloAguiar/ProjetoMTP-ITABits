@@ -13,7 +13,7 @@ namespace Projeto_Apollo_16
         /* Basic Style */
         Color textColor = Color.Black;
         Vector2 titlePosition = new Vector2(200, 0);
-        Vector2 clientLabels = new Vector2(620, 550);
+        Vector2 clientLabels = new Vector2(650, 550);
         Vector2 menuLabels = new Vector2(400, 400);
 
         /* Controls */
@@ -263,6 +263,10 @@ namespace Projeto_Apollo_16
                     systemRef.networkManager.StopServer();
                 }
 
+            }
+            else if (sender == startGameLnk)
+            {
+                stateManager.ChangeState(systemRef.gamePlayScreen);
             }
             else if (sender == exitGameLnk)
             {

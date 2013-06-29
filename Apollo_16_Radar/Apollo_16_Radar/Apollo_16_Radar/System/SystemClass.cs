@@ -15,8 +15,8 @@ namespace Apollo_16_Radar
         public NetworkManager networkManager;
 
         /* Screens */
-        public NetworkScreen networkScreen;
         public GamePlayScreen gamePlayScreen;
+        public InitGameScreen initGameScreen;
 
 		
         const int screenWidth = 1024;
@@ -40,12 +40,13 @@ namespace Apollo_16_Radar
 
             stateManager = new GameStateManager(this);
             networkManager = new NetworkManager(this);
-
             /* Add the gameState manager component to our list of components */
             Components.Add(stateManager);
+
             gamePlayScreen = new GamePlayScreen(this, stateManager);
-            networkScreen = new NetworkScreen(this, stateManager);
-            stateManager.ChangeState(networkScreen);
+            initGameScreen = new InitGameScreen(this, stateManager);
+
+            stateManager.ChangeState(initGameScreen);
         }
 
         protected override void Initialize()
@@ -67,7 +68,7 @@ namespace Apollo_16_Radar
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
             base.Update(gameTime);

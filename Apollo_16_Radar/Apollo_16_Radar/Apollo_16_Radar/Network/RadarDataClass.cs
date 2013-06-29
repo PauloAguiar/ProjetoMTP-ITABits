@@ -21,7 +21,6 @@ namespace Apollo_16_Radar
         public void DecodeRadarData(NetIncomingMessage incmsg)
         {
             size = incmsg.ReadInt32();
-            General.Log("Number of enemies: " + size);
             playerGlobalPosition.X = incmsg.ReadFloat();
             playerGlobalPosition.Y = incmsg.ReadFloat();
 
@@ -32,7 +31,6 @@ namespace Apollo_16_Radar
                 float X = incmsg.ReadFloat();
                 float Y = incmsg.ReadFloat();
                 enemies.Add(new EnemyClass(type, new Vector2(X, Y)));
-                General.Log("Enemy of type: " + type + " spotted at: " + X + ", " + Y);
             }
         }
     }

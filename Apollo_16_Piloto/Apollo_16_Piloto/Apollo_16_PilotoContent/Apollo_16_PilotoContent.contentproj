@@ -84,42 +84,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TitleScreen\title.png">
-      <Name>title</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TitleScreen\TitleScreen.xml">
-      <Name>TitleScreen</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\DataContent\DataContent.csproj">
       <Project>{C610E9DD-726B-4A43-92B4-8514C721AA03}</Project>
       <Name>DataContent</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="StartMenuScreen\StartMenuScreen.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>StartMenuScreen</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <SubType>Designer</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="NetworkScreen\NetworkScreen.xml">
-      <Name>NetworkScreen</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UI\GreenBlock.png">
@@ -144,6 +112,20 @@
     </Compile>
     <Compile Include="UI\YellowBlock.png">
       <Name>YellowBlock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Backgrounds\pilot2.jpg">
+      <Name>pilot2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Screens\title.png">
+      <Name>title</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -17,19 +17,19 @@ namespace Apollo_16_Radar
         NetClient networkClient;
 
         private IPEndPoint serverIP;
-        
+        private Boolean isOnline = false;
+
         public NetworkManager(Game game)
         {
             systemRef = (SystemClass)game;
 
             NetPeerConfiguration networkConfig;
-            // Create new instance of configs. Parameter is "application Id". It has to be same on client and server.
-            networkConfig = new NetPeerConfiguration(Global.NETWORK_NAME);
+            networkConfig = new NetPeerConfiguration(Globals.NETWORK_NAME);
             networkConfig.AutoFlushSendQueue = false;
+
             networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
             networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
 
-            // Create new server based on the configs just defined
             networkClient = new NetClient(networkConfig);
 
             General.Log("NetworkClient Created!");
@@ -40,21 +40,54 @@ namespace Apollo_16_Radar
 
         public void DiscoverServer()
         {
-            networkClient.DiscoverLocalPeers(Global.PORT);
+            networkClient.DiscoverLocalPeers(Globals.PORT);
+        }
+
+        public Boolean IsOnline()
+        {
+            return isOnline;
         }
 
         public void ConnectToServer()
         {
             NetOutgoingMessage outmsg = networkClient.CreateMessage();
-            outmsg.Write((byte)PacketTypes.LOGIN);
             outmsg.Write((byte)ConnectionID.RADAR);
-
             networkClient.Connect(serverIP, outmsg);
 
-            General.Log("Connection Requested!");
+            General.Log("Connection Requested to " + serverIP.ToString());
         }
 
-        public void ReadLobbyPackets()
+        private void HandleStatusChangePackets(NetIncomingMessage msg)
+        {
+            NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
+            switch (st)
+            {
+                case NetConnectionStatus.Connected:
+                    General.Log("Connected to " + msg.SenderEndPoint + " (MAC: " + NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + ")");
+                    break;
+                case NetConnectionStatus.Disconnected:
+                    General.Log("Disconnected from " + msg.SenderEndPoint);
+                    isOnline = false;
+                    systemRef.stateManager.ChangeState(systemRef.initGameScreen);
+                    break;
+                case NetConnectionStatus.Disconnecting:
+                    General.Log("Disconnecting from " + msg.SenderEndPoint);
+                    break;
+                case NetConnectionStatus.RespondedAwaitingApproval:
+                    General.Log("Responded awaiting approval to " + msg.SenderEndPoint);
+                    break;
+                case NetConnectionStatus.RespondedConnect:
+                    General.Log("Responded connect to " + msg.SenderEndPoint);
+                    break;
+                default:
+                    General.Log("Unhandled status change packet");
+                    string reason = msg.ReadString();
+                    General.Log(st.ToString() + ": " + reason);
+                    break;
+            }
+        }
+
+        public void ReadPackets(GameState state)
         {
             NetIncomingMessage msg;
 
@@ -66,108 +99,47 @@ namespace Apollo_16_Radar
                     case NetIncomingMessageType.ErrorMessage:
 
                     /* RECEIVE VERBOSE DEBUG MESSAGES */
-                    //case NetIncomingMessageType.VerboseDebugMessage:
+                    case NetIncomingMessageType.VerboseDebugMessage:
 
                     /* RECEIVE DEBUG MESSAGES */
                     case NetIncomingMessageType.DebugMessage:
 
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
-                        General.Log(msg.ReadString());
+                        General.Log(msg.MessageType.ToString() + ": " + msg.ReadString());
                         break;
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
                     case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
-                        switch (st)
-                        {
-                            case NetConnectionStatus.Connected:
-                                systemRef.stateManager.ChangeState(systemRef.gamePlayScreen);
-                                break;
-                            case NetConnectionStatus.RespondedAwaitingApproval:
-                                msg.SenderConnection.Approve();
-                                break;
-                            default:
-                                string reason = msg.ReadString();
-                                General.Log(st.ToString() + ": " + reason);
-                                break;
-                        }
+                        HandleStatusChangePackets(msg);
                         break;
 
                     case NetIncomingMessageType.DiscoveryResponse:
-                        General.Log("Server is Online!");
+                        General.Log("Server exists at" + msg.SenderEndPoint);
                         serverIP = msg.SenderEndPoint;
-                        systemRef.networkScreen.networkStatus = true;
+                        isOnline = true;
                         break;
 
+                    /* RECEIVE DATA MESSAGES */
                     case NetIncomingMessageType.Data:
-                        switch (msg.ReadByte())
+                        if (state is GamePlayScreen)
                         {
-                            case (byte)PacketTypes.CONNECTION_ACCEPTED:
-                                General.Log("Connection Accepted!");
-                                systemRef.stateManager.ChangeState(systemRef.gamePlayScreen);
-                                break;
+                            switch (msg.ReadByte())
+                            {
+                                case (byte)PacketTypes.RADAR_DATA:
+                                    systemRef.gamePlayScreen.data.DecodeRadarData(msg);
+                                    break;
+                                case (byte)PacketTypes.RADAR_DATA_IMMEDIATE:
+                                    systemRef.gamePlayScreen.immediateData.DecodeRadarImmediateData(msg);
+                                    break;
+
+                            }
                         }
                         break;
-
-                    
                     default:
                         General.Log("Unexpected Message of type " + msg.MessageType);
                         break;
                 }
-                networkClient.Recycle(msg);
-            }
-        }
-        public void ReadInGamePackets()
-        {
-            NetIncomingMessage msg;
-
-            while ((msg = networkClient.ReadMessage()) != null)
-            {
-                switch (msg.MessageType)
-                {
-                    /* RECEIVE ERROR MESSAGES */
-                    case NetIncomingMessageType.ErrorMessage:
-
-                    /* RECEIVE VERBOSE DEBUG MESSAGES */
-                    //case NetIncomingMessageType.VerboseDebugMessage:
-
-                    /* RECEIVE DEBUG MESSAGES */
-                    case NetIncomingMessageType.DebugMessage:
-
-                    /* RECEIVE WARNING MESSAGES */
-                    case NetIncomingMessageType.WarningMessage:
-                        General.Log(msg.ReadString());
-                        break;
-
-                    /* RECEIVE STATUS CHANGE MESSAGES */
-                    case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus st = (NetConnectionStatus)msg.ReadByte();
-                        string reason = msg.ReadString();
-                        General.Log(st.ToString() + ": " + reason);
-
-                        break;
-
-                    case NetIncomingMessageType.Data:
-                        switch (msg.ReadByte())
-                        {
-                            case (byte)PacketTypes.RADAR_DATA:
-                                systemRef.gamePlayScreen.data.DecodeRadarData(msg);
-                                General.Log("Radar Updated!");
-                                break;
-                            case (byte)PacketTypes.RADAR_DATA_IMMEDIATE:
-                                systemRef.gamePlayScreen.immediateData.DecodeRadarImmediateData(msg);
-                                //General.Log("Radar Updated!");
-                                break;
-
-                        }
-                        break;
-
-                    default:
-                        General.Log("Unexpected Message of type " + msg.MessageType);
-                        break;
-                }
-                networkClient.Recycle(msg);
             }
         }
     }

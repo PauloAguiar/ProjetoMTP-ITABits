@@ -7,9 +7,6 @@ namespace Projeto_Apollo_16
 {
     enum PacketTypes
     {
-        CONNECTION_ACCEPTED,
-        ID_PACKET,
-        LOGIN,
         PILOT_DATA,
         INPUT_DATA,
         RADAR_DATA,
@@ -74,24 +71,19 @@ namespace Projeto_Apollo_16
 
         public void HandleConnectionPackets(NetIncomingMessage msg)
         {
-            
+
             switch (msg.ReadByte())
             {
-                case (byte)PacketTypes.LOGIN:
-                    switch(msg.ReadByte())
-                    {
-                        case (byte)ConnectionID.PILOT:
-                            General.Log("O Piloto conectou-se...");
-                            AddConnectionByID(ConnectionID.PILOT, msg.SenderConnection);
-                            GetConnectionByID(ConnectionID.PILOT).Approve();
-                            break;
+                case (byte)ConnectionID.PILOT:
+                    General.Log("O Piloto conectou-se...");
+                    AddConnectionByID(ConnectionID.PILOT, msg.SenderConnection);
+                    GetConnectionByID(ConnectionID.PILOT).Approve();
+                    break;
 
-                        case (byte)ConnectionID.RADAR:
-                            General.Log("O Radar conectou-se...");
-                            AddConnectionByID(ConnectionID.RADAR, msg.SenderConnection);
-                            GetConnectionByID(ConnectionID.RADAR).Approve();
-                            break;
-                    }
+                case (byte)ConnectionID.RADAR:
+                    General.Log("O Radar conectou-se...");
+                    AddConnectionByID(ConnectionID.RADAR, msg.SenderConnection);
+                    GetConnectionByID(ConnectionID.RADAR).Approve();
                     break;
             }
         }
@@ -148,7 +140,7 @@ namespace Projeto_Apollo_16
 
                     /* RECEIVE WARNING MESSAGES */
                     case NetIncomingMessageType.WarningMessage:
-                        General.Log(msg.MessageType.ToString() + ": " +  msg.ReadString());
+                        General.Log(msg.MessageType.ToString() + ": " + msg.ReadString());
                         break;
 
                     /* RECEIVE STATUS CHANGE MESSAGES */
@@ -194,8 +186,8 @@ namespace Projeto_Apollo_16
                 pilotData.EncodePilotData(pilotmsg);
                 networkServer.SendMessage(pilotmsg, GetConnectionByID(ConnectionID.PILOT), NetDeliveryMethod.ReliableOrdered);
             }
-			
-            if (GetConnectionStatudByID(ConnectionID.PILOT) == NetConnectionStatus.Connected && updateRadar > TimeSpan.FromMilliseconds(300))
+
+            if (GetConnectionStatudByID(ConnectionID.RADAR) == NetConnectionStatus.Connected && updateRadar > TimeSpan.FromMilliseconds(300))
             {
                 NetOutgoingMessage radarmsg = networkServer.CreateMessage();
                 radarmsg.Write((byte)PacketTypes.RADAR_DATA);
@@ -203,15 +195,14 @@ namespace Projeto_Apollo_16
                 networkServer.SendMessage(radarmsg, GetConnectionByID(ConnectionID.RADAR), NetDeliveryMethod.ReliableOrdered);
                 updateRadar = TimeSpan.Zero;
             }
-            
-            if (GetConnectionStatudByID(ConnectionID.PILOT) == NetConnectionStatus.Connected)
+
+            if (GetConnectionStatudByID(ConnectionID.RADAR) == NetConnectionStatus.Connected)
             {
                 NetOutgoingMessage radarmsg = networkServer.CreateMessage();
                 radarmsg.Write((byte)PacketTypes.RADAR_DATA_IMMEDIATE);
                 radarImmediateData.EncodeRadarImmediateData(radarmsg);
-                networkServer.SendMessage(radarmsg, radarConnection, NetDeliveryMethod.ReliableOrdered);
+                networkServer.SendMessage(radarmsg, GetConnectionByID(ConnectionID.RADAR), NetDeliveryMethod.ReliableOrdered);
             }
-
         }
 
         private void AddConnectionByID(ConnectionID id, NetConnection conn)
@@ -230,14 +221,14 @@ namespace Projeto_Apollo_16
 
         private NetConnection GetConnectionByID(ConnectionID id)
         {
-            if(connections.ContainsKey(id) && connections[id] != null)
+            if (connections.ContainsKey(id) && connections[id] != null)
                 return connections[id].connection;
             return null;
         }
 
         public NetPeerStatus GetStatus()
         {
-            if(networkServer != null)
+            if (networkServer != null)
                 return networkServer.Status;
             return NetPeerStatus.NotRunning;
         }
