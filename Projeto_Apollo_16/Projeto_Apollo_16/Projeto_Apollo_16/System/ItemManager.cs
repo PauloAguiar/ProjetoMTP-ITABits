@@ -13,7 +13,7 @@ namespace Projeto_Apollo_16
         static ContentManager content;
         static SystemClass systemRef;
 
-        public double bulletSpawnTime { get; private set; }
+        public double itemSpawnTime { get; private set; }
 
         public ItemManager(Game game)
             : base()
@@ -25,7 +25,7 @@ namespace Projeto_Apollo_16
         public void CreateItem(ItemClass item)
         {
             this.Add(item);
-            bulletSpawnTime = 0;
+            itemSpawnTime = 0;
         }
 
         public void destroyItem(ItemClass item)
@@ -36,7 +36,7 @@ namespace Projeto_Apollo_16
         public void Update(GameTime gameTime)
         {
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
-            bulletSpawnTime += dt;
+            itemSpawnTime += dt;
 
             for (int i = 0; i < this.Count; i++)
             {

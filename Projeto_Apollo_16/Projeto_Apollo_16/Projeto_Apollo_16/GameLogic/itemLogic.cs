@@ -41,6 +41,7 @@ namespace Projeto_Apollo_16
             {
                 player.inventory[2]++;            
             }
+            item.Sound.Play();
             //player.inventory[(int)PlayerClass.item]++;
             itemManager.destroyItem(item);
         }

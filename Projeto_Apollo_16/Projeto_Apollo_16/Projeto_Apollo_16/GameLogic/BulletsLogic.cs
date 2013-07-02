@@ -18,7 +18,7 @@ namespace Projeto_Apollo_16
         private static int NUMBER_TYPE_BULLETS = Enum.GetNames(typeof(Bullets)).Length;
 
 
-        private static void CreateBullets()
+        public static void CreateBullets()
         {
             if (player.bullets == Bullets.linear)
             {
@@ -34,7 +34,7 @@ namespace Projeto_Apollo_16
             {
                 if (enemyManager.Count > 0)
                 {
-                    HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.findNearest(player, enemyManager), player.Direction);
+                    HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.FindNearest(player, enemyManager), player.Direction);
                     projectilesManager.CreateBullet(p);
                 }
             }

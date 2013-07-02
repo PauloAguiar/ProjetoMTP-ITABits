@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -12,6 +13,12 @@ namespace Projeto_Apollo_16
         protected bool taken;
         protected PlayerClass player;
         public bool IsUsing { get; protected set; }
+        protected SoundEffect sound;
+        
+        public SoundEffect Sound
+        {
+            get { return sound; }
+        }
 
         public ItemClass(PlayerClass player, Vector2 position, ContentManager content)
         {
@@ -22,18 +29,15 @@ namespace Projeto_Apollo_16
             this.player = player;
             this.LoadFont(content);
             this.LoadTexture(content);
+            this.LoadSound(content);
         }
+
+        public abstract void LoadSound(ContentManager content);
 
         public override void Update(GameTime gameTime)
         {
         }
 
-        /*
-        public override void LoadTexture(ContentManager content)
-        {
-            texture = content.Load<Texture2D>(@"Sprites\items\item");
-        }
-         */ 
 
         public override void LoadFont(ContentManager content)
         {

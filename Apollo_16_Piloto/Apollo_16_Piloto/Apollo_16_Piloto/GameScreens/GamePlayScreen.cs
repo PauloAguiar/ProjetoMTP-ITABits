@@ -14,8 +14,12 @@ namespace Apollo_16_Piloto
     public class GamePlayScreen : BaseGameState
     {
         public PilotClass pilot;
-
         JoystickInputClass joystick;
+        
+        //só pra debug
+        Vector2 position;
+        Texture2D icon;
+        
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -23,6 +27,7 @@ namespace Apollo_16_Piloto
             pilot = new PilotClass();
             joystick = new JoystickInputClass();
             joystick.CreateDevice();
+
         }
 
         /* XNA Methods */
@@ -33,6 +38,7 @@ namespace Apollo_16_Piloto
 
         protected override void LoadContent()
         {
+            icon = content.Load<Texture2D>(@"Menus/Icons/icon_menu");
             pilot.LoadFont(content);
             base.LoadContent();
         }
@@ -40,6 +46,9 @@ namespace Apollo_16_Piloto
         public override void Update(GameTime gameTime)
         {
             systemRef.networkManager.ReadPackets(this);
+
+            position.X = joystick.joystickState.X;
+            position.Y = joystick.joystickState.Y;
 
             systemRef.networkManager.SendPackets(joystick.Update());
             base.Update(gameTime);
@@ -50,10 +59,12 @@ namespace Apollo_16_Piloto
         {
 
             systemRef.spriteBatch.Begin();
-
+            systemRef.spriteBatch.Draw(icon, position, Color.White);
+            pilot.Draw(systemRef.spriteBatch);
             systemRef.spriteBatch.End();
 
             base.Draw(gameTime);
         }
     }
 }
+

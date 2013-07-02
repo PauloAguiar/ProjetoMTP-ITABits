@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SlimDX.DirectInput;
+using Input = Microsoft.Xna.Framework.Input;
 
 namespace Apollo_16_Piloto
 {
     public class JoystickInputClass
     {
-        JoystickState joystickState;
+        public JoystickState joystickState;
         Joystick joystick;
 
         const float MAX_ROTATION_Z = Globals.JOYSTICK_RANGE / 25.0f;
@@ -70,7 +71,7 @@ namespace Apollo_16_Piloto
         {
             InputDataClass inputData = new InputDataClass();
 
-            if (Microsoft.Xna.Framework.Input.Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.L))
+            if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.J))
             {
                 ReleaseDevice();
                 CreateDevice();

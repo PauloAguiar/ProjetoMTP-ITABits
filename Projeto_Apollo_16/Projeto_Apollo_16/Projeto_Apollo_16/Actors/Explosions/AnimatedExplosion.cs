@@ -32,7 +32,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadSound(ContentManager content)
         { 
-            sound = content.Load<SoundEffect>(@"Sounds\BUM");
+            sound = content.Load<SoundEffect>(@"Sounds\explosion3");
         }        
 
         public override void Update(GameTime gameTime)

@@ -51,11 +51,13 @@ namespace Projeto_Apollo_16
 
         static void UpdateJoystick()
         {
+            
             if (Input.Keyboard.GetState().IsKeyDown(Input.Keys.L))
             {
                 ReleaseDevice();
                 CreateDevice();
             }
+            
 
             ReadImmediateData();
         }

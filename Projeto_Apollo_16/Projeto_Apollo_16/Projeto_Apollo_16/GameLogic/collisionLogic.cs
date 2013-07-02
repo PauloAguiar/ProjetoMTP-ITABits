@@ -30,7 +30,7 @@ namespace Projeto_Apollo_16
             //checa colisao entre o player e os items
             for (int i = 0; i < itemManager.Count; i++)
             {
-                if (CollisionManager.CircularCollision(player, itemManager.ElementAt(i)))
+                if (CollisionManager.ItemCollision(itemManager.ElementAt(i), player))
                 {
                     GetItem(itemManager.ElementAt(i));
                     i--;

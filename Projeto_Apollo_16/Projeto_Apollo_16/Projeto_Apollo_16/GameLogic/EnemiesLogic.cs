@@ -21,28 +21,34 @@ namespace Projeto_Apollo_16
             numberEnemies = rand.Next(MIN_NUMBER_ENEMIES_CREATE, MAX_NUMBER_ENEMIES_CREATE);
             for (int i = 0; i < numberEnemies; i++)
             {
-                int j = rand.Next(EnemyClass.NUMBER_TYPE_ENEMIES);  //tem que tirar o -1, porque é só pra não pegar o Chaser
-                int x = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
-                int y = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
+                Vector2 enemyPosition;
+                int j, x, y;
+                do
+                {
+                    j = rand.Next(EnemyClass.NUMBER_TYPE_ENEMIES);  //tem que tirar o -1, porque é só pra não pegar o Chaser
+                    x = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
+                    y = rand.Next(-MAX_MAP_SIZE, 2 * MAX_MAP_SIZE);
+                    enemyPosition = new Vector2(x, y);
+                } while (CollisionManager.CanCreateEnemy(enemyPosition, player));
 
                 if (j == (int)EnemyClass.Enemies.Ghost)
                 {
-                    Ghost ghost = new Ghost(new Vector2(x, y), content);
+                    Ghost ghost = new Ghost(enemyPosition, content);
                     enemyManager.createEnemy(ghost);
                 }
                 else if (j == (int)EnemyClass.Enemies.Polygon)
                 {
-                    Poligon poligon = new Poligon(new Vector2(x, y), content);
+                    Poligon poligon = new Poligon(enemyPosition, content);
                     enemyManager.createEnemy(poligon);
                 }
                 else if (j == (int)EnemyClass.Enemies.Sun)
                 {
-                    Sun sun = new Sun(new Vector2(x, y), content);
+                    Sun sun = new Sun(enemyPosition, content);
                     enemyManager.createEnemy(sun);
                 }
                 else if (j == (int)EnemyClass.Enemies.Chaser)
                 {
-                    Chaser chaser = new Chaser(new Vector2(x, y), content, player);
+                    Chaser chaser = new Chaser(enemyPosition, content, player);
                     enemyManager.createEnemy(chaser);
                 }
 

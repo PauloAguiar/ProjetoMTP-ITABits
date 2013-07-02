@@ -84,9 +84,11 @@ namespace Projeto_Apollo_16
 
         public void ParseInput(InputDataClass input)
         {
+
             if (input.buttons[(int)ButtonStates.BTN_1])
             {
                 PrimaryShot();
+                GameLogic.CreateBullets();
             }
 
             if (input.buttons[(int)ButtonStates.BTN_2])

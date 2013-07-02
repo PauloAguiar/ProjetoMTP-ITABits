@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
     public class Health : ItemClass
     {
-        private int health;
+        //private int health;
 
         public Health(int health, PlayerClass player, Vector2 position, ContentManager content) : base (player, position, content)
         {
@@ -20,6 +21,10 @@ namespace Projeto_Apollo_16
             texture = content.Load<Texture2D>(@"Sprites\items\item");
         }
 
+        public override void LoadSound(ContentManager content)
+        {
+            sound = content.Load<SoundEffect>(@"Sounds\health");
+        }
 
     }
 }

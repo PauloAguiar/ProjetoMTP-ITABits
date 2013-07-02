@@ -10,6 +10,7 @@ namespace Projeto_Apollo_16
         public SimpleExplosion (Vector2 position, ContentManager content) : base(position, content)
         {
             Lifetime = 100;
+            sound.Play();
         }
 
         public override void LoadTexture(ContentManager content)
@@ -24,7 +25,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadSound(ContentManager content)
         { 
-            sound = content.Load<SoundEffect>(@"Sounds\BUM");
+            sound = content.Load<SoundEffect>(@"Sounds\explosion2");
         }
 
     }
