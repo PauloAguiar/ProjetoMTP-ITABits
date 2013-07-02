@@ -10,7 +10,6 @@ using Input = Microsoft.Xna.Framework.Input;
 using Lidgren.Network;
 
 using SlimDX.DirectInput;
-using DataContent;
 
 namespace Apollo_16_Piloto
 {
