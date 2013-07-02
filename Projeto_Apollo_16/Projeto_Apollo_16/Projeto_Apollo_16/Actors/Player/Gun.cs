@@ -15,7 +15,7 @@ namespace Projeto_Apollo_16
 
         void LoadGunTexture(ContentManager content)
         {
-            gun = content.Load<Texture2D>(@"Sprites\Nave\gun");
+            gun = content.Load<Texture2D>(@"Sprites\Nave\canon");
         }
 
         void UpdateGunPosition()

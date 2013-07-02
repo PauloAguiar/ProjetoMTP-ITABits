@@ -19,7 +19,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadTexture(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Sprites\items\fuel");
+            texture = content.Load<Texture2D>(@"Sprites\items\item");
         }
 
         public override void LoadSound(ContentManager content)
