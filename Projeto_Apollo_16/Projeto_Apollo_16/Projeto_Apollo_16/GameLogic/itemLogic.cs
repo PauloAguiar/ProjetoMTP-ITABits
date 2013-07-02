@@ -44,6 +44,8 @@ namespace Projeto_Apollo_16
 
         private static void GetItem(ItemClass item)
         {
+            item.Sound.Play();
+
             if (item is Shield)
             {
                 player.inventory[0]++;
@@ -56,10 +58,6 @@ namespace Projeto_Apollo_16
             {
                 player.inventory[2]++;            
             }
-<<<<<<< HEAD
-            item.Sound.Play();
-||||||| merged common ancestors
-=======
             else if (item is AmmoCircular) 
             {
                 CircularProjectile.ammo += 40;
@@ -72,7 +70,7 @@ namespace Projeto_Apollo_16
             {
                 AreaProjectile.ammo += 80;
             }
->>>>>>> f62d761733afcf2e8a4ff30e978b4cbe04379bb2
+
             //player.inventory[(int)PlayerClass.item]++;
             itemManager.destroyItem(item);
         }
