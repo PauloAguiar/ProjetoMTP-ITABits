@@ -12,6 +12,7 @@ namespace Projeto_Apollo_16
         public double timeLiving;
         public double ttl {get; protected set;}
         protected SoundEffect sound;
+        //public int ammo;
 
         //getters & setters
         public bool IsActive
@@ -25,6 +26,7 @@ namespace Projeto_Apollo_16
             get { return sound; }
         }
         
+     
         public ProjectileClass(Vector2 initialPosition, ContentManager content)
         {
             globalPosition = initialPosition;

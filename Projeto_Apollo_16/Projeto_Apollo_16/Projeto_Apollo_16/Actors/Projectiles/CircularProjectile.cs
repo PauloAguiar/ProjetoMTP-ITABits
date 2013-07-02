@@ -14,15 +14,19 @@ namespace Projeto_Apollo_16
         private Vector2 direction;
         float period = 6.28f*RADIUS/SPEED;
         PlayerClass player;
+        public static int ammo = 20;
         
         public CircularProjectile(Vector2 initialPosition, ContentManager content, PlayerClass player)
             : base(initialPosition, content)
         {
             ttl = 4000;
+            //ammo = 0;
             globalPosition = initialPosition + new Vector2(RADIUS, 0);
             centralPosition = initialPosition;
             this.player = player;
         }
+
+        
 
         public override void LoadTexture(ContentManager content)
         {

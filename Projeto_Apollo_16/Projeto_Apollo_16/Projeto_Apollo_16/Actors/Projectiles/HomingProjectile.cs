@@ -16,6 +16,7 @@ namespace Projeto_Apollo_16
         EnemyClass enemy;
         Texture2D SmokeTexture;
         List<Vector2> SmokeList = new List<Vector2>();
+        public static int ammo = 10;
 
         public HomingProjectile(Vector2 initialPosition, ContentManager content, EnemyClass enemy, Vector2 direction)
             : base(initialPosition, content)

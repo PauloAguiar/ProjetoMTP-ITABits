@@ -20,22 +20,24 @@ namespace Projeto_Apollo_16
 
         private static void CreateBullets()
         {
-            if (player.bullets == Bullets.linear)
+            if (player.bullets == Bullets.linear )
             {
                 LinearProjectile p = new LinearProjectile(player.GlobalPosition, player.Direction, content);
                 projectilesManager.CreateBullet(p);
             }
-            else if (player.bullets == Bullets.circular)
+            else if (player.bullets == Bullets.circular && CircularProjectile.ammo > 0 )
             {
                 CircularProjectile p = new CircularProjectile(player.GlobalPosition, content, player);
                 projectilesManager.CreateBullet(p);
+                CircularProjectile.ammo--; 
             }
-            else if(player.bullets == Bullets.homing)
+            else if(player.bullets == Bullets.homing && HomingProjectile.ammo > 0)
             {
                 if (enemyManager.Count > 0)
                 {
                     HomingProjectile p = new HomingProjectile(player.GlobalPosition, content, CollisionManager.findNearest(player, enemyManager), player.Direction);
                     projectilesManager.CreateBullet(p);
+                    HomingProjectile.ammo--;
                 }
             }
             else if (player.bullets == Bullets.area)
@@ -47,6 +49,8 @@ namespace Projeto_Apollo_16
                     projectilesManager.CreateBullet(p);
                     ang += (float)Math.PI /4.0f;
                 }
+                AreaProjectile.ammo-=8;
+
             }
 
         }
