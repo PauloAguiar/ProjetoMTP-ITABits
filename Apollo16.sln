@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apollo16.Main", "Apollo16\Apollo16\Apollo16.Main.csproj", "{DF72D370-E882-4EF8-A598-0A4A328B0A9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assets", "Assets\Assets.contentproj", "{445C04F9-54E5-437B-BF4D-046FF96039EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apollo16Lib", "..\Apollo16Lib\Apollo16Lib.csproj", "{F3128E75-0A04-404A-835A-0EAD1AD2C5A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF72D370-E882-4EF8-A598-0A4A328B0A9A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DF72D370-E882-4EF8-A598-0A4A328B0A9A}.Debug|x86.ActiveCfg = Debug|x86
+		{DF72D370-E882-4EF8-A598-0A4A328B0A9A}.Debug|x86.Build.0 = Debug|x86
+		{DF72D370-E882-4EF8-A598-0A4A328B0A9A}.Release|Any CPU.ActiveCfg = Release|x86
+		{DF72D370-E882-4EF8-A598-0A4A328B0A9A}.Release|x86.ActiveCfg = Release|x86
+		{DF72D370-E882-4EF8-A598-0A4A328B0A9A}.Release|x86.Build.0 = Release|x86
+		{445C04F9-54E5-437B-BF4D-046FF96039EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{445C04F9-54E5-437B-BF4D-046FF96039EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{445C04F9-54E5-437B-BF4D-046FF96039EA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{445C04F9-54E5-437B-BF4D-046FF96039EA}.Release|x86.ActiveCfg = Debug|Any CPU
+		{F3128E75-0A04-404A-835A-0EAD1AD2C5A8}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F3128E75-0A04-404A-835A-0EAD1AD2C5A8}.Debug|x86.ActiveCfg = Debug|x86
+		{F3128E75-0A04-404A-835A-0EAD1AD2C5A8}.Debug|x86.Build.0 = Debug|x86
+		{F3128E75-0A04-404A-835A-0EAD1AD2C5A8}.Release|Any CPU.ActiveCfg = Release|x86
+		{F3128E75-0A04-404A-835A-0EAD1AD2C5A8}.Release|x86.ActiveCfg = Release|x86
+		{F3128E75-0A04-404A-835A-0EAD1AD2C5A8}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

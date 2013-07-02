@@ -19,7 +19,7 @@ namespace Projeto_Apollo_16
         {
             Shield = 0,
             Health,
-            Fuel
+            Fuel,
         }
         private static int NUMBER_TYPE_ITEMS = Enum.GetNames(typeof(Items)).Length;
         public int[] inventory = new int[NUMBER_TYPE_ITEMS];
@@ -57,6 +57,7 @@ namespace Projeto_Apollo_16
                     inventory[(int)Items.Fuel]--;
                 }
             }
+
         }
 
         public static void ShiftItemsRight()

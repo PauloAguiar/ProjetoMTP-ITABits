@@ -14,7 +14,7 @@ namespace Projeto_Apollo_16
         private Vector2 acceleration;
         private bool shooted = false;
         PlayerClass player;
-        
+        public static int ammo = 40;
 
         public AreaProjectile(Vector2 initialPosition, Vector2 velocity, ContentManager content, PlayerClass player)
             : base(initialPosition, content)

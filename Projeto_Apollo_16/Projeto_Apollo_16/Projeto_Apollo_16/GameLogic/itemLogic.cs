@@ -25,6 +25,21 @@ namespace Projeto_Apollo_16
                 Fuel fuel = new Fuel(100, player, position, content);
                 itemManager.CreateItem(fuel);
             }
+            else if (i == 3)
+            {
+                AmmoCircular ammo = new AmmoCircular(100,player,position,content);
+                itemManager.CreateItem(ammo);
+            }
+            else if (i == 4)
+            {
+                AmmoHoming ammo = new AmmoHoming(100, player, position, content);
+                itemManager.CreateItem(ammo);
+            }
+            else if (i == 5)
+            {
+                AmmoArea ammo = new AmmoArea(100, player, position, content);
+                itemManager.CreateItem(ammo);
+            }
         }
 
         private static void GetItem(ItemClass item)
@@ -33,7 +48,7 @@ namespace Projeto_Apollo_16
             {
                 player.inventory[0]++;
             }
-            else if (item is Health)
+            else if (item is Health) 
             {
                 player.inventory[1]++;
             }
@@ -41,7 +56,23 @@ namespace Projeto_Apollo_16
             {
                 player.inventory[2]++;            
             }
+<<<<<<< HEAD
             item.Sound.Play();
+||||||| merged common ancestors
+=======
+            else if (item is AmmoCircular) 
+            {
+                CircularProjectile.ammo += 40;
+            }
+            else if (item is AmmoHoming)
+            {
+                HomingProjectile.ammo += 20;
+            }
+            else if ( item is AmmoArea)
+            {
+                AreaProjectile.ammo += 80;
+            }
+>>>>>>> f62d761733afcf2e8a4ff30e978b4cbe04379bb2
             //player.inventory[(int)PlayerClass.item]++;
             itemManager.destroyItem(item);
         }

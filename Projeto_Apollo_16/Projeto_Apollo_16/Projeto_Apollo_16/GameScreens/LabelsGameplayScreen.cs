@@ -13,6 +13,7 @@ namespace Projeto_Apollo_16
         Label weaponLabel;
         Label timeLabel;
         Label itemLabel;
+        Label ammoLabel;
         #endregion
 
         private void LoadLabels()
@@ -52,12 +53,28 @@ namespace Projeto_Apollo_16
             weaponLabel.Size = weaponLabel.SpriteFont.MeasureString(weaponLabel.Text);
             controlManager.Add(weaponLabel);
 
-            timeLabel = new Label();
-            timeLabel.Position = Vector2.Zero + 5 * (new Vector2(0.0f, 25.0f));
-            timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
-            timeLabel.Color = Color.White;
-            timeLabel.Size = timeLabel.SpriteFont.MeasureString(timeLabel.Text);
-            controlManager.Add(timeLabel);
+            ammoLabel = new Label();
+            ammoLabel.Position = Vector2.Zero + 5 * (new Vector2(0.0f, 25.0f));
+            ammoLabel.Text = ammoLabel.Text = "Ammo :";
+            switch (player.bullets)
+            {
+                case GameLogic.Bullets.circular:
+                    ammoLabel.Text += CircularProjectile.ammo;
+                    break;
+                case GameLogic.Bullets.homing:
+                    ammoLabel.Text += HomingProjectile.ammo;
+                    break;
+                case GameLogic.Bullets.area:
+                    ammoLabel.Text += AreaProjectile.ammo;
+                    break;
+                default:
+                    ammoLabel.Text += "infinito";
+                    break;
+            }
+            
+            ammoLabel.Color = Color.Blue;
+            ammoLabel.Size = ammoLabel.SpriteFont.MeasureString(ammoLabel.Text);
+            controlManager.Add(ammoLabel);
 
             itemLabel = new Label();
             itemLabel.Position = Vector2.Zero + 6 * (new Vector2(0.0f, 25.0f));
@@ -66,6 +83,15 @@ namespace Projeto_Apollo_16
             itemLabel.Size = itemLabel.SpriteFont.MeasureString(itemLabel.Text);
             controlManager.Add(itemLabel);
 
+            timeLabel = new Label();
+            timeLabel.Position = Vector2.Zero + 7 * (new Vector2(0.0f, 25.0f));
+            timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
+            timeLabel.Color = Color.White;
+            timeLabel.Size = timeLabel.SpriteFont.MeasureString(timeLabel.Text);
+            controlManager.Add(timeLabel);
+
+    
+            
         }
 
         private void UpdateLabels()
@@ -76,7 +102,22 @@ namespace Projeto_Apollo_16
             weaponLabel.Text = "Weapon:" + player.bullets;
             timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
             itemLabel.Text = "Item: " + (PlayerClass.items).ToString() + " " + player.inventory[(int)PlayerClass.items].ToString();
-
+            ammoLabel.Text = "Ammo :";
+            switch (player.bullets)
+            {
+                case GameLogic.Bullets.circular:
+                    ammoLabel.Text += CircularProjectile.ammo;
+                    break;
+                case GameLogic.Bullets.homing:
+                    ammoLabel.Text += HomingProjectile.ammo;
+                    break;
+                case GameLogic.Bullets.area:
+                    ammoLabel.Text += AreaProjectile.ammo;
+                    break;
+                default:
+                    ammoLabel.Text += "infinito";
+                    break;
+            }
             if(systemRef.networkManager.GetStatus() == NetPeerStatus.Running)
                 statusLabel.Text = "Modo: Online";
             else

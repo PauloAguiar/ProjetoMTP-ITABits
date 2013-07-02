@@ -1,0 +1,13 @@
+Keyboard
+	L -> ativa o joystick
+	F1, F2 -> troca armas
+	1, 2 -> troca items
+	Space -> atira
+	Z,X,C,V -> cria inimigos
+
+
+Joystick
+	1 -> atira
+	3,4 -> troca armas
+		
+	

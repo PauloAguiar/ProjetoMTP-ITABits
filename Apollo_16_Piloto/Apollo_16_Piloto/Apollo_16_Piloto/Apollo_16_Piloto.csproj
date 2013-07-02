@@ -150,10 +150,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataContent\DataContent.csproj">
-      <Project>{C610E9DD-726B-4A43-92B4-8514C721AA03}</Project>
-      <Name>DataContent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Apollo_16_PilotoContent\Apollo_16_PilotoContent.contentproj">
       <Name>Apollo_16_PilotoContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

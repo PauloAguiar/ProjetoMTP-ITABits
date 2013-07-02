@@ -56,6 +56,7 @@ namespace Apollo_16_Radar
         {
             particleRenderer.LoadContent(content);
             particleEffect = content.Load<ParticleEffect>(@"GlowingCircle");
+
             particleEffect.LoadContent(content);
             particleEffect.Initialise();
 
