@@ -118,6 +118,8 @@
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="GameScreens\GameState.cs" />
     <Compile Include="GameScreens\InitGameScreen.cs" />
+    <Compile Include="Network\InputDataClass.cs" />
+    <Compile Include="Network\ShooterDataClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\ControlManager.cs" />
     <Compile Include="System\GameStateManager.cs" />

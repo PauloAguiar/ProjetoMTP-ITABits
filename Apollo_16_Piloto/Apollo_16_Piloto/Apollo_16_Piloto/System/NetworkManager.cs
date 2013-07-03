@@ -52,7 +52,7 @@ namespace Apollo_16_Piloto
             networkClient.Start();
 
             NetOutgoingMessage outmsg = networkClient.CreateMessage();
-            outmsg.Write((byte)ConnectionID.PILOT);
+            outmsg.Write((byte)ConnectionID.PILOT); 
             networkClient.Connect(serverIP, outmsg);
             General.Log("Connection Requested to " + serverIP.ToString());
         }
@@ -154,5 +154,6 @@ namespace Apollo_16_Piloto
                 networkClient.SendMessage(inputmsg, NetDeliveryMethod.ReliableOrdered);
             }
         }
+
     }
 }

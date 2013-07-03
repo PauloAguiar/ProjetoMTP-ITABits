@@ -51,7 +51,7 @@ namespace Apollo_16_Shooter
         public void ConnectToServer()
         {
             NetOutgoingMessage outmsg = networkClient.CreateMessage();
-            outmsg.Write((byte)ConnectionID.RADAR);
+            outmsg.Write((byte)ConnectionID.SHOOTER);
             networkClient.Connect(serverIP, outmsg);
 
             General.Log("Connection Requested to " + serverIP.ToString());
@@ -124,6 +124,11 @@ namespace Apollo_16_Shooter
                     case NetIncomingMessageType.Data:
                         if (state is GamePlayScreen)
                         {
+                            switch (msg.ReadByte())
+                            {
+                                case (byte)PacketTypes.SHOOTER_DATA:
+                                    break;
+                            }
                         }
                         break;
                     default:
@@ -132,5 +137,25 @@ namespace Apollo_16_Shooter
                 }
             }
         }
+
+
+        public NetConnectionStatus GetStatus()
+        {
+            if (networkClient.ServerConnection != null)
+                return networkClient.ServerConnection.Status;
+            return NetConnectionStatus.Disconnected;
+        }
+
+        public void SendPackets(InputDataClass inputData)
+        {
+            if (GetStatus() == NetConnectionStatus.Connected)
+            {
+                NetOutgoingMessage inputmsg = networkClient.CreateMessage();
+                inputmsg.Write((byte)PacketTypes.INPUT_DATA);
+                inputData.Encode(inputmsg);
+                networkClient.SendMessage(inputmsg, NetDeliveryMethod.ReliableOrdered);
+            }
+        }
+
     }
 }

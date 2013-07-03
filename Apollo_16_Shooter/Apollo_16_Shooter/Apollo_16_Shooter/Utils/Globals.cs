@@ -7,16 +7,13 @@ namespace Apollo_16_Shooter
 {
     enum PacketTypes
     {
-        PILOT_DATA,
+        SHOOTER_DATA,
         INPUT_DATA,
-        RADAR_DATA,
-        RADAR_DATA_IMMEDIATE,
     }
-
+    
     enum ConnectionID
     {
-        PILOT,
-        RADAR
+        SHOOTER,
     }
 
     public static class Globals
@@ -29,5 +26,8 @@ namespace Apollo_16_Shooter
         // Graphics
         public const int SCREEN_RESOLUTION_WIDTH = 1024;
         public const int SCREEN_RESOLUTION_HEIGHT = 768;
+
+        // Joystick
+        public const int JOYSTICK_RANGE = 10000; //range do jogo pra pegar input
     }
 }

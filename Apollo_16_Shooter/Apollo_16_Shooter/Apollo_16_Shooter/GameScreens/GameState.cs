@@ -107,5 +107,6 @@ namespace Apollo_16_Shooter
                     ((DrawableGameComponent)component).Visible = false;
             }
         }
+
     }
 }

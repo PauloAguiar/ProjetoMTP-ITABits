@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using Lidgren.Network;
 
-namespace Apollo_16_Piloto
+namespace Apollo_16_Shooter
 {
-    public class InputDataClass
+    class InputDataClass
     {
-        public bool[] buttons = new bool[7];
-        public Int32[] position = new Int32[3];
-        public Int32 rotationZ;
-        public byte pov;
+        public bool[] buttons = new bool[4];
+        public Int32[] position = new Int32[2];
 
         public InputDataClass()
         {
         }
-        
+
         private void Decode(NetIncomingMessage incmsg)
         {
             for (int i = 0; i < buttons.Length; i++)
@@ -27,9 +25,6 @@ namespace Apollo_16_Piloto
             {
                 this.position[i] = incmsg.ReadInt32();
             }
-            rotationZ = incmsg.ReadInt32();
-            pov = incmsg.ReadByte();
-
         }
 
         public void Encode(NetOutgoingMessage outmsg)
@@ -42,9 +37,7 @@ namespace Apollo_16_Piloto
             {
                 outmsg.Write(this.position[i]);
             }
-            outmsg.Write(rotationZ);
-            outmsg.Write(pov);
-
         }
+
     }
 }
