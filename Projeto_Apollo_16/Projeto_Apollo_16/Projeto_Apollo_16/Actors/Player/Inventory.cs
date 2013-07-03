@@ -10,68 +10,28 @@ namespace Projeto_Apollo_16
 {
     public sealed partial class PlayerClass : ActorClass
     {
-        public const int MIN_TIME_CHANGE_ITEM = 300;
-        public static double timeChangedItem = MIN_TIME_CHANGE_ITEM;
-        public const int MIN_TIME_USE_ITEM = 300;
-        public static double timeUsedItem = MIN_TIME_USE_ITEM;
+        public List<ItemClass> inventoryList = new List<ItemClass>(24);
 
-        public enum Items
+        public void AddItemToInventory(ItemClass item)
         {
-            Shield = 0,
-            Health,
-            Fuel,
-        }
-        private static int NUMBER_TYPE_ITEMS = Enum.GetNames(typeof(Items)).Length;
-        public int[] inventory = new int[NUMBER_TYPE_ITEMS];
-        public static Items items = Items.Shield;
-        void UpdateInventory(double dt)
-        {
-            timeChangedItem += dt;
-            timeUsedItem += dt;
-        }
-
-        public void UseItem()
-        {
-            timeUsedItem = 0;
-            if (items == Items.Health)
+            foreach (ItemClass i in inventoryList)
             {
-                if (inventory[(int)items] > 0)
+                if (item.type == i.type)
                 {
-                    Life += 40;
-                    inventory[(int)Items.Health]--;
+                    i.amount += item.amount;
+                    General.Log("Item amount of " + (int)item.type + " increase to " + i.amount);
+                    return;
                 }
+                
             }
-            else if (items == Items.Shield)
-            {
-                if (inventory[(int)items] > 0)
-                {
-                    damageTime = 0;
-                    inventory[(int)Items.Shield]--;
-                }
-            }
-            else if (items == Items.Fuel)
-            {
-                if (inventory[(int)items] > 0)
-                {
-                    Fuel += 40;
-                    inventory[(int)Items.Fuel]--;
-                }
-            }
-
+            General.Log("Item added to inventory: " + (int)item.type);
+            inventoryList.Add(item);
         }
 
-        public static void ShiftItemsRight()
+        public CopilotDataClass GetCopilotImmediateData()
         {
-            timeChangedItem = 0;
-            items = (Items)(((int)items + 1) % NUMBER_TYPE_ITEMS);
+            CopilotDataClass copilotData = new CopilotDataClass(inventoryList);
+            return copilotData;
         }
-
-        public static void ShiftItemsLeft()
-        {
-            timeChangedItem = 0;
-            items = (Items)(((int)items - 1 + NUMBER_TYPE_ITEMS) % NUMBER_TYPE_ITEMS);
-        }
-
-
     }
 }
