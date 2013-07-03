@@ -8,16 +8,18 @@ namespace Projeto_Apollo_16
     enum PacketTypes
     {
         PILOT_DATA,
+        SHOOTER_DATA,
         INPUT_DATA,
+        INPUT_SHOOTER_DATA,
         RADAR_DATA,
         RADAR_DATA_IMMEDIATE,
-        TEST
     }
 
     public enum ConnectionID
     {
         PILOT,
-        RADAR
+        RADAR,
+        SHOOTER,
     }
 
     public class ClientConnection
@@ -86,6 +88,13 @@ namespace Projeto_Apollo_16
                     AddConnectionByID(ConnectionID.RADAR, msg.SenderConnection);
                     GetConnectionByID(ConnectionID.RADAR).Approve();
                     break;
+
+                case (byte)ConnectionID.SHOOTER:
+                    General.Log("O Atirador conectou-se...");
+                    AddConnectionByID(ConnectionID.SHOOTER, msg.SenderConnection);
+                    GetConnectionByID(ConnectionID.SHOOTER).Approve();
+                    break;
+
             }
         }
 
@@ -166,6 +175,13 @@ namespace Projeto_Apollo_16
                                     input.Decode(msg);
                                     systemRef.gamePlayScreen.player.ParseInput(input);
                                     break;
+
+                                case (byte)PacketTypes.INPUT_SHOOTER_DATA:
+                                    var inputShooter = new InputShooterDataClass();
+                                    inputShooter.Decode(msg);
+                                    systemRef.gamePlayScreen.player.ParseInputShooter(inputShooter);
+                                    break;
+
                             }
                         }
                         break;
@@ -177,7 +193,7 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public void SendPackets(GameTime gameTime, PilotDataClass pilotData, RadarDataClass radarData, RadarDataImmediate radarImmediateData)
+        public void SendPackets(GameTime gameTime, PilotDataClass pilotData, RadarDataClass radarData, RadarDataImmediate radarImmediateData, ShooterDataClass shooterData)
         {
             updateRadar += gameTime.ElapsedGameTime;
 
@@ -205,6 +221,15 @@ namespace Projeto_Apollo_16
                 radarImmediateData.EncodeRadarImmediateData(radarmsg);
                 networkServer.SendMessage(radarmsg, GetConnectionByID(ConnectionID.RADAR), NetDeliveryMethod.ReliableOrdered);
             }
+
+            if (GetConnectionStatudByID(ConnectionID.SHOOTER) == NetConnectionStatus.Connected)
+            {
+                NetOutgoingMessage shootermsg = networkServer.CreateMessage();
+                shootermsg.Write((byte)PacketTypes.SHOOTER_DATA);
+                shooterData.EncodeShooterData(shootermsg);
+                networkServer.SendMessage(shootermsg, GetConnectionByID(ConnectionID.SHOOTER), NetDeliveryMethod.ReliableOrdered);
+            }
+
         }
 
         private void AddConnectionByID(ConnectionID id, NetConnection conn)

@@ -141,11 +141,13 @@
     <Compile Include="GameScreens\InitGameScreen.cs" />
     <Compile Include="GameScreens\LabelsGameplayScreen.cs" />
     <Compile Include="Network\EnemyData.cs" />
+    <Compile Include="Network\InputShooterDataClass.cs" />
     <Compile Include="Network\RadarDataClass.cs" />
     <Compile Include="Network\IGameMessage.cs" />
     <Compile Include="Network\InputDataClass.cs" />
     <Compile Include="Network\PilotDataClass.cs" />
     <Compile Include="Network\RadarDataImmediate.cs" />
+    <Compile Include="Network\ShooterDataClass.cs" />
     <Compile Include="System\EnemyManager.cs" />
     <Compile Include="System\ExplosionManager.cs" />
     <Compile Include="GameLogic\GameLogic.cs" />

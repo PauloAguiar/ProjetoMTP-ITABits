@@ -25,7 +25,6 @@ namespace Apollo_16_Shooter
 
             NetPeerConfiguration networkConfig;
             networkConfig = new NetPeerConfiguration(Globals.NETWORK_NAME);
-            networkConfig.AutoFlushSendQueue = false;
 
             networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
             networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
@@ -127,6 +126,7 @@ namespace Apollo_16_Shooter
                             switch (msg.ReadByte())
                             {
                                 case (byte)PacketTypes.SHOOTER_DATA:
+                                    systemRef.gamePlayScreen.shooter.HandleShooterData(msg);
                                     break;
                             }
                         }
@@ -137,7 +137,6 @@ namespace Apollo_16_Shooter
                 }
             }
         }
-
 
         public NetConnectionStatus GetStatus()
         {
@@ -151,7 +150,7 @@ namespace Apollo_16_Shooter
             if (GetStatus() == NetConnectionStatus.Connected)
             {
                 NetOutgoingMessage inputmsg = networkClient.CreateMessage();
-                inputmsg.Write((byte)PacketTypes.INPUT_DATA);
+                inputmsg.Write((byte)PacketTypes.INPUT_SHOOTER_DATA);
                 inputData.Encode(inputmsg);
                 networkClient.SendMessage(inputmsg, NetDeliveryMethod.ReliableOrdered);
             }

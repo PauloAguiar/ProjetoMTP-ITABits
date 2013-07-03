@@ -82,9 +82,9 @@ namespace Projeto_Apollo_16
             UpdateJoystickInput();
         }
 
-        public void ParseInput(InputDataClass input)
-        {
 
+        public void ParseInputShooter(InputShooterDataClass input)
+        {
             if (input.buttons[(int)ButtonStates.BTN_1])
             {
                 PrimaryShot();
@@ -96,6 +96,20 @@ namespace Projeto_Apollo_16
                 SecondaryShot();
             }
 
+            if (input.buttons[(int)ButtonStates.BTN_3])
+            {
+                GameLogic.ShiftBulletsLeft();
+            }
+
+            if (input.buttons[(int)ButtonStates.BTN_4])
+            {
+                GameLogic.ShiftBulletsRight();                
+            }
+
+        }
+
+        public void ParseInput(InputDataClass input)
+        {
             sideAcceleration = (int)StickPosition.X_AXIS * MAX_SIDE_ACCELERATION / Globals.JOYSTICK_RANGE;
             
             if (input.position[(int)StickPosition.Y_AXIS] < 0)
@@ -115,7 +129,7 @@ namespace Projeto_Apollo_16
 
         private void SecondaryShot()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void PrimaryShot()

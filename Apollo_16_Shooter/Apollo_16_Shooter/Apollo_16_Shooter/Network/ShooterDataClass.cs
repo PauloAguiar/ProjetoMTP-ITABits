@@ -10,14 +10,14 @@ namespace Apollo_16_Shooter
     public class ShooterDataClass
     {
         /* Os membros que contém underline contém dados obtidos diretamente da classe player */
-        public Int32 _ammo;
+        public int[] _ammo = new int[ShooterClass.NUMBER_TYPE_BULLETS];
 
         public ShooterDataClass(NetIncomingMessage msg)
         {
             Decode(msg);
         }
 
-        public ShooterDataClass(int ammo)
+        public ShooterDataClass(int[] ammo)
         {
             this._ammo = ammo;
         }
@@ -25,7 +25,12 @@ namespace Apollo_16_Shooter
         
         private void Decode(NetIncomingMessage incmsg)
         {
-            this._ammo = incmsg.ReadInt32();
+            for (int i = 0; i < ShooterClass.NUMBER_TYPE_BULLETS; i++)
+            {
+                _ammo[i] = incmsg.ReadInt32();
+            }
+
         }
+
     }
 }

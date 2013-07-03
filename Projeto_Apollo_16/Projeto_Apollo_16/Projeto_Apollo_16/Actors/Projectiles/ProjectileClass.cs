@@ -52,6 +52,21 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
-        public abstract void LoadSound(ContentManager content);        
+        public abstract void LoadSound(ContentManager content);
+
+
+        public static ShooterDataClass GetShooterData()
+        {
+            int[] ammo = new int[ShooterDataClass.NUMBER_TYPE_BULLETS];
+
+            ammo[0] = 0;
+            ammo[1] = CircularProjectile.ammo;
+            ammo[2] = HomingProjectile.ammo;
+            ammo[3] = AreaProjectile.ammo;
+            ammo[4] = 0;
+
+            return new ShooterDataClass(ammo);
+        }
+
     }
 }

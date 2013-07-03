@@ -149,11 +149,11 @@ namespace Apollo_16_Shooter
         {
             if (sender == connectLnk)
             {
-                //if (systemRef.networkManager.IsOnline())
-                //{
-                    //systemRef.networkManager.ConnectToServer();
+                if (systemRef.networkManager.IsOnline())
+                {
+                    systemRef.networkManager.ConnectToServer();
                     stateManager.ChangeState(systemRef.gamePlayScreen);
-                //}
+                }
             }
             else if (sender == exitGameLnk)
             {

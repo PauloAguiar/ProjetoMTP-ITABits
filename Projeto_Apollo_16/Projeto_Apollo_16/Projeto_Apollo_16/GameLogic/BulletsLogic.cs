@@ -18,7 +18,6 @@ namespace Projeto_Apollo_16
         }
         private static int NUMBER_TYPE_BULLETS = Enum.GetNames(typeof(Bullets)).Length;
 
-
         public static void CreateBullets()
         {
             if (player.bullets == Bullets.linear )
@@ -62,13 +61,13 @@ namespace Projeto_Apollo_16
 
         }
 
-        private static void ShiftBulletsRight()
+        public static void ShiftBulletsRight()
         {
             timeChangedWeapon = 0;
             player.bullets = (Bullets)(((int)player.bullets + 1) % NUMBER_TYPE_BULLETS);
         }
 
-        private static void ShiftBulletsLeft()
+        public static void ShiftBulletsLeft()
         {
             timeChangedWeapon = 0;
             player.bullets = (Bullets)(((int)player.bullets - 1 + NUMBER_TYPE_BULLETS) % NUMBER_TYPE_BULLETS);

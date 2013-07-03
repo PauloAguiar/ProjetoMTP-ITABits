@@ -11,6 +11,8 @@ namespace Apollo_16_Shooter
 {
     public class ShooterClass
     {
+        public Texture2D ammoArea;
+
         public enum Bullets
         {
             linear = 0,
@@ -21,7 +23,7 @@ namespace Apollo_16_Shooter
         }
         public static int NUMBER_TYPE_BULLETS = Enum.GetNames(typeof(Bullets)).Length;
 
-        List<int> ammo = new List<int>(NUMBER_TYPE_BULLETS);
+        int[] ammo = new int[NUMBER_TYPE_BULLETS];
         protected SpriteFont spriteFont;
 
         public ShooterClass(ContentManager content)
@@ -41,7 +43,7 @@ namespace Apollo_16_Shooter
 
         public void LoadTextures(ContentManager content) 
         {
-            
+            ammoArea = content.Load<Texture2D>(@"Bullets\ammoArea");
         }
 
         public void HandleShooterData(NetIncomingMessage msg)
@@ -59,7 +61,7 @@ namespace Apollo_16_Shooter
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.Draw(ammoArea, new Vector2(279, 215), Color.White);
         }
 
     }

@@ -7,12 +7,18 @@ namespace Apollo_16_Shooter
 {
     enum PacketTypes
     {
+        PILOT_DATA,
         SHOOTER_DATA,
         INPUT_DATA,
+        INPUT_SHOOTER_DATA,
+        RADAR_DATA,
+        RADAR_DATA_IMMEDIATE,
     }
-    
-    enum ConnectionID
+
+    public enum ConnectionID
     {
+        PILOT,
+        RADAR,
         SHOOTER,
     }
 

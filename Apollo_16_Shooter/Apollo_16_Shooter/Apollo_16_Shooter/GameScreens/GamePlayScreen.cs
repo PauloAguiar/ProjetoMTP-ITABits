@@ -18,6 +18,10 @@ namespace Apollo_16_Shooter
         JoystickInputClass joystick;
         protected Texture2D background;
 
+        //só pra debug
+        Vector2 position;
+        Texture2D icon;
+
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -35,6 +39,7 @@ namespace Apollo_16_Shooter
 
         protected override void LoadContent()
         {
+            icon = content.Load<Texture2D>(@"icon_menu");
             shooter.LoadFont(content);
             shooter.LoadTextures(content);
             background = content.Load<Texture2D>(@"Backgrounds\shooterBackground");
@@ -43,7 +48,18 @@ namespace Apollo_16_Shooter
 
         public override void Update(GameTime gameTime)
         {
+            systemRef.networkManager.ReadPackets(this);
+
+            position.X = joystick.joystickState.X;
+            position.Y = joystick.joystickState.Y;
+            //if (joystick.joystickState.GetButtons(0) == true)
+            //{
+
+            //}
+
             shooter.Update(gameTime);
+
+            systemRef.networkManager.SendPackets(joystick.Update());
             base.Update(gameTime);
         }
 
@@ -51,8 +67,10 @@ namespace Apollo_16_Shooter
         public override void Draw(GameTime gameTime)
         {
             systemRef.spriteBatch.Begin();
+            systemRef.spriteBatch.Draw(background, Vector2.Zero, null, Color.White, 0.0f, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
+            systemRef.spriteBatch.Draw(icon, position, Color.White);
             shooter.Draw(systemRef.spriteBatch);
-            systemRef.spriteBatch.Draw(background, Vector2.Zero, Color.White);
+
             systemRef.spriteBatch.End();
 
             base.Draw(gameTime);
