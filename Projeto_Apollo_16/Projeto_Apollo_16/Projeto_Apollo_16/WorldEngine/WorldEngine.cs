@@ -21,7 +21,7 @@ namespace Projeto_Apollo_16
 
         /* Origin: Position (0, 0) of the Sector (0, 0) is equivalent to GlobalPosition (0, 0)
         /* Fields */
-        const int TILE_SIZE = 256;
+        const int TILE_SIZE = 1280;
         const int SECTOR_SIZE = 20;
         private List<WorldSectorClass> sectorList;
         private WorldSectorClass actualSector;
@@ -41,15 +41,16 @@ namespace Projeto_Apollo_16
         public WorldEngine(Game game)
         {
             actualSector = new WorldSectorClass(game, Point.Zero);
-            sectorList = new List<WorldSectorClass>(8);
-            sectorList.Add(new WorldSectorClass(game, new Point(-1, -1)));
-            sectorList.Add(new WorldSectorClass(game, new Point( 0, -1)));
-            sectorList.Add(new WorldSectorClass(game, new Point( 1, -1)));
-            sectorList.Add(new WorldSectorClass(game, new Point(-1,  0)));
-            sectorList.Add(new WorldSectorClass(game, new Point( 1,  0)));
-            sectorList.Add(new WorldSectorClass(game, new Point(-1,  1)));
-            sectorList.Add(new WorldSectorClass(game, new Point( 0,  1)));
-            sectorList.Add(new WorldSectorClass(game, new Point( 1,  1)));
+            sectorList = new List<WorldSectorClass>(24);
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    if(x != 0 || y != 0)
+                        sectorList.Add(new WorldSectorClass(game, new Point(x, y)));
+                }
+            }
+           
         }
 
         public void LoadContent()

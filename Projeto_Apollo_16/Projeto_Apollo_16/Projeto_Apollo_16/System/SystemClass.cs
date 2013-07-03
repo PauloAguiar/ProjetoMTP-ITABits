@@ -21,8 +21,8 @@ namespace Projeto_Apollo_16
 
         public bool NETWORK_MODE;
 		
-        const int SCREEN_WIDTH = 1024;
-        const int SCREEN_HEIGHT = 768;
+        const int SCREEN_WIDTH = 1920;
+        const int SCREEN_HEIGHT = 1080;
 
         public readonly Rectangle screenRectangle;
 
@@ -31,7 +31,7 @@ namespace Projeto_Apollo_16
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
             graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
 
             screenRectangle = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 

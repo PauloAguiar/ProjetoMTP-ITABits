@@ -12,9 +12,9 @@ namespace Projeto_Apollo_16
     {
         /* Basic Style */
         Color textColor = Color.Black;
-        Vector2 titlePosition = new Vector2(200, 0);
-        Vector2 clientLabels = new Vector2(650, 550);
-        Vector2 menuLabels = new Vector2(400, 400);
+        Vector2 titlePosition = new Vector2(500, 0);
+        Vector2 clientLabels = new Vector2(1502, 850);
+        Vector2 menuLabels = new Vector2(800, 600);
 
         /* Controls */
         Texture2D backgroundTexture;
@@ -46,7 +46,7 @@ namespace Projeto_Apollo_16
         {
             base.LoadContent();
             /* Background */
-            backgroundTexture = content.Load<Texture2D>(@"Backgrounds\nave_amarela_1024x768");
+            backgroundTexture = content.Load<Texture2D>(@"Backgrounds\nave_amarela_1920x1080");
             background = new PictureBox(backgroundTexture, new Rectangle(0, 0, Globals.SCREEN_RESOLUTION_WIDTH, Globals.SCREEN_RESOLUTION_HEIGHT));
             controlManager.Add(background);
 
@@ -228,6 +228,32 @@ namespace Projeto_Apollo_16
             {
                 radarStatusLbl.Text = "Offline";
                 radarStatusLbl.Color = Color.Red;
+            }
+            #endregion
+
+            #region UpdateCopilotStatus
+            if (systemRef.networkManager.GetConnectionStatudByID(ConnectionID.COPILOT) == NetConnectionStatus.Connected)
+            {
+                copilotStatusLbl.Text = "Online";
+                copilotStatusLbl.Color = Color.Green;
+            }
+            else
+            {
+                copilotStatusLbl.Text = "Offline";
+                copilotStatusLbl.Color = Color.Red;
+            }
+            #endregion
+
+            #region UpdateShooterStatus
+            if (systemRef.networkManager.GetConnectionStatudByID(ConnectionID.SHOOTER) == NetConnectionStatus.Connected)
+            {
+                shooterStatusLbl.Text = "Online";
+                shooterStatusLbl.Color = Color.Green;
+            }
+            else
+            {
+                shooterStatusLbl.Text = "Offline";
+                shooterStatusLbl.Color = Color.Red;
             }
             #endregion
 

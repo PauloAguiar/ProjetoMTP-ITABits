@@ -32,7 +32,7 @@ namespace Apollo_16_Piloto
         public const String      NETWORK_NAME = "apollo";
 
         // Graphics
-        public const int SCREEN_RESOLUTION_WIDTH = 1024;
+        public const int SCREEN_RESOLUTION_WIDTH = 1366;
         public const int SCREEN_RESOLUTION_HEIGHT = 768;
 
         // Joystick

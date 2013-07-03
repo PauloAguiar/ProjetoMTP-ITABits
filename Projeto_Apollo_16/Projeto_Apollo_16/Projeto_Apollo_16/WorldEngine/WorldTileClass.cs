@@ -27,7 +27,7 @@ namespace Projeto_Apollo_16
         /* Methods */
         public void LoadTileOnContent(ContentManager contentManager)
         {
-            texture = contentManager.Load<Texture2D>(@"Maps\" + codeID.ToString());
+            texture = contentManager.Load<Texture2D>(@"Maps\Space_Deep");
             loaded = true;
         }
     }

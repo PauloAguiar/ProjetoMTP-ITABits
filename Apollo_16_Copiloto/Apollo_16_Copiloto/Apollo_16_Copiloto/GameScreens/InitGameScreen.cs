@@ -14,9 +14,9 @@ namespace Apollo_16_Copiloto
     {
         /* Basic Style */
         Color textColor = Color.Black;
-        Vector2 titlePosition = new Vector2(100, 0);
-        Vector2 serverLabel = new Vector2(680, 700);
-        Vector2 menuLabels = new Vector2(400, 400);
+        Vector2 titlePosition = new Vector2(300, 0);
+        Vector2 serverLabel = new Vector2(1080, 700);
+        Vector2 menuLabels = new Vector2(600, 400);
 
         /* Controls */
         Texture2D backgroundTexture;

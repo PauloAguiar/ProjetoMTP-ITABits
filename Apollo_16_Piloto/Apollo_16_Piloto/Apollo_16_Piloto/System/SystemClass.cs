@@ -19,7 +19,7 @@ namespace Apollo_16_Piloto
         public GamePlayScreen gamePlayScreen;
 
 		
-        const int screenWidth = 1024;
+        const int screenWidth = 1366;
         const int screenHeight = 768;
 
         public readonly Rectangle screenRectangle;
@@ -29,7 +29,7 @@ namespace Apollo_16_Piloto
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
 
             screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
 
