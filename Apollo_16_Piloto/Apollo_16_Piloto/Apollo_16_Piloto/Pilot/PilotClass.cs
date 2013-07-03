@@ -13,24 +13,28 @@ namespace Apollo_16_Piloto
     public class PilotClass
     {
         protected SpriteFont spriteFont;
-        protected Texture2D lifeBar;
+        protected Texture2D aceBar;
         protected Texture2D fuelBar;
         protected Texture2D speedometer;
         protected Texture2D arrow;
         public double throttle { get; set; }
         public double speed { get; set; }
+        public double auxspeed;
         public double angle { get; set; }
+        public double aceleration;
         public Vector2 velocity { get; set; }
-        protected int life = 100;
         protected float fuel = 100.0f;
-        Color lifebar_color = new Color();
+        protected int power = 0;
+        //Color acebar_color = new Color();
         Color fuelbar_color = new Color() ;
 
         public PilotClass(ContentManager content)
         {
             throttle = 0;
             speed = 0;
+            auxspeed = 0;
             angle = 0;
+            aceleration = 0;
             velocity = Vector2.Zero;
         }
 
@@ -46,7 +50,7 @@ namespace Apollo_16_Piloto
 
         public void LoadTextures(ContentManager content) 
         {
-            lifeBar = content.Load<Texture2D>(@"Sprites\lifeBar");
+            aceBar = content.Load<Texture2D>(@"Sprites\lifeBar");
             fuelBar = content.Load<Texture2D>(@"Sprites\fuelBar");
             speedometer = content.Load<Texture2D>(@"Sprites\speedometer");
             arrow = content.Load<Texture2D>(@"Sprites\Arrow");
@@ -64,17 +68,14 @@ namespace Apollo_16_Piloto
 
         public void Update(GameTime gameTime)
         {
-            if (fuel > 0) fuel = fuel - 0.1f;
-            if ( life > 100 )
-                lifebar_color = Color.Blue;
-            else if ( life > 80 )
-                lifebar_color = Color.Green;
-            else if ( life > 65 )
-                lifebar_color = Color.Yellow;
-            else if ( life > 50 )
-                lifebar_color = Color.Orange;
-            else
-                lifebar_color = Color.Red;
+            aceleration = (speed - auxspeed) / gameTime.ElapsedGameTime.TotalSeconds;
+            auxspeed = speed;
+
+            if (power < 100) power += 1;
+            //if (power < 50)
+            //    acebar_color = Color.Lerp(Color.Green, Color.Yellow, 1.0f);
+            //else
+            //    acebar_color = Color.Lerp(Color.Yellow, Color.Red, 1.0f);
 
             if (fuel >= 50)
                 fuelbar_color = Color.Lerp(Color.Green, Color.Yellow, 1.0f - fuel/100.0f);
@@ -84,18 +85,21 @@ namespace Apollo_16_Piloto
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle rlife = new Rectangle(0,0,life*lifeBar.Width/150,lifeBar.Height);
+            Rectangle race = new Rectangle(0,0,power*aceBar.Width/100,aceBar.Height);
             
             Rectangle rfuel = new Rectangle(0, (int)((fuelBar.Height) * (100.0f-fuel) / 100.0f), fuelBar.Width, (int)((fuelBar.Height) * (fuel) / 100.0f));
 
-            spriteBatch.DrawString(spriteFont, "Th:" + throttle.ToString() + " Spd:" + speed.ToString() + " ang:" + angle.ToString() + " vel:" + velocity.ToString() , new Vector2(0, 100), Color.Red);
-
-            spriteBatch.Draw(lifeBar,new Vector2(Globals.SCREEN_RESOLUTION_WIDTH - 400.0f,0.0f),rlife,lifebar_color);
+            
+            spriteBatch.DrawString(spriteFont, "VELOCITY :" + ((int)(1000*speed)).ToString(), new Vector2(245,220+speedometer.Height), Color.Red);
+            spriteBatch.DrawString(spriteFont, "ACELERATION :" + aceleration.ToString(), new Vector2(645, 220 + speedometer.Height), Color.Red);
+            spriteBatch.DrawString(spriteFont, "POWER :"+ power.ToString() +"%", new Vector2(Globals.SCREEN_RESOLUTION_WIDTH - 400.0f, 50.0f), Color.Red);
+            spriteBatch.DrawString(spriteFont, "FUEL :" + fuel, new Vector2(20, 220 + speedometer.Height), Color.Red);
+            spriteBatch.Draw(aceBar,new Vector2(Globals.SCREEN_RESOLUTION_WIDTH - 400.0f,0.0f),race,Color.Red);
             spriteBatch.Draw(fuelBar, new Vector2(0.0f, 100 + (fuelBar.Height) * (100.0f - fuel) / 100.0f), rfuel, fuelbar_color);
             spriteBatch.Draw(speedometer, new Vector2(200.0f, 200.0f),null, Color.White);
-            spriteBatch.Draw(speedometer, new Vector2(500.0f, 200.0f), null, Color.White);
-            spriteBatch.Draw(arrow, new Vector2(200.0f+speedometer.Width/2, 200.0f+speedometer.Height/2), null, Color.White, (float)Math.Abs(speed), new Vector2(arrow.Width / 2, arrow.Height), 1.0f, new SpriteEffects(), 0.0f);
-            spriteBatch.Draw(arrow, new Vector2(400.0f + speedometer.Width / 2, 100.0f + speedometer.Height / 2), null, Color.White, (float)Math.Abs(speed), new Vector2(arrow.Width / 2, arrow.Height), 1.0f, new SpriteEffects(), 0.0f);
+            spriteBatch.Draw(speedometer, new Vector2(600.0f, 200.0f), null, Color.White);
+            spriteBatch.Draw(arrow, new Vector2(200.0f+speedometer.Width/2, 200.0f+speedometer.Height/2), null, Color.White, -2.0f+2.0f*(float)Math.Abs(speed), new Vector2(arrow.Width / 2, arrow.Height), 1.0f, new SpriteEffects(), 0.0f);
+            spriteBatch.Draw(arrow, new Vector2(600.0f + speedometer.Width / 2, 200.0f + speedometer.Height / 2), null, Color.White, (float)Math.Abs(100*aceleration), new Vector2(arrow.Width / 2, arrow.Height), 1.0f, new SpriteEffects(), 0.0f);
 
             
         }

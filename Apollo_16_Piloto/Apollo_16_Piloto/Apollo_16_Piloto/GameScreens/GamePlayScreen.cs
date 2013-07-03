@@ -60,7 +60,7 @@ namespace Apollo_16_Piloto
         {
 
             systemRef.spriteBatch.Begin();
-            systemRef.spriteBatch.Draw(icon, position, Color.White);
+            //systemRef.spriteBatch.Draw(icon, position, Color.White);
             pilot.Draw(systemRef.spriteBatch);
             systemRef.spriteBatch.End();
 
