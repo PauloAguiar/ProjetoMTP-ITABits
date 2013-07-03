@@ -8,15 +8,20 @@ namespace Apollo_16_Radar
     enum PacketTypes
     {
         PILOT_DATA,
+        SHOOTER_DATA,
         INPUT_DATA,
+        INPUT_SHOOTER_DATA,
         RADAR_DATA,
         RADAR_DATA_IMMEDIATE,
+        COPILOT_DATA
     }
 
-    enum ConnectionID
+    public enum ConnectionID
     {
         PILOT,
-        RADAR
+        RADAR,
+        SHOOTER,
+        COPILOT,
     }
 
     public static class Globals

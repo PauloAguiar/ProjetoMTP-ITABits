@@ -13,6 +13,7 @@ namespace Apollo_16_Shooter
         INPUT_SHOOTER_DATA,
         RADAR_DATA,
         RADAR_DATA_IMMEDIATE,
+        COPILOT_DATA
     }
 
     public enum ConnectionID
@@ -20,6 +21,7 @@ namespace Apollo_16_Shooter
         PILOT,
         RADAR,
         SHOOTER,
+        COPILOT,
     }
 
     public static class Globals
