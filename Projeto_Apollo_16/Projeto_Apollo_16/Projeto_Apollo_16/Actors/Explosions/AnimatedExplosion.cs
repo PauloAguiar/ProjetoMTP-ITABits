@@ -7,7 +7,7 @@ namespace Projeto_Apollo_16
 {
     public class AnimatedExplosion : ExplosionClass
     {
-        const float MAX_VOLUME = 1.0f;
+        const float MAX_VOLUME = 0.6f;
         const float MIN_VOLUME = 0.0f;
 
          int i, j;

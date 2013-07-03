@@ -8,7 +8,7 @@ namespace Projeto_Apollo_16
 {
     public class MultipleExplosion : ExplosionClass
     {
-        const float MAX_VOLUME = 1.0f;
+        const float MAX_VOLUME = 0.4f;
         const float MIN_VOLUME = 0.0f;
 
         int i, j;
