@@ -22,6 +22,8 @@ namespace Apollo_16_Shooter
         Vector2 position;
         Texture2D icon;
 
+        public TimeSpan sendPackets;
+
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -29,6 +31,7 @@ namespace Apollo_16_Shooter
             shooter = new ShooterClass(content);
             joystick = new JoystickInputClass();
             joystick.CreateDevice();
+            sendPackets = new TimeSpan(0, 0, 5);
         }
 
         /* XNA Methods */
@@ -49,7 +52,7 @@ namespace Apollo_16_Shooter
         public override void Update(GameTime gameTime)
         {
             systemRef.networkManager.ReadPackets(this);
-
+            sendPackets += gameTime.ElapsedGameTime;
             position.X = joystick.joystickState.X;
             position.Y = joystick.joystickState.Y;
             //if (joystick.joystickState.GetButtons(0) == true)
@@ -58,8 +61,11 @@ namespace Apollo_16_Shooter
             //}
 
             shooter.Update(gameTime);
-
-            systemRef.networkManager.SendPackets(joystick.Update());
+            if (sendPackets > TimeSpan.FromMilliseconds(60))
+            {
+                systemRef.networkManager.SendPackets(joystick.Update());
+                sendPackets = TimeSpan.Zero;
+            }
             base.Update(gameTime);
         }
 
