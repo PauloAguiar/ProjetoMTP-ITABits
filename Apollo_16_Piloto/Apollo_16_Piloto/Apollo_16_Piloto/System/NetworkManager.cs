@@ -126,7 +126,9 @@ namespace Apollo_16_Piloto
                             switch (msg.ReadByte())
                             {
                                 case (byte)PacketTypes.PILOT_DATA:
+                                    systemRef.gamePlayScreen.pilot.HandlePilotData(msg);
                                     break;
+
                             }
                         }
                         break;

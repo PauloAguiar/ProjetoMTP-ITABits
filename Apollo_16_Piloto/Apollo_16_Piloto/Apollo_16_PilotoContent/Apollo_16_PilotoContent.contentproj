@@ -107,8 +107,29 @@
     <Folder Include="UI\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Screens\lifeBar.png">
+    <Compile Include="Sprites\lifeBar.png">
       <Name>lifeBar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\carteometer.png">
+      <Name>carteometer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\speedometer.png">
+      <Name>speedometer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\fuelBar.png">
+      <Name>fuelBar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
