@@ -93,6 +93,12 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Nuclex.Input">
+      <HintPath>..\..\..\Libraries\Nuclex.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Nuclex.UserInterface">
+      <HintPath>..\..\..\Libraries\Nuclex.UserInterface.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -120,6 +126,7 @@
     <Compile Include="Controls\Label.cs" />
     <Compile Include="Controls\LinkLabel.cs" />
     <Compile Include="Controls\PictureBox.cs" />
+    <Compile Include="Copiloto\ItemClass.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
     <Compile Include="GameScreens\GameState.cs" />

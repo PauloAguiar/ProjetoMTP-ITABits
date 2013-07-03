@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project
+  xmlns="http://nant.sf.net/schemas/nant-0.85.win32.net-1.0.xsd"
+  name="Framework-Demos"
+  default="compile"
+>
+  <loadtasks assembly="References/tasks/net-2.0/Nuclex.NAnt.Tasks.dll"/>
+  <include buildfile="References/scripts/nant/bundle.include" />
+  <include buildfile="References/scripts/nant/subversion.include" />
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!--
+    Build number, set by TeamCity in automated builds. Manual builds on the
+    command line will by default be tagged as 'product-wip'.
+  -->
+  <tstamp><formatter property="temp" pattern="yyyy-MM-dd" /></tstamp>
+  <property overwrite="false" name="build.number" value="${temp}" />
+
+  <!--
+    Build configuration to compile the project in (usually "Debug" or "Release"),
+    use '-D:build.configuration=Debug' on the command line to change.
+  -->
+  <property overwrite="false" name="build.configuration" value="Release" />
+
+  <!--
+    Platform to build for. Valid platforms are 'xna-4.0-x86', 'xna-4.0-xbox360'
+    and 'xna-4.0-phone7'
+  -->
+  <property overwrite="false" name="build.platform" value="xna-4.0-x86" />
+
+  <!--
+    Path to the nunit executable. Only needed if nunit-console.exe is not in
+    the search paths.
+  -->
+  <property
+    overwrite="false"
+    name="nunit.path"
+    value="References/nunit/net-4.0/"
+  />
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <target name="clean" description="Delete all build output files">
+
+    <property name="bundle.platform" value="${build.platform}" />
+    <call target="bundle-clean" />
+
+  </target>
+  
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <target name="compile" description="Compiles the solution">
+  
+    <property name="bundle.platform" value="${build.platform}" />
+    <property name="bundle.configuration" value="${build.configuration}" />
+    <property name="bundle.unittest" value="true" />
+
+    <call target="bundle-compile" />
+
+  </target>
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <target name="test" depends="compile" description="Runs the unit tests">
+  
+    <property name="bundle.platform" value="${build.platform}" />
+    <property name="bundle.configuration" value="${build.configuration}" />
+
+    <call target="bundle-test" />
+
+  </target>
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <target name="package" description="Packages the projects for redistribution">
+
+    <if test="${not environment::variable-exists('build.revision')}">
+      <fail message="This build is intended for continuous integration servers" />
+    </if>
+    <property name="build.number" value="${environment::get-variable('build.revision')}" />
+     
+    <call target="clean" />
+
+    <!--
+      Binaries
+    -->
+    <foreach item="File" property="filename">
+        <in><items><include name="artifacts/foundation-*.7z" /></items></in>
+        <do><property name="temp.foundation" value="${filename}" /></do>
+    </foreach>
+
+    <foreach item="File" property="filename">
+        <in><items><include name="artifacts/framework-*.7z" /></items></in>
+        <do><property name="temp.framework" value="${filename}" /></do>
+    </foreach>
+
+    <delete dir="bin" />
+    <sevenzip-extract archive="${temp.foundation}" todir="bin" />
+    <sevenzip-extract archive="${temp.framework}" todir="bin" />
+    <copy
+      file="References/nunit/net-4.0/framework/nunit.framework.dll"
+      todir="bin/xna-4.0-x86"
+    />
+    <copy
+      file="References/nunit/net-4.0/framework/nunit.framework.xml"
+      todir="bin/xna-4.0-x86"
+    />
+    <copy
+      file="References/nmock/net-4.0/NMock.StrongNamed.dll"
+      todir="bin/xna-4.0-x86"
+    />
+    <copy
+      file="References/nmock/net-4.0/NMock.StrongNamed.xml"
+      todir="bin/xna-4.0-x86"
+    />
+    <copy todir="bin/xna-4.0-x86">
+      <fileset basedir="bin/net-4.0">
+        <include name="**/*" />
+        <include name="*" />
+      </fileset>
+    </copy>
+    <delete dir="bin/net-4.0" />
+
+    <delete dir="artifacts" />
+    <mkdir dir="artifacts" />
+
+    <property name="temp" value="Nuclex Framework ${build.number} Binaries.zip" />
+    <property name="temp" value="${string::to-lower(string::replace(temp, ' ', '-'))}" />
+    <sevenzip-compress archive="artifacts/${temp}">
+      <fileset basedir="bin">
+        <include name="**/*" />
+      </fileset>
+    </sevenzip-compress>
+
+    <!--
+      Demos
+    -->
+    <property name="temp" value="Nuclex Framework ${build.number} Demos.zip" />
+    <property name="temp" value="${string::to-lower(string::replace(temp, ' ', '-'))}" />
+    <sevenzip-compress archive="artifacts/${temp}">
+      <fileset basedir=".">
+        <include name="**/*" />
+        <exclude name="artifacts/**/*" />
+        <exclude name="bin/**/*" />
+        <exclude name="framework/**/*" />
+        <exclude name="foundation/**/*" />
+        <exclude name="*.cachefile" />
+        <exclude name="*.suo" />
+        <exclude name="*.user" />
+      </fileset>
+    </sevenzip-compress>
+
+    <property name="subversion.target" value="foundation" />
+    <property
+      name="subversion.url"
+      value="https://devel.nuclex.org/framework/svn/Foundation.Build/trunk"
+    />
+    <call target="subversion-export" />
+
+    <property name="subversion.target" value="framework" />
+    <property
+      name="subversion.url"
+      value="https://devel.nuclex.org/framework/svn/Framework.Build/trunk"
+    />
+    <call target="subversion-export" />
+
+    <mkdir dir="framework/Nuclex.Fonts.Content.TrueTypeImporter/bin/xna-4.0-x86/Debug" />
+    <copy
+      file="bin/xna-4.0-x86/Nuclex.Fonts.Content.TrueTypeImporter.dll"
+      todir="framework/Nuclex.Fonts.Content.TrueTypeImporter/bin/xna-4.0-x86/Debug"
+    />
+    <copy
+      file="bin/xna-4.0-x86/Nuclex.Fonts.Content.TrueTypeImporter.xml"
+      todir="framework/Nuclex.Fonts.Content.TrueTypeImporter/bin/xna-4.0-x86/Debug"
+    />
+    <mkdir dir="framework/Nuclex.Fonts.Content.TrueTypeImporter/bin/xna-4.0-x86/Release" />
+    <copy
+      file="bin/xna-4.0-x86/Nuclex.Fonts.Content.TrueTypeImporter.dll"
+      todir="framework/Nuclex.Fonts.Content.TrueTypeImporter/bin/xna-4.0-x86/Release"
+    />
+    <copy
+      file="bin/xna-4.0-x86/Nuclex.Fonts.Content.TrueTypeImporter.xml"
+      todir="framework/Nuclex.Fonts.Content.TrueTypeImporter/bin/xna-4.0-x86/Release"
+    />
+    
+    <property name="temp" value="Nuclex Framework ${build.number} Sources.zip" />
+    <property name="temp" value="${string::to-lower(string::replace(temp, ' ', '-'))}" />
+    <sevenzip-compress archive="artifacts/${temp}">
+      <fileset basedir=".">
+        <include name="foundation/**/*" />
+        <include name="framework/**/*" />
+        <exclude name="**/*.pdf" />
+      </fileset>
+    </sevenzip-compress>
+
+    <delete dir="bin" />
+
+  </target>
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+</project>

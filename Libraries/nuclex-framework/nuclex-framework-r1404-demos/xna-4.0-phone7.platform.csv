@@ -1,0 +1,15 @@
+# Build Platform Definition
+#
+# This file describes which projects (and which individual project platforms)
+# to build when executing the main build script.
+#
+# The Syntax is
+#   DirectoryName,ProjectPlatform,ProjectName,OutputDirectory
+#
+#Nuclex.Fonts.Demo,Windows Phone,Nuclex.Fonts.Demo (xna-4.0-phone7).csproj,bin/xna-4.0-phone7/%build.configuration%
+#Nuclex.Game.Demo,Windows Phone,Nuclex.Game.Demo (xna-4.0-phone7).csproj,bin/xna-4.0-phone7/%build.configuration%
+#Nuclex.Geometry.Demo,Windows Phone,Nuclex.Geometry.Demo (xna-4.0-phone7).csproj,bin/xna-4.0-phone7/%build.configuration%
+Nuclex.Graphics.Demo,Windows Phone,Nuclex.Graphics.Demo (xna-4.0-phone7).csproj,bin/xna-4.0-phone7/%build.configuration%
+#Nuclex.Graphics.SpecialEffects.Demo,Windows Phone,Nuclex.Graphics.SpecialEffects.Demo (xna-4.0-phone7).csproj,bin/xna-4.0-x86/%build.configuration%
+#Nuclex.Input.Demo,Windows Phone,Nuclex.Input.Demo (xna-4.0-phone7).csproj,bin/xna-4.0-phone7/%build.configuration%
+Nuclex.UserInterface.Demo,Windows Phone,Nuclex.UserInterface.Demo (xna-4.0-phone7).csproj,bin/xna-4.0-phone7/%build.configuration%

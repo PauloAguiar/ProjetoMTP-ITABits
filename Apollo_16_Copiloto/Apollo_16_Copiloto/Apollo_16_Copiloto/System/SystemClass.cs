@@ -2,13 +2,18 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Lidgren.Network;
+using System;
+using Nuclex.UserInterface.Controls.Desktop;
+using Nuclex.UserInterface.Visuals.Flat;
+using Nuclex.Input;
+using Nuclex.UserInterface;
 
 namespace Apollo_16_Copiloto
 {
     public class SystemClass : Game
     {
         public GraphicsDeviceManager graphics;
-        Viewport viewport;
+        public Viewport viewport;
         public SpriteBatch spriteBatch;
 
         public GameStateManager stateManager;
@@ -27,6 +32,7 @@ namespace Apollo_16_Copiloto
         public SystemClass()
         {
             graphics = new GraphicsDeviceManager(this);
+            
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.IsFullScreen = false;
@@ -52,7 +58,7 @@ namespace Apollo_16_Copiloto
         protected override void Initialize()
         {
             viewport = GraphicsDevice.Viewport;
-            
+
             base.Initialize();
         }
 

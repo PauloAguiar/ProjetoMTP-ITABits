@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010 Express for Windows Phone
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclex.Graphics.Demo (xna-4.0-phone7)", "Nuclex.Graphics.Demo\Nuclex.Graphics.Demo (xna-4.0-phone7).csproj", "{2DBF3949-08B8-4C85-A886-8F64A5B556A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclex.Graphics.Demo.PhoneContent", "Nuclex.Graphics.Demo\Content\Nuclex.Graphics.Demo.PhoneContent.contentproj", "{1622F53A-0154-4F3F-AA39-C1A2D0C4BBF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuclex.UserInterface.Demo (xna-4.0-phone7)", "Nuclex.UserInterface.Demo\Nuclex.UserInterface.Demo (xna-4.0-phone7).csproj", "{4A06D15C-9DDD-4D44-A28F-45AD8C61AC77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|xna-4.0-phone7 = Debug|xna-4.0-phone7
+		Release|xna-4.0-phone7 = Release|xna-4.0-phone7
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DBF3949-08B8-4C85-A886-8F64A5B556A2}.Debug|xna-4.0-phone7.ActiveCfg = Debug|Windows Phone
+		{2DBF3949-08B8-4C85-A886-8F64A5B556A2}.Debug|xna-4.0-phone7.Build.0 = Debug|Windows Phone
+		{2DBF3949-08B8-4C85-A886-8F64A5B556A2}.Debug|xna-4.0-phone7.Deploy.0 = Debug|Windows Phone
+		{2DBF3949-08B8-4C85-A886-8F64A5B556A2}.Release|xna-4.0-phone7.ActiveCfg = Release|Windows Phone
+		{2DBF3949-08B8-4C85-A886-8F64A5B556A2}.Release|xna-4.0-phone7.Build.0 = Release|Windows Phone
+		{2DBF3949-08B8-4C85-A886-8F64A5B556A2}.Release|xna-4.0-phone7.Deploy.0 = Release|Windows Phone
+		{1622F53A-0154-4F3F-AA39-C1A2D0C4BBF5}.Debug|xna-4.0-phone7.ActiveCfg = Debug|Any CPU
+		{1622F53A-0154-4F3F-AA39-C1A2D0C4BBF5}.Release|xna-4.0-phone7.ActiveCfg = Debug|Any CPU
+		{4A06D15C-9DDD-4D44-A28F-45AD8C61AC77}.Debug|xna-4.0-phone7.ActiveCfg = Debug|Windows Phone
+		{4A06D15C-9DDD-4D44-A28F-45AD8C61AC77}.Debug|xna-4.0-phone7.Build.0 = Debug|Windows Phone
+		{4A06D15C-9DDD-4D44-A28F-45AD8C61AC77}.Debug|xna-4.0-phone7.Deploy.0 = Debug|Windows Phone
+		{4A06D15C-9DDD-4D44-A28F-45AD8C61AC77}.Release|xna-4.0-phone7.ActiveCfg = Release|Windows Phone
+		{4A06D15C-9DDD-4D44-A28F-45AD8C61AC77}.Release|xna-4.0-phone7.Build.0 = Release|Windows Phone
+		{4A06D15C-9DDD-4D44-A28F-45AD8C61AC77}.Release|xna-4.0-phone7.Deploy.0 = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

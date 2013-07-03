@@ -1,0 +1,19 @@
+# Build Platform Definition
+#
+# This file describes which projects (and which individual project platforms)
+# to build when executing the main build script.
+#
+# The Syntax is
+#   DirectoryName,ProjectPlatform,ProjectName,OutputDirectory
+#
+Nuclex.UserInterface.Demo,x86,Nuclex.UserInterface.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Audio.Demo,AnyCPU,Nuclex.Audio.Demo (net-4.0).csproj,bin/net-4.0/%build.configuration%
+Nuclex.Fonts.Demo,x86,Nuclex.Fonts.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Game.Demo,x86,Nuclex.Game.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Geometry.Demo,x86,Nuclex.Geometry.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Graphics.Demo,x86,Nuclex.Graphics.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Graphics.SpecialEffects.Demo,x86,Nuclex.Graphics.SpecialEffects.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Input.Demo,x86,Nuclex.Input.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Networking.Demo,AnyCPU,Nuclex.Networking.Demo (net-4.0).csproj,bin/net-4.0/%build.configuration%
+Nuclex.UserInterface.Demo,x86,Nuclex.UserInterface.Demo (xna-4.0-x86).csproj,bin/xna-4.0-x86/%build.configuration%
+Nuclex.Windows.Forms.Demo,AnyCPU,Nuclex.Windows.Forms.Demo (net-4.0).csproj,bin/net-4.0/%build.configuration%
