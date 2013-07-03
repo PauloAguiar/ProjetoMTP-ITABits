@@ -40,7 +40,7 @@ namespace Projeto_Apollo_16
                     HomingProjectile.ammo--;
                 }
             }
-            else if (player.bullets == Bullets.area)
+            else if (player.bullets == Bullets.area && AreaProjectile.ammo > 0)
             {
                 float ang = 0;
                 while (ang < 2 * Math.PI)
@@ -50,7 +50,6 @@ namespace Projeto_Apollo_16
                     ang += (float)Math.PI /4.0f;
                 }
                 AreaProjectile.ammo-=8;
-
             }
 
         }
