@@ -31,27 +31,29 @@ namespace Projeto_Apollo_16
                     enemyPosition = new Vector2(x, y);
                 } while (CollisionManager.CanCreateEnemy(enemyPosition, player));
 
+                /*
                 if (j == (int)EnemyClass.Enemies.Ghost)
                 {
                     Ghost ghost = new Ghost(enemyPosition, content);
-                    enemyManager.createEnemy(ghost);
+                    enemyManager.CreateEnemy(ghost);
                 }
-                else if (j == (int)EnemyClass.Enemies.Polygon)
+                else// (j == (int)EnemyClass.Enemies.Polygon)
                 {
                     Poligon poligon = new Poligon(enemyPosition, content);
-                    enemyManager.createEnemy(poligon);
+                    enemyManager.CreateEnemy(poligon);
                 }
                 else if (j == (int)EnemyClass.Enemies.Sun)
                 {
                     Sun sun = new Sun(enemyPosition, content);
-                    enemyManager.createEnemy(sun);
+                    enemyManager.CreateEnemy(sun);
                 }
-                else if (j == (int)EnemyClass.Enemies.Chaser)
+                 */
+                //else if (j == (int)EnemyClass.Enemies.Chaser)
                 {
                     Chaser chaser = new Chaser(enemyPosition, content, player);
-                    enemyManager.createEnemy(chaser);
+                    enemyManager.CreateEnemy(chaser);
                 }
-
+                
             }
         }
 

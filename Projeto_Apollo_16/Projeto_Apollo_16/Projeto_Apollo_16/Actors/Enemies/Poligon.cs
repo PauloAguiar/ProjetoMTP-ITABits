@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -19,6 +20,7 @@ namespace Projeto_Apollo_16
 
         public Poligon(Vector2 position, ContentManager content) : base(position, content)
         {
+            life = 1;
             centralPosition = position;
             vertex = GameLogic.rand.Next(SIDES);
             side = GameLogic.rand.Next(200, 400);
@@ -48,9 +50,16 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
-        public override void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        public override void LoadSound(ContentManager content)
         {
-            SimpleExplosion e = new SimpleExplosion(position, content);
+            hitSound = content.Load<SoundEffect>(@"Sounds\hit");
+        }
+
+        public override void Destroy(Vector2 playerPosition, Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        {
+            life--;
+
+            SimpleExplosion e = new SimpleExplosion(playerPosition, position, content);
             explosionManager.createExplosion(e);
         }
 

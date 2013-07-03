@@ -7,13 +7,17 @@ namespace Projeto_Apollo_16
 {
     public class AnimatedExplosion : ExplosionClass
     {
+        const float MAX_VOLUME = 1.0f;
+        const float MIN_VOLUME = 0.0f;
+
          int i, j;
          const double DELAY = 0.005;
          double time;
          int x;
-         public AnimatedExplosion (Vector2 position, ContentManager content) : base(position, content)
+         public AnimatedExplosion(Vector2 playerPosition, Vector2 enemyPosition, ContentManager content)
+             : base(playerPosition, enemyPosition, content)
         {
-            Lifetime = 25;
+            lifeTime = 25;
             i = j = 0;
             time = 0;
             x = 1;
@@ -33,15 +37,22 @@ namespace Projeto_Apollo_16
         public override void LoadSound(ContentManager content)
         { 
             sound = content.Load<SoundEffect>(@"Sounds\explosion3");
-        }        
+        }
+
+        float GetVolume()
+        {
+            volume = 1 / distance * 1000;
+            volume = MathHelper.Clamp(volume, MIN_VOLUME, MAX_VOLUME);
+            return volume;
+        }
 
         public override void Update(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
-            
-            if ( x == 1 )
-                sound.Play();
+
+            if (x == 1)
+                sound.Play(volume, 0, 0);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

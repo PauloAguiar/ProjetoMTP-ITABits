@@ -7,9 +7,11 @@ namespace Projeto_Apollo_16
 {
     public abstract class ExplosionClass : ActorClass
     {
-        public int Lifetime;
+        public int lifeTime;
         public bool isActive;
         protected SoundEffect sound;
+        protected float distance;
+        protected float volume;
 
         public SoundEffect Sound 
         {
@@ -18,10 +20,11 @@ namespace Projeto_Apollo_16
 
         public abstract void LoadSound(ContentManager content);
 
-        public ExplosionClass(Vector2 position,ContentManager content)
+        public ExplosionClass(Vector2 playerPosition, Vector2 enemyPosition,ContentManager content)
         {
+            distance = (playerPosition - enemyPosition).Length();
             isActive = true;
-            globalPosition = position;
+            globalPosition = enemyPosition;
             this.LoadFont(content);
             this.LoadTexture(content);
             this.LoadSound(content);
@@ -30,13 +33,13 @@ namespace Projeto_Apollo_16
         
         public override void Update(GameTime gameTime)
         {
-            if (Lifetime > 0)
+            if (lifeTime > 0)
             {
-                Lifetime--;
+                lifeTime--;
             }
 
 
-            if (Lifetime <= 0)
+            if (lifeTime <= 0)
             {
                 isActive = false;
             }

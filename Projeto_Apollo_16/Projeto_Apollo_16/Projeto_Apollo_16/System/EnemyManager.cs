@@ -22,15 +22,26 @@ namespace Projeto_Apollo_16
             spawnTime = TTS;
         }
 
-        public void createEnemy(EnemyClass enemy)
+        public void CreateEnemy(EnemyClass enemy)
         {
             this.Add(enemy);
             spawnTime = 0;
         }
 
-        public void destroyEnemy(int index, Vector2 position, ExplosionManager explosionManager)
+        public void GetHit(Vector2 playerPosition, int index, Vector2 enemyPosition, ExplosionManager explosionManager)
         {
-            this.ElementAt(index).Destroy(position, content, explosionManager);
+            this.ElementAt(index).life--;
+            this.ElementAt(index).hitSound.Play();
+
+            if (this.ElementAt(index).life <= 0)
+            {
+                DestroyEnemy(playerPosition, index, enemyPosition, explosionManager);
+            }
+        }
+
+        public void DestroyEnemy(Vector2 playerPosition, int index, Vector2 enemyPosition, ExplosionManager explosionManager)
+        {
+            this.ElementAt(index).Destroy(playerPosition, enemyPosition, content, explosionManager);
             this.RemoveAt(index);
         }
 

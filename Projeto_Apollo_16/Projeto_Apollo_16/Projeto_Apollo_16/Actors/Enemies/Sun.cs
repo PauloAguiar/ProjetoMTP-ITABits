@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -12,6 +13,7 @@ namespace Projeto_Apollo_16
 
         public Sun(Vector2 position, ContentManager content) : base(position, content)
         {
+            life = 5;
             centralPosition = position;
             globalPosition = position + new Vector2(radius, 0);
             speed = GameLogic.rand.Next(9, 18)/10.0f;
@@ -28,9 +30,14 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
-        public override void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        public override void LoadSound(ContentManager content)
         {
-            AnimatedExplosion e = new AnimatedExplosion(position, content);
+            hitSound = content.Load<SoundEffect>(@"Sounds\hit");
+        }
+
+        public override void Destroy(Vector2 playerPosition, Vector2 enemyPosition, ContentManager content, ExplosionManager explosionManager)
+        {
+            AnimatedExplosion e = new AnimatedExplosion(playerPosition, enemyPosition, content);
             explosionManager.createExplosion(e);
         }
 

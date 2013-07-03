@@ -7,10 +7,20 @@ namespace Projeto_Apollo_16
 {
     public class SimpleExplosion : ExplosionClass
     {
-        public SimpleExplosion (Vector2 position, ContentManager content) : base(position, content)
+        const float MAX_VOLUME = 1.0f;
+        const float MIN_VOLUME = 0.0f;
+
+        public SimpleExplosion (Vector2 playerPosition, Vector2 enemyPosition, ContentManager content) : base(playerPosition, enemyPosition, content)
         {
-            Lifetime = 100;
-            sound.Play();
+            lifeTime = 100;
+            sound.Play(GetVolume(), 0, 0);
+        }
+
+        float GetVolume()
+        {
+            volume = 1 / distance * 1000;
+            volume = MathHelper.Clamp(volume, MIN_VOLUME, MAX_VOLUME);
+            return volume;
         }
 
         public override void LoadTexture(ContentManager content)

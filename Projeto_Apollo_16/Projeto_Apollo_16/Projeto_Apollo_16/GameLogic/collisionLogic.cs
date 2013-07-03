@@ -18,7 +18,8 @@ namespace Projeto_Apollo_16
                     if (CollisionManager.CircularCollision(projectilesManager.ElementAt(i), enemyManager.ElementAt(j)))
                     {
                         CreateItem(enemyManager.ElementAt(j).GlobalPosition);
-                        enemyManager.destroyEnemy(j, projectilesManager.ElementAt(i).GlobalPosition, explosionManager);
+                        enemyManager.GetHit(player.GlobalPosition, j, projectilesManager.ElementAt(i).GlobalPosition, explosionManager);
+                        //enemyManager.DestroyEnemy(j, projectilesManager.ElementAt(i).GlobalPosition, explosionManager);
                         projectilesManager.destroyBullet(projectilesManager.ElementAt(i));
                         
                         i--;

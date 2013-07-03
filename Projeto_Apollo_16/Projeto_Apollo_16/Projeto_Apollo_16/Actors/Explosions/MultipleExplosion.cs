@@ -8,6 +8,9 @@ namespace Projeto_Apollo_16
 {
     public class MultipleExplosion : ExplosionClass
     {
+        const float MAX_VOLUME = 1.0f;
+        const float MIN_VOLUME = 0.0f;
+
         int i, j;
         const double DELAY = 0.005;
         const int RANGE = 200; // o ideal é que fosse circular
@@ -16,10 +19,10 @@ namespace Projeto_Apollo_16
         int dx; //deslocamento aleatório do centro da explosão em x
         int dy; //deslocamento aleatório do centro da explosão em y
         Random randNum = new Random();
-        public MultipleExplosion(Vector2 position, ContentManager content)
-            : base(position, content)
+        public MultipleExplosion(Vector2 playerPosition, Vector2 enemyPosition, ContentManager content)
+            : base(playerPosition, enemyPosition, content)
         {
-            Lifetime = 200;
+            lifeTime = 200;
             i = j = 0;
             time = 0;
             x = 16;
@@ -42,6 +45,13 @@ namespace Projeto_Apollo_16
             sound = content.Load<SoundEffect>(@"Sounds\explosion");
         }
 
+        float GetVolume()
+        {
+            volume = 1 / distance * 1000;
+            volume = MathHelper.Clamp(volume, MIN_VOLUME, MAX_VOLUME);
+            return volume;
+        }
+
         public override void Update(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.TotalSeconds;
@@ -56,7 +66,7 @@ namespace Projeto_Apollo_16
             }
 
             if (x == 1)
-                sound.Play(0.5f, 1.0f, 1.0f);
+                sound.Play(GetVolume(), 0, 0);
 
         }
         public override void Draw(SpriteBatch spriteBatch)

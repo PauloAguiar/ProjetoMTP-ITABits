@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Projeto_Apollo_16
 {
@@ -17,6 +18,7 @@ namespace Projeto_Apollo_16
         public Chaser(Vector2 position, ContentManager content, PlayerClass player)
             : base(position, content)
         {
+            life = 3;
             globalPosition = position;
             Speed = GameLogic.rand.Next(5, 9) * 0.1f;
             initialDirection = GameLogic.rand.Next(4);
@@ -60,9 +62,14 @@ namespace Projeto_Apollo_16
             spriteFont = content.Load<SpriteFont>(@"Fonts\ActorInfo");
         }
 
-        public override void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        public override void LoadSound(ContentManager content)
         {
-            MultipleExplosion e = new MultipleExplosion(position, content);
+            hitSound = content.Load<SoundEffect>(@"Sounds\hit");
+        }
+
+        public override void Destroy(Vector2 playerPosition, Vector2 position, ContentManager content, ExplosionManager explosionManager)
+        {
+            MultipleExplosion e = new MultipleExplosion(playerPosition, position, content);
             explosionManager.createExplosion(e);
         }
 

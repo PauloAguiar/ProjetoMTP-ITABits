@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 using System;
 
 namespace Projeto_Apollo_16
@@ -8,6 +9,9 @@ namespace Projeto_Apollo_16
     {
         public bool isAlive;
         public Int32 type;
+        public int life;
+        public SoundEffect hitSound;
+
         public enum Enemies
         {
             Ghost = 0,
@@ -23,9 +27,12 @@ namespace Projeto_Apollo_16
             isAlive = true;
             this.LoadFont(content);
             this.LoadTexture(content);
+            this.LoadSound(content);
         }
 
-        public abstract void Destroy(Vector2 position, ContentManager content, ExplosionManager explosionManager);
+        public abstract void LoadSound(ContentManager content);
+
+        public abstract void Destroy(Vector2 playerPosition, Vector2 position, ContentManager content, ExplosionManager explosionManager);
 
     }
 }

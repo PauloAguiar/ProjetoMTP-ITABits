@@ -23,7 +23,7 @@ namespace Projeto_Apollo_16
 
         public override void LoadSound(ContentManager content)
         {
-            sound = content.Load<SoundEffect>(@"Sounds\health");
+            sound = content.Load<SoundEffect>(@"Sounds\shield");
         }
 
     }
