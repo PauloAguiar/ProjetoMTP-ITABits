@@ -60,7 +60,7 @@ namespace Apollo_16_Radar
             particleEffect.LoadContent(content);
             particleEffect.Initialise();
 
-            backgroundTexture = content.Load<Texture2D>(@"radarBackground");
+            backgroundTexture = content.Load<Texture2D>(@"background");
             redDot = content.Load<Texture2D>(@"red_dot_2");
             playerIcon = content.Load<Texture2D>(@"playerIcon");
 
