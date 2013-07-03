@@ -177,10 +177,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Apollo_16_Piloto\DataContent\DataContent.csproj">
-      <Project>{C610E9DD-726B-4A43-92B4-8514C721AA03}</Project>
-      <Name>DataContent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Projeto_Apollo_16Content\Projeto_Apollo_16Content.contentproj">
       <Name>Projeto_Apollo_16Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>

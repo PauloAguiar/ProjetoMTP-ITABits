@@ -11,6 +11,7 @@ namespace Projeto_Apollo_16
         INPUT_DATA,
         RADAR_DATA,
         RADAR_DATA_IMMEDIATE,
+        TEST
     }
 
     public enum ConnectionID

@@ -11,6 +11,7 @@ namespace Apollo_16_Piloto
         INPUT_DATA,
         RADAR_DATA,
         RADAR_DATA_IMMEDIATE,
+        TEST,
     }
 
     enum ConnectionID

@@ -25,7 +25,6 @@ namespace Apollo_16_Piloto
 
             NetPeerConfiguration networkConfig;
             networkConfig = new NetPeerConfiguration(Globals.NETWORK_NAME);
-            networkConfig.AutoFlushSendQueue = false;
 
             networkConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
             networkConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
@@ -55,7 +54,6 @@ namespace Apollo_16_Piloto
             NetOutgoingMessage outmsg = networkClient.CreateMessage();
             outmsg.Write((byte)ConnectionID.PILOT);
             networkClient.Connect(serverIP, outmsg);
-
             General.Log("Connection Requested to " + serverIP.ToString());
         }
 
@@ -128,7 +126,6 @@ namespace Apollo_16_Piloto
                             switch (msg.ReadByte())
                             {
                                 case (byte)PacketTypes.PILOT_DATA:
-                                    General.Log("Pilot Data Received");
                                     break;
                             }
                         }
@@ -140,9 +137,16 @@ namespace Apollo_16_Piloto
             }
         }
 
+        public NetConnectionStatus GetStatus()
+        {
+            if(networkClient.ServerConnection != null)
+                return networkClient.ServerConnection.Status;
+            return NetConnectionStatus.Disconnected;
+        }
+
         public void SendPackets(InputDataClass inputData)
         {
-            if (networkClient.ServerConnection != null)
+            if (GetStatus() == NetConnectionStatus.Connected)
             {
                 NetOutgoingMessage inputmsg = networkClient.CreateMessage();
                 inputmsg.Write((byte)PacketTypes.INPUT_DATA);

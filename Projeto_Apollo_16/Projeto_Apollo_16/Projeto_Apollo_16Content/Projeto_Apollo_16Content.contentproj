@@ -214,21 +214,6 @@
     <Compile Include="Sprites\Shoots\smoke.png">
       <Name>smoke</Name>
     </Compile>
-    <Compile Include="Screens\NetworkScreen.xml">
-      <Name>NetworkScreen</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-    <Compile Include="Screens\StartMenuScreen.xml">
-      <Name>StartMenuScreen</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-    <Compile Include="Screens\TitleScreen.xml">
-      <Name>TitleScreen</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Screens\title.png">
@@ -243,12 +228,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Apollo_16_Piloto\DataContent\DataContent.csproj">
-      <Project>{C610E9DD-726B-4A43-92B4-8514C721AA03}</Project>
-      <Name>DataContent</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicExplosion.xml">
