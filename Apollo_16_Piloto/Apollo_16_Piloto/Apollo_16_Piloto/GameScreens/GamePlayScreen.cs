@@ -24,7 +24,7 @@ namespace Apollo_16_Piloto
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
-            pilot = new PilotClass();
+            pilot = new PilotClass(content);
             joystick = new JoystickInputClass();
             joystick.CreateDevice();
 
@@ -40,6 +40,7 @@ namespace Apollo_16_Piloto
         {
             icon = content.Load<Texture2D>(@"Menus/Icons/icon_menu");
             pilot.LoadFont(content);
+            pilot.LoadTextures(content);
             base.LoadContent();
         }
 

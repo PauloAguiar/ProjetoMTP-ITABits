@@ -20,7 +20,6 @@ namespace Projeto_Apollo_16
             : base(initialPosition, content)
         {
             ttl = 4000;
-            //ammo = 0;
             globalPosition = initialPosition + new Vector2(RADIUS, 0);
             centralPosition = initialPosition;
             this.player = player;
