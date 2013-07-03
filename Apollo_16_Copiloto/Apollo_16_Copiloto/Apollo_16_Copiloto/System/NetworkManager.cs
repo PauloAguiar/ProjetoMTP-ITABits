@@ -51,7 +51,7 @@ namespace Apollo_16_Copiloto
         public void ConnectToServer()
         {
             NetOutgoingMessage outmsg = networkClient.CreateMessage();
-            outmsg.Write((byte)ConnectionID.RADAR);
+            outmsg.Write((byte)ConnectionID.COPILOT);
             networkClient.Connect(serverIP, outmsg);
 
             General.Log("Connection Requested to " + serverIP.ToString());
@@ -124,6 +124,14 @@ namespace Apollo_16_Copiloto
                     case NetIncomingMessageType.Data:
                         if (state is GamePlayScreen)
                         {
+                            switch (msg.ReadByte())
+                            {
+                                case (byte)PacketTypes.COPILOT_DATA:
+                                    var input = new CopilotDataClass();
+                                    input.DecodeCopilotData(msg, systemRef);
+                                    systemRef.gamePlayScreen.ParseInput(input);
+                                    break;
+                            }
                         }
                         break;
                     default:

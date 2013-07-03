@@ -13,10 +13,11 @@ namespace Apollo_16_Copiloto
         SHIELD,
         HULL,
         ENGINE,
-        USABLE
+        REPAIR,
+        FUEL
     }
 
-    class ItemClass
+    public class ItemClass
     {
         public String name;
         public Texture2D texture;
@@ -29,6 +30,26 @@ namespace Apollo_16_Copiloto
             this.amount = amount;
             this.type = type;
             this.countable = countable;
+        }
+
+        public ItemClass(Int32 amount, Byte type, SystemClass systemRef)
+        {
+            if (type == (Byte)ItemType.REPAIR)
+            {
+                this.name = "Repair";
+                this.type = ItemType.REPAIR;
+                this.amount = amount;
+                this.countable = true;
+                this.texture = systemRef.gamePlayScreen.repair;
+            }
+            else if (type == (Byte)ItemType.FUEL)
+            {
+                this.name = "Fuel";
+                this.type = ItemType.FUEL;
+                this.amount = amount;
+                this.countable = true;
+                this.texture = systemRef.gamePlayScreen.fuel;
+            }
         }
     }
 }

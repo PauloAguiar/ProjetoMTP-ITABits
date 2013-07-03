@@ -24,8 +24,6 @@ namespace Projeto_Apollo_16
             get { return texture; }
         }
 
-
-
         public Vector2 GlobalPosition
         {
             get { return globalPosition; }

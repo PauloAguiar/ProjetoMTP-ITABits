@@ -76,13 +76,6 @@ namespace Projeto_Apollo_16
             ammoLabel.Size = ammoLabel.SpriteFont.MeasureString(ammoLabel.Text);
             controlManager.Add(ammoLabel);
 
-            itemLabel = new Label();
-            itemLabel.Position = Vector2.Zero + 6 * (new Vector2(0.0f, 25.0f));
-            itemLabel.Text = itemLabel.Text = "Item: " + (PlayerClass.items).ToString() + " " + player.inventory[(int)PlayerClass.items].ToString();
-            itemLabel.Color = Color.Orange;
-            itemLabel.Size = itemLabel.SpriteFont.MeasureString(itemLabel.Text);
-            controlManager.Add(itemLabel);
-
             timeLabel = new Label();
             timeLabel.Position = Vector2.Zero + 7 * (new Vector2(0.0f, 25.0f));
             timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
@@ -101,7 +94,6 @@ namespace Projeto_Apollo_16
             cameraLabel.Text = "Camera:" + player.CameraPosition.X + " " + player.CameraPosition.Y;
             weaponLabel.Text = "Weapon:" + player.bullets;
             timeLabel.Text = "Time: " + ((int)GameLogic.timeCreateEnemies).ToString();
-            itemLabel.Text = "Item: " + (PlayerClass.items).ToString() + " " + player.inventory[(int)PlayerClass.items].ToString();
             ammoLabel.Text = "Ammo :";
             switch (player.bullets)
             {

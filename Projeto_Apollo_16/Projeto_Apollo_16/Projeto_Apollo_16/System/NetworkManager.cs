@@ -13,6 +13,7 @@ namespace Projeto_Apollo_16
         INPUT_SHOOTER_DATA,
         RADAR_DATA,
         RADAR_DATA_IMMEDIATE,
+        COPILOT_DATA
     }
 
     public enum ConnectionID
@@ -20,6 +21,7 @@ namespace Projeto_Apollo_16
         PILOT,
         RADAR,
         SHOOTER,
+        COPILOT,
     }
 
     public class ClientConnection
@@ -95,6 +97,11 @@ namespace Projeto_Apollo_16
                     GetConnectionByID(ConnectionID.SHOOTER).Approve();
                     break;
 
+                case (byte)ConnectionID.COPILOT:
+                    General.Log("O Copiloto conectou-se...");
+                    AddConnectionByID(ConnectionID.COPILOT, msg.SenderConnection);
+                    GetConnectionByID(ConnectionID.COPILOT).Approve();
+                    break;
             }
         }
 
@@ -193,7 +200,7 @@ namespace Projeto_Apollo_16
             }
         }
 
-        public void SendPackets(GameTime gameTime, PilotDataClass pilotData, RadarDataClass radarData, RadarDataImmediate radarImmediateData, ShooterDataClass shooterData)
+        public void SendPackets(GameTime gameTime, PilotDataClass pilotData, RadarDataClass radarData, RadarDataImmediate radarImmediateData, ShooterDataClass shooterData, CopilotDataClass copilotData)
         {
             updateRadar += gameTime.ElapsedGameTime;
 
@@ -230,6 +237,13 @@ namespace Projeto_Apollo_16
                 networkServer.SendMessage(shootermsg, GetConnectionByID(ConnectionID.SHOOTER), NetDeliveryMethod.ReliableOrdered);
             }
 
+            if (GetConnectionStatudByID(ConnectionID.COPILOT) == NetConnectionStatus.Connected)
+            {
+                NetOutgoingMessage copilotmsg = networkServer.CreateMessage();
+                copilotmsg.Write((byte)PacketTypes.COPILOT_DATA);
+                copilotData.EncodeCopilotData(copilotmsg);
+                networkServer.SendMessage(copilotmsg, GetConnectionByID(ConnectionID.COPILOT), NetDeliveryMethod.ReliableOrdered);
+            }
         }
 
         private void AddConnectionByID(ConnectionID id, NetConnection conn)

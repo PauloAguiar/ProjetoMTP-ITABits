@@ -11,12 +11,14 @@ namespace Apollo_16_Copiloto
         INPUT_DATA,
         RADAR_DATA,
         RADAR_DATA_IMMEDIATE,
+        COPILOT_DATA
     }
 
     enum ConnectionID
     {
         PILOT,
-        RADAR
+        RADAR,
+        COPILOT
     }
 
     public static class Globals

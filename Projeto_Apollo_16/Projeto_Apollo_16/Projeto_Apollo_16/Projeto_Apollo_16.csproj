@@ -101,10 +101,9 @@
     <Compile Include="Actors\Explosions\MultipleExplosion.cs" />
     <Compile Include="Actors\Explosions\AnimatedExplosion.cs" />
     <Compile Include="Actors\Explosions\ExplosionClass.cs" />
-    <Compile Include="Actors\ItemClasses\AmmoArea.cs" />
-    <Compile Include="Actors\ItemClasses\AmmoCircular.cs" />
-    <Compile Include="Actors\ItemClasses\AmmoHoming.cs" />
-    <Compile Include="Actors\ItemClasses\Fuel.cs" />
+    <Compile Include="Actors\Items\FuelItem.cs" />
+    <Compile Include="Actors\Items\ItemClass.cs" />
+    <Compile Include="Actors\Items\RepairItem.cs" />
     <Compile Include="Actors\Player\Bullets.cs" />
     <Compile Include="Actors\Player\Camera.cs" />
     <Compile Include="Actors\Player\Gun.cs" />
@@ -118,7 +117,6 @@
     <Compile Include="Actors\Player\Turbo.cs" />
     <Compile Include="Actors\Projectiles\AreaProjectile.cs" />
     <Compile Include="Actors\Explosions\SimpleExplosion.cs" />
-    <Compile Include="Actors\ItemClasses\Shield.cs" />
     <Compile Include="Actors\Projectiles\CircularProjectile.cs" />
     <Compile Include="Actors\Projectiles\LightSaber.cs" />
     <Compile Include="Actors\Projectiles\HomingProjectile.cs" />
@@ -136,10 +134,9 @@
     <Compile Include="GameLogic\PauseLogic.cs" />
     <Compile Include="GameScreens\CameraGameplayScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
-    <Compile Include="Actors\ItemClasses\Health.cs" />
-    <Compile Include="Actors\ItemClasses\ItemClass.cs" />
     <Compile Include="GameScreens\InitGameScreen.cs" />
     <Compile Include="GameScreens\LabelsGameplayScreen.cs" />
+    <Compile Include="Network\CopilotDataClass.cs" />
     <Compile Include="Network\EnemyData.cs" />
     <Compile Include="Network\InputShooterDataClass.cs" />
     <Compile Include="Network\RadarDataClass.cs" />

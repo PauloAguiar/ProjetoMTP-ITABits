@@ -83,23 +83,10 @@ namespace Projeto_Apollo_16
             {
                 ShiftBulletsLeft();
             }
-            if (joystickState.IsPressed((int)ButtonStates.BTN_4) && PlayerClass.timeChangedItem >= PlayerClass.MIN_TIME_CHANGE_ITEM)
-            {
-                PlayerClass.ShiftItemsRight();
-            }
-            if (joystickState.IsPressed((int)ButtonStates.BTN_3) && PlayerClass.timeChangedItem >= PlayerClass.MIN_TIME_CHANGE_ITEM)
-            {
-                PlayerClass.ShiftItemsLeft();
-            }
 
             if (joystickState.IsPressed((int)ButtonStates.BTN_1) && projectilesManager.bulletSpawnTime > ProjectileManager.TTS)
             {
                 CreateBullets();
-            }
-
-            if (joystickState.IsPressed((int)ButtonStates.BTN_7) && PlayerClass.timeUsedItem > PlayerClass.MIN_TIME_USE_ITEM)
-            {
-                player.UseItem();
             }
         }
 

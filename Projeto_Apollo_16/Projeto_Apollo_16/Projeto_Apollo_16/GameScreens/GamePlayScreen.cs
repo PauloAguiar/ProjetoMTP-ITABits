@@ -67,7 +67,10 @@ namespace Projeto_Apollo_16
                 systemRef.networkManager.SendPackets(gameTime, 
                                                      new PilotDataClass(player.throttle, player.Speed, player.Angle, player.Direction),
                                                      enemyManager.GetRadarData(player), 
-                                                     player.GetRadarImmediateData(player), ProjectileClass.GetShooterData());
+                                                     player.GetRadarImmediateData(player), 
+													 ProjectileClass.GetShooterData(),
+                                                     player.GetCopilotImmediateData()
+                                                     );
 
             base.Update(gameTime);
         }

@@ -66,7 +66,6 @@ namespace Projeto_Apollo_16
             UpdateJoystick(joystickState);
             UpdateInput(gameTime);
             
-            UpdateInventory(dt);
             UpdateStats(dt);
         }
 

@@ -23,7 +23,7 @@ namespace Apollo_16_Copiloto
         Texture2D buttonTexture;
         Texture2D buttonPressedTexture;
 
-        Int32 selectedItem;
+        Int32 selectedItem = -1;
 
         ItemClass draggingIcon;
         Boolean dragging = false;
@@ -54,6 +54,10 @@ namespace Apollo_16_Copiloto
         String status;
 
         Boolean leftMouseOnButton = false;
+
+        public Texture2D repair;
+        public Texture2D fuel;
+
         /* Constructor */
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -69,12 +73,6 @@ namespace Apollo_16_Copiloto
             controlStatus = 60;
             engineStatus = 90;
 
-            inventory.Add(new ItemClass("(ARMA PRIMARIA) Nvl 1", 1, ItemType.PRIMARY_WEAPON, true));
-            inventory.Add(new ItemClass("(ARMA SECUNDARIA)", 2, ItemType.SECONDARY_WEAPON, true));
-            inventory.Add(new ItemClass("(ESCUDO)", 1, ItemType.SHIELD, false));
-            inventory.Add(new ItemClass("(CASCO)", 1, ItemType.HULL, false));
-            inventory.Add(new ItemClass("(MOTOR)", 1, ItemType.ENGINE, false));
-            inventory.Add(new ItemClass("(ARMA PRIMARIA) Nvl 2", 1, ItemType.PRIMARY_WEAPON, true));
             base.Initialize();
         }
 
@@ -90,17 +88,15 @@ namespace Apollo_16_Copiloto
             backgroundTexture = content.Load<Texture2D>(@"Copiloto\Geral");
             itemBackground = content.Load<Texture2D>(@"Copiloto\itemBackground");
             shipOverview = content.Load<Texture2D>(@"Copiloto\Nave");
-            inventory.ElementAt(0).texture = content.Load<Texture2D>(@"Copiloto\Icons\Blast Shell");
-            inventory.ElementAt(1).texture = content.Load<Texture2D>(@"Copiloto\Icons\Gun Polish");
-            inventory.ElementAt(2).texture = content.Load<Texture2D>(@"Copiloto\Icons\Concentrate Boming");
-            inventory.ElementAt(3).texture = content.Load<Texture2D>(@"Copiloto\Icons\Road Block");
-            inventory.ElementAt(4).texture = content.Load<Texture2D>(@"Copiloto\Icons\Rocket Man");
-            inventory.ElementAt(5).texture = content.Load<Texture2D>(@"Copiloto\Icons\Ruthless");
+            repair = content.Load<Texture2D>(@"Copiloto\Icons\Concentrate Boming");
+            fuel = content.Load<Texture2D>(@"Copiloto\Icons\Guild");
+
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
+            systemRef.networkManager.ReadPackets(this);
             MouseState mouseState = Mouse.GetState();
             mousePos.X = mouseState.X - 4;
             mousePos.Y = mouseState.Y - 4;
@@ -492,6 +488,11 @@ namespace Apollo_16_Copiloto
 
             pos = new Vector2(678, 300);
             spriteBatch.DrawString(font, "Acao: " + status, pos + new Vector2(8, 2), Color.Blue);
+        }
+
+        public void ParseInput(CopilotDataClass input)
+        {
+            inventory = input.inventory;
         }
     }
 }

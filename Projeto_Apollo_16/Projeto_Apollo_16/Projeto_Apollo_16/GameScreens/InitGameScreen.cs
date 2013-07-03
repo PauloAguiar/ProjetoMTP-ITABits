@@ -231,6 +231,18 @@ namespace Projeto_Apollo_16
             }
             #endregion
 
+            #region UpdateCopilotStatus
+            if (systemRef.networkManager.GetConnectionStatudByID(ConnectionID.COPILOT) == NetConnectionStatus.Connected)
+            {
+                copilotStatusLbl.Text = "Online";
+                copilotStatusLbl.Color = Color.Green;
+            }
+            else
+            {
+                copilotStatusLbl.Text = "Offline";
+                copilotStatusLbl.Color = Color.Red;
+            }
+            #endregion
             if (systemRef.networkManager.GetStatus() == NetPeerStatus.Running)
                 systemRef.networkManager.ReadPackets(this);
 
