@@ -14,6 +14,7 @@ namespace Projeto_Apollo_16
             circular,
             homing,
             area,
+            lightSaber,
         }
         private static int NUMBER_TYPE_BULLETS = Enum.GetNames(typeof(Bullets)).Length;
 
@@ -50,6 +51,13 @@ namespace Projeto_Apollo_16
                     ang += (float)Math.PI /4.0f;
                 }
                 AreaProjectile.ammo-=8;
+            }
+            else if (player.bullets == Bullets.lightSaber)
+            {
+                LightSaber ls = new LightSaber(player.GlobalPosition, content, player);
+                projectilesManager.CreateBullet(ls);
+                //AreaProjectile p = new AreaProjectile(player.GlobalPosition, player.Direction * player.Speed, content);
+//                projectilesManager.CreateBullet(p);
             }
 
         }

@@ -10,6 +10,9 @@ namespace Projeto_Apollo_16
         WorldEngine engine;
         public PlayerClass player;
 
+        //Texture2D ponto;
+
+
         #region managers
         ProjectileManager projectilesManager;
         ExplosionManager explosionManager;
@@ -45,6 +48,7 @@ namespace Projeto_Apollo_16
             base.LoadContent();
             engine.LoadContent();
             LoadLabels();
+            //ponto = content.Load<Texture2D>(@"Sprites\Shoots\ponto");
         }
         #endregion
 
@@ -81,7 +85,18 @@ namespace Projeto_Apollo_16
             systemRef.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.TransformMatrix);
             engine.Draw(systemRef.spriteBatch, player);
             DrawActors();
+            //foreach (ProjectileClass p in projectilesManager)
+            //{
+            //    if(p is LightSaber)
+            //    {
+            //        CollisionManager.DrawLightSaberCircles(systemRef.spriteBatch, (LightSaber)p, ponto);
+            
+            //    }
+            //}
+
             systemRef.spriteBatch.End();
+
+
 
             //câmera diferente pra desenhar o HUD
             systemRef.spriteBatch.Begin();

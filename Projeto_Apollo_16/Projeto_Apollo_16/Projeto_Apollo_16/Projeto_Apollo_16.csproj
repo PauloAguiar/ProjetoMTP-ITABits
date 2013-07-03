@@ -120,6 +120,7 @@
     <Compile Include="Actors\Explosions\SimpleExplosion.cs" />
     <Compile Include="Actors\ItemClasses\Shield.cs" />
     <Compile Include="Actors\Projectiles\CircularProjectile.cs" />
+    <Compile Include="Actors\Projectiles\LightSaber.cs" />
     <Compile Include="Actors\Projectiles\HomingProjectile.cs" />
     <Compile Include="Actors\Projectiles\LinearProjectile.cs" />
     <Compile Include="Actors\Projectiles\ProjectileClass.cs" />

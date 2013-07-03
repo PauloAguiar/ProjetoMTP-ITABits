@@ -31,13 +31,13 @@ namespace Projeto_Apollo_16
                     enemyPosition = new Vector2(x, y);
                 } while (CollisionManager.CanCreateEnemy(enemyPosition, player));
 
-                /*
+
                 if (j == (int)EnemyClass.Enemies.Ghost)
                 {
                     Ghost ghost = new Ghost(enemyPosition, content);
                     enemyManager.CreateEnemy(ghost);
                 }
-                else// (j == (int)EnemyClass.Enemies.Polygon)
+                else if (j == (int)EnemyClass.Enemies.Polygon)
                 {
                     Poligon poligon = new Poligon(enemyPosition, content);
                     enemyManager.CreateEnemy(poligon);
@@ -47,8 +47,7 @@ namespace Projeto_Apollo_16
                     Sun sun = new Sun(enemyPosition, content);
                     enemyManager.CreateEnemy(sun);
                 }
-                 */
-                //else if (j == (int)EnemyClass.Enemies.Chaser)
+                else if (j == (int)EnemyClass.Enemies.Chaser)
                 {
                     Chaser chaser = new Chaser(enemyPosition, content, player);
                     enemyManager.CreateEnemy(chaser);
