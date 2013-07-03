@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using SlimDX.DirectInput;
+using Input = SlimDX.DirectInput;
 
 namespace Apollo_16_Piloto
 {
@@ -50,7 +50,7 @@ namespace Apollo_16_Piloto
 
             position.X = joystick.joystickState.X;
             position.Y = joystick.joystickState.Y;
-
+            pilot.Update(gameTime);
             systemRef.networkManager.SendPackets(joystick.Update());
             base.Update(gameTime);
         }
